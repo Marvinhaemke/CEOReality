@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Reality | Die meisten CEOs führen blind.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'oswald': ['Oswald', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark': '#0a0a0a',
+                        'brand-orange': '#e60000',
+                        'brand-red': '#990000'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #0a0a0a;
+        }
+        
+        /* Button Glow Effect - Adjusted for light mode */
+        .btn-glow {
+            background: linear-gradient(135deg, #e60000, #990000);
+            box-shadow: 0 10px 25px rgba(230, 0, 0, 0.4);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(230, 0, 0, 0.5);
+        }
+
+        .btn-glow:hover::after {
+            opacity: 1;
+            left: 100%;
+        }
+
+        /* Video Player Placeholder - Lighter shadow */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            background: #000;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15), 0 0 40px rgba(230, 0, 0, 0.05);
+        }
+
+        .video-container iframe, .video-container div.placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Subtle text glow for light background */
+        .text-glow-orange {
+            text-shadow: 0 4px 15px rgba(230,0,0,0.2);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Card Interactive Hover - Light mode */
+        .interactive-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(230, 0, 0, 0.1);
+            border-color: rgba(230, 0, 0, 0.3);
+        }
+
+        /* Form specific styles */
+        .input-field {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            color: #111827;
+            outline: none;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .input-field:focus {
+            border-color: #e60000;
+            box-shadow: 0 0 0 2px rgba(230, 0, 0, 0.2);
+            background-color: #ffffff;
+        }
+        
+        .step-dot {
+            transition: all 0.4s ease;
+        }
+        .step-dot.active {
+            background-color: #e60000;
+            color: white;
+            box-shadow: 0 0 15px rgba(230, 0, 0, 0.4);
+            border-color: #e60000;
+        }
+        .step-dot.completed {
+            background-color: #111827;
+            color: white;
+            border-color: #111827;
+        }
+        .step-dot.inactive {
+            background-color: #f3f4f6;
+            color: #9ca3af;
+            border-color: #e5e7eb;
+        }
+        .form-step {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-inter antialiased relative min-h-screen selection:bg-brand-orange selection:text-white bg-white">
+    
+    <div class="relative z-10">
+        <!-- Minimal Header -->
+        <header class="py-3 flex justify-center">
+            <!-- CSS Recreated Logo -->
+            <div class="inline-flex flex-col items-center justify-center relative mt-1">
+                <!-- Text stretched vertically for the tall look - Now Black -->
+                <span class="font-oswald text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 uppercase leading-none z-10" style="transform: scaleY(1.4); transform-origin: bottom; letter-spacing: -0.01em;">
+                    CEO REALITY<span class="text-[#e60000]">.</span>
+                </span>
+                <!-- Glowing Underline Container -->
+                <div class="relative w-[98%] mt-1.5 md:mt-3 flex items-center justify-center h-[2px]">
+                    <!-- Uniform ambient red glow (Wide & Even) -->
+                    <div class="absolute w-[96%] h-[10px] bg-[#cc0000] opacity-30 blur-[5px] rounded-full"></div>
+                    
+                    <!-- Uniform intense red glow (Wide & Even) -->
+                    <div class="absolute w-[90%] h-[4px] bg-[#e60000] opacity-70 blur-[2px] rounded-full"></div>
+
+                    <!-- The perfectly sharp needle line using clip-path - Now uniform -->
+                    <div class="w-full h-[1.5px] md:h-[2px] relative z-10" style="
+                        background: linear-gradient(90deg, 
+                            transparent 0%,
+                            #880000 5%, 
+                            #e60000 15%, 
+                            #ff1a1a 25%, 
+                            #ff1a1a 75%, 
+                            #e60000 85%, 
+                            #880000 95%,
+                            transparent 100%
+                        );
+                        clip-path: ellipse(50% 50% at 50% 50%);
+                    "></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main VSL Section -->
+        <main class="container mx-auto px-4 lg:px-8 max-w-7xl pt-1 pb-24 lg:pb-32">
+            
+            <!-- Headline Area -->
+            <div class="text-center mb-4 lg:mb-6 reveal">
+                <h1 class="font-oswald text-4xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-bold mb-0 uppercase tracking-tight text-gray-900 leading-tight">
+                    Die meisten CEOs <br><span class="inline-block mt-3 md:mt-5 text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">führen blind.</span>
+                </h1>
+            </div>
+
+            <!-- Video Player Placeholder -->
+            <div class="max-w-4xl mx-auto mb-6 lg:mb-8 reveal" style="transition-delay: 0.1s;">
+                <div class="video-container group cursor-pointer relative">
+                    <!-- Fake Video Thumbnail / Player (Kept dark because videos are dark) -->
+                    <div class="placeholder flex flex-col items-center justify-center bg-gray-900">
+                        <!-- Play Button -->
+                        <div class="w-20 h-20 md:w-24 md:h-24 bg-brand-orange rounded-full flex items-center justify-center pl-2 btn-glow transition-transform transform group-hover:scale-110 z-10">
+                            <i data-lucide="play" class="w-10 h-10 md:w-12 md:h-12 text-white fill-current"></i>
+                        </div>
+                        <p class="mt-6 text-sm md:text-base text-gray-300 font-light tracking-widest uppercase group-hover:text-white transition-colors">Video abspielen</p>
+                        
+                        <!-- Overlay Gradient -->
+                        <div class="absolute inset-0 bg-brand-orange opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Primary Call to Action -->
+            <div class="text-center mb-16 lg:mb-24 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
+                <p class="text-xs md:text-sm text-gray-500 mb-2 md:mb-3 uppercase tracking-widest font-semibold">Nur für qualifizierte Geschäftsführer</p>
+                <a href="#bewerbung" class="btn-glow inline-block w-full sm:w-auto px-6 py-4 md:px-12 md:py-6 rounded text-lg md:text-2xl font-bold font-oswald uppercase tracking-wide text-white">
+                    Jetzt auf Realität prüfen & bewerben
+                </a>
+                <p class="mt-4 text-xs md:text-sm text-gray-500 flex items-center justify-center gap-2">
+                    <i data-lucide="shield-alert" class="w-4 h-4 text-brand-orange"></i>
+                    Streng limitiert: Wir nehmen nur 10 CEOs pro Quartal.
+                </p>
+            </div>
+
+            <!-- Copy / Script Extraction Section -->
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 max-w-6xl mx-auto border-t border-gray-200 pt-16 lg:pt-24">
+                <div class="reveal interactive-card p-6 md:p-10 lg:p-12 rounded-2xl">
+                    <h2 class="font-oswald text-4xl lg:text-5xl font-bold mb-8 uppercase text-gray-900">Die bittere Wahrheit</h2>
+                    <div class="space-y-6 lg:space-y-8 text-gray-600 font-light leading-relaxed text-lg">
+                        <p>Egal ob ein Unternehmen 50.000 Euro im Monat macht oder 500.000. Die meisten CEOs können nicht erklären, warum ihr Unternehmen überhaupt funktioniert.</p>
+                        <ul class="space-y-4 lg:space-y-6 text-gray-700">
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="x-circle" class="w-7 h-7 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                <span>Du kennst deinen Umsatz, hast aber niemals eine <strong>echte Profitkalkulation</strong> gemacht.</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="x-circle" class="w-7 h-7 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                <span>Du behältst Mitarbeiter, die keine A-Player sind, weil du selbst nicht einschätzen kannst, ob sie kompetent sind.</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <i data-lucide="x-circle" class="w-7 h-7 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                <span>Entscheidungen werden zu spät oder rein nach Bauchgefühl getroffen.</span>
+                            </li>
+                        </ul>
+                        <p class="text-xl lg:text-2xl font-bold text-gray-900 mt-8 border-l-4 border-brand-orange pl-6 py-2 bg-orange-50/50">
+                            Du hast kein Vertriebsproblem. Du hast ein Kompetenzproblem.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-8 md:p-10 lg:p-12 rounded-2xl relative overflow-hidden reveal interactive-card bg-gray-50 border-gray-200" style="transition-delay: 0.1s;">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-brand-orange opacity-10 blur-[60px] rounded-full pointer-events-none"></div>
+                    <h2 class="font-oswald text-4xl lg:text-5xl font-bold mb-8 uppercase text-brand-orange">Das Programm</h2>
+                    <p class="text-gray-600 mb-8 font-light text-lg lg:text-xl">
+                        CEO Reality ist kein Massenprogramm. Kein günstiger Online-Kurs. Es ist ein privates 1-auf-1-Programm für Unternehmer. <br><strong class="text-gray-900 mt-2 inline-block">In 120 Tagen.</strong>
+                    </p>
+                    <div class="space-y-4 lg:space-y-5 font-semibold text-gray-800 mb-10 text-lg">
+                        <div class="flex items-center gap-4"><i data-lucide="check" class="text-brand-orange w-6 h-6"></i> Marketing Bewertung</div>
+                        <div class="flex items-center gap-4"><i data-lucide="check" class="text-brand-orange w-6 h-6"></i> Sales Mastery</div>
+                        <div class="flex items-center gap-4"><i data-lucide="check" class="text-brand-orange w-6 h-6"></i> Skalierbares Fulfillment</div>
+                        <div class="flex items-center gap-4"><i data-lucide="check" class="text-brand-orange w-6 h-6"></i> Datenbasierte Mitarbeiterführung</div>
+                        <div class="flex items-center gap-4"><i data-lucide="check" class="text-brand-orange w-6 h-6"></i> Echte Zahlen & Profitkalkulation</div>
+                    </div>
+                    <div class="p-5 lg:p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
+                        <p class="text-base text-gray-600 italic leading-relaxed">"Ich garantiere dir: Jeder Monat, in dem du dein Unternehmen nicht verstehst, kostet dich extrem viel Geld. Jede falsche Einstellung. Jede zu späte Kündigung. Jede falsche Preisentscheidung."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final CTA / Urgency -->
+            <div id="bewerbung" class="mt-28 lg:mt-40 text-center max-w-5xl mx-auto bg-white px-4 py-10 sm:p-8 md:p-12 lg:p-16 border border-gray-200 shadow-2xl rounded-3xl reveal relative overflow-hidden">
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-brand-orange opacity-5 blur-[100px] pointer-events-none"></div>
+                <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 uppercase relative z-10 text-gray-900">Choose Wisely.</h2>
+                <p class="text-gray-600 text-base sm:text-lg mb-8 font-light max-w-3xl mx-auto leading-relaxed relative z-10">
+                    Auf deinem aktuellen Level zu bleiben ist nicht nur schlecht für dein Unternehmen. Es ist verantwortungslos. Dein Unternehmen braucht Führung.
+                    Entscheide dich heute wie ein echter CEO und starte deine Bewerbung.
+                </p>
+
+                <!-- Multi-Step Application Form -->
+                <div class="max-w-2xl mx-auto bg-white border border-gray-200 shadow-xl rounded-2xl relative z-10 text-left overflow-hidden mt-8 sm:mt-10">
+                    
+                    <!-- Progress Indicator -->
+                    <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:py-5 border-b border-gray-200 relative">
+                        <!-- Progress Line Background -->
+                        <div class="absolute top-1/2 left-8 right-8 sm:left-10 sm:right-10 h-1 bg-gray-200 -translate-y-1/2 z-0 rounded-full"></div>
+                        <!-- Progress Line Fill -->
+                        <div id="progress-line" class="absolute top-1/2 left-8 sm:left-10 h-1 bg-brand-orange -translate-y-1/2 z-0 transition-all duration-500 rounded-full" style="width: 0%;"></div>
+                        
+                        <!-- Dots -->
+                        <div class="flex justify-between relative z-10">
+                            <div id="dot-1" class="step-dot active w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">1</div>
+                            <div id="dot-2" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">2</div>
+                            <div id="dot-3" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">3</div>
+                            <div id="dot-4" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2"><i data-lucide="calendar" class="w-3 h-3 sm:w-4 sm:h-4"></i></div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 sm:p-6 md:p-8">
+                        <form id="application-form" onsubmit="return false;">
+                            
+                            <!-- STEP 1: Persönliche Daten -->
+                            <div id="step-1" class="form-step block">
+                                <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">1. Persönliche Daten</h3>
+                                <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Bitte gib deine Kontaktdaten ein, damit wir dich erreichen können.</p>
+                                
+                                <div class="space-y-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Vorname</label>
+                                            <input type="text" class="input-field" placeholder="Max" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Nachname</label>
+                                            <input type="text" class="input-field" placeholder="Mustermann" required>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">E-Mail Adresse</label>
+                                        <input type="email" class="input-field" placeholder="max@unternehmen.de" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Handynummer</label>
+                                        <input type="tel" class="input-field" placeholder="+49 151 12345678" required>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 flex justify-end">
+                                    <button type="button" onclick="goToStep(2)" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                        Weiter zu Schritt 2
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- STEP 2: Unternehmensdaten -->
+                            <div id="step-2" class="form-step hidden">
+                                <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">2. Unternehmensstatus</h3>
+                                <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Wo steht dein Unternehmen aktuell?</p>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Name deines Unternehmens</label>
+                                        <input type="text" class="input-field" placeholder="GmbH & Co. KG">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Aktueller Monatsumsatz</label>
+                                        <select class="input-field cursor-pointer">
+                                            <option value="" disabled selected>Bitte wählen...</option>
+                                            <option value="under50k">Unter 50.000 €</option>
+                                            <option value="50k-100k">50.000 € - 100.000 €</option>
+                                            <option value="100k-500k">100.000 € - 500.000 €</option>
+                                            <option value="over500k">Über 500.000 €</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Deine aktuell größte Herausforderung</label>
+                                        <textarea class="input-field min-h-[100px] resize-y" placeholder="Beschreibe kurz das größte Bottleneck..."></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+                                    <button type="button" onclick="goToStep(1)" class="w-full sm:w-auto text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                        Zurück
+                                    </button>
+                                    <button type="button" onclick="goToStep(3)" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                        Weiter zu Schritt 3
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- STEP 3: Reality Check -->
+                            <div id="step-3" class="form-step hidden">
+                                <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">3. Reality Check</h3>
+                                <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Bitte bestätige folgende Voraussetzungen.</p>
+                                
+                                <div class="space-y-4">
+                                    <div class="bg-orange-50/50 border border-brand-orange/20 p-4 rounded-lg">
+                                        <p class="text-gray-800 text-xs sm:text-sm font-medium mb-4">CEO Reality ist ein intensives und hochpreisiges 1-on-1 Mentoring-Programm. Bist du bereit, signifikant Zeit, Energie und Kapital in das Wachstum deines Unternehmens zu investieren?</p>
+                                        
+                                        <div class="space-y-2">
+                                            <label class="flex items-start sm:items-center gap-3 cursor-pointer p-2 hover:bg-white rounded transition-colors border border-transparent hover:border-gray-200">
+                                                <input type="radio" name="commitment" class="w-5 h-5 text-brand-orange focus:ring-brand-orange border-gray-300 mt-0.5 sm:mt-0">
+                                                <span class="text-gray-900 font-medium text-xs sm:text-sm">Ja, ich bin zu 100% bereit.</span>
+                                            </label>
+                                            <label class="flex items-start sm:items-center gap-3 cursor-pointer p-2 hover:bg-white rounded transition-colors border border-transparent hover:border-gray-200">
+                                                <input type="radio" name="commitment" class="w-5 h-5 text-gray-400 focus:ring-gray-400 border-gray-300 mt-0.5 sm:mt-0">
+                                                <span class="text-gray-500 font-medium text-xs sm:text-sm">Nein, aktuell nicht der richtige Zeitpunkt.</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8 flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+                                    <button type="button" onclick="goToStep(2)" class="w-full sm:w-auto text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                        Zurück
+                                    </button>
+                                    <button type="button" onclick="goToStep(4)" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                        Termin auswählen
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- STEP 4: Calendly Embed -->
+                            <div id="step-4" class="form-step hidden">
+                                <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900 text-center">4. Bewerbungs-Gespräch sichern</h3>
+                                <p class="text-xs sm:text-sm text-gray-500 mb-2 text-center">Wähle jetzt einen passenden Termin für deinen kostenlosen Reality Check.</p>
+                                
+                                <!-- Calendly inline widget begin -->
+                                <div class="calendly-inline-widget mt-4 border border-gray-100 rounded-xl overflow-hidden" data-url="https://calendly.com/dein-account/ceo-reality?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:100%;height:550px;"></div>
+                                <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                                <!-- Calendly inline widget end -->
+
+                                <div class="mt-4 flex justify-center">
+                                    <button type="button" onclick="goToStep(3)" class="text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                        Zurück zu den Daten
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <p class="mt-8 sm:mt-10 text-xs sm:text-sm text-gray-500 uppercase tracking-widest relative z-10 font-medium">
+                    Dieses Programm ist nichts für 99% der Zuschauer. Es ist teuer. Und das ist so gewollt.
+                </p>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 py-8 mt-12 text-center text-gray-500 text-sm bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
+                    <a href="#" class="hover:text-brand-orange transition-colors">Impressum</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">Datenschutz</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">AGB</a>
+                </div>
+                <p>&copy; 2026 CEO Reality. Alle Rechte vorbehalten.</p>
+                <p class="mt-2 text-xs max-w-xl mx-auto opacity-70">Die in diesem VSL geteilten Ergebnisse sind nicht typisch. Deine Ergebnisse hängen von deiner Arbeitsmoral, Erfahrung und deinem Fokus ab. Jegliches Geschäft birgt Risiken.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Initialize Icons -->
+    <script>
+        lucide.createIcons();
+
+        // Multi-Step Form Logic
+        function goToStep(stepNumber) {
+            // Hide all steps
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.add('hidden');
+                step.classList.remove('block');
+            });
+            
+            // Show target step
+            document.getElementById(`step-${stepNumber}`).classList.remove('hidden');
+            document.getElementById(`step-${stepNumber}`).classList.add('block');
+
+            // Update Progress Bar (0%, 33%, 66%, 100%)
+            const progress = ((stepNumber - 1) / 3) * 100;
+            document.getElementById('progress-line').style.width = `${progress}%`;
+
+            // Update Dots
+            for(let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                dot.classList.remove('active', 'inactive', 'completed');
+                
+                if (i < stepNumber) {
+                    dot.classList.add('completed');
+                    if(i !== 4) dot.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                } else if (i === stepNumber) {
+                    dot.classList.add('active');
+                    if(i !== 4) dot.innerHTML = i;
+                } else {
+                    dot.classList.add('inactive');
+                    if(i !== 4) dot.innerHTML = i;
+                }
+            }
+        }
+
+        // Scroll Reveal Interactivity
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
