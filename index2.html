@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Reality | Die meisten CEOs führen blind.</title>
+    <meta name="description" content="CEO Reality ist ein privates 1-auf-1 Mentoring-Programm für Unternehmer. 4 Phasen. 120 Tage. Vollständige Steuerung über dein Unternehmen.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'oswald': ['Oswald', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'brand-dark': '#0a0a0a',
+                        'brand-orange': '#e60000',
+                        'brand-red': '#990000',
+                        'brand-ink': '#111827'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #0a0a0a;
+        }
+        
+        /* Button Glow Effect */
+        .btn-glow {
+            background: linear-gradient(135deg, #e60000, #990000);
+            box-shadow: 0 10px 25px rgba(230, 0, 0, 0.4);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(230, 0, 0, 0.5);
+        }
+
+        .btn-glow:hover::after {
+            opacity: 1;
+            left: 100%;
+        }
+
+        /* Subtle text glow */
+        .text-glow-orange {
+            text-shadow: 0 4px 15px rgba(230,0,0,0.2);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive card */
+        .interactive-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(230, 0, 0, 0.1);
+            border-color: rgba(230, 0, 0, 0.3);
+        }
+
+        /* Phase card */
+        .phase-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #e60000, #990000);
+        }
+        .phase-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -15px rgba(230, 0, 0, 0.15);
+            border-color: rgba(230, 0, 0, 0.3);
+        }
+
+        /* Cockpit dashboard */
+        .cockpit-frame {
+            background: linear-gradient(180deg, #0a0a0a 0%, #111827 100%);
+            border: 1px solid rgba(230, 0, 0, 0.3);
+            box-shadow: 
+                0 25px 50px -12px rgba(0,0,0,0.25), 
+                0 0 80px rgba(230, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .metric-panel {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(230,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .metric-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(230,0,0,0.05), transparent 60%);
+            pointer-events: none;
+        }
+        .metric-value-missing {
+            color: #e60000;
+            text-shadow: 0 0 12px rgba(230,0,0,0.5);
+            animation: pulse-red 2.4s ease-in-out infinite;
+        }
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; text-shadow: 0 0 12px rgba(230,0,0,0.5); }
+            50% { opacity: 0.7; text-shadow: 0 0 20px rgba(230,0,0,0.8); }
+        }
+        .status-dot-red {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #e60000;
+            box-shadow: 0 0 10px rgba(230,0,0,0.8);
+            animation: pulse-red 1.6s ease-in-out infinite;
+        }
+
+        /* Loss examples */
+        .loss-card {
+            background: linear-gradient(180deg, #ffffff, #fff5f5);
+            border: 1px solid rgba(230, 0, 0, 0.18);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .loss-card::after {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 120px; height: 120px;
+            background: radial-gradient(circle, rgba(230,0,0,0.1), transparent 70%);
+            pointer-events: none;
+        }
+        .loss-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(230, 0, 0, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(230, 0, 0, 0.15);
+        }
+
+        /* Big stat */
+        .big-stat-card {
+            background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+        .big-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #e60000, #990000);
+        }
+        .big-stat-card::after {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 160px; height: 160px;
+            background: radial-gradient(circle, rgba(230,0,0,0.15), transparent 70%);
+            pointer-events: none;
+        }
+        .big-stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(230, 0, 0, 0.4);
+        }
+
+        /* Form styles */
+        .input-field {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            color: #111827;
+            outline: none;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .input-field:focus {
+            border-color: #e60000;
+            box-shadow: 0 0 0 2px rgba(230, 0, 0, 0.2);
+            background-color: #ffffff;
+        }
+        
+        .step-dot { transition: all 0.4s ease; }
+        .step-dot.active {
+            background-color: #e60000;
+            color: white;
+            box-shadow: 0 0 15px rgba(230, 0, 0, 0.4);
+            border-color: #e60000;
+        }
+        .step-dot.completed {
+            background-color: #111827;
+            color: white;
+            border-color: #111827;
+        }
+        .step-dot.inactive {
+            background-color: #f3f4f6;
+            color: #9ca3af;
+            border-color: #e5e7eb;
+        }
+        .form-step {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* FAQ */
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] .faq-icon { transform: rotate(45deg); }
+        .faq-icon { transition: transform 0.3s ease; }
+        details[open] .faq-card {
+            border-color: rgba(230, 0, 0, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(230, 0, 0, 0.12);
+        }
+
+        /* Phase connector line (desktop) */
+        .phase-flow-line {
+            position: absolute;
+            top: 50%;
+            left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e60000 15%, #e60000 85%, transparent);
+            z-index: 0;
+            opacity: 0.25;
+        }
+
+        /* Grid dot background */
+        .dot-grid-bg {
+            background-image: radial-gradient(rgba(17, 24, 39, 0.07) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Section label tag */
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            background: rgba(230, 0, 0, 0.08);
+            border: 1px solid rgba(230, 0, 0, 0.25);
+            border-radius: 2rem;
+            color: #990000;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Module chip */
+        .module-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.6rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            font-size: 0.72rem;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .module-chip:hover {
+            background: #fff5f5;
+            border-color: rgba(230,0,0,0.25);
+            color: #990000;
+        }
+        .module-num {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e60000;
+            font-weight: 700;
+            font-size: 0.65rem;
+        }
+
+        /* Selection */
+        ::selection { background: #e60000; color: white; }
+
+        /* Anti-guarantee stamp */
+        .stamp {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            border: 1px solid rgba(230,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .stamp::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(230,0,0,0.15), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(230,0,0,0.1), transparent 50%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-inter antialiased relative min-h-screen bg-white">
+    
+    <div class="relative z-10">
+        <!-- Minimal Header -->
+        <header class="py-3 flex justify-center">
+            <div class="inline-flex flex-col items-center justify-center relative mt-1">
+                <span class="font-oswald text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 uppercase leading-none z-10" style="transform: scaleY(1.4); transform-origin: bottom; letter-spacing: -0.01em;">
+                    CEO REALITY<span class="text-[#e60000]">.</span>
+                </span>
+                <div class="relative w-[98%] mt-1.5 md:mt-3 flex items-center justify-center h-[2px]">
+                    <div class="absolute w-[96%] h-[10px] bg-[#cc0000] opacity-30 blur-[5px] rounded-full"></div>
+                    <div class="absolute w-[90%] h-[4px] bg-[#e60000] opacity-70 blur-[2px] rounded-full"></div>
+                    <div class="w-full h-[1.5px] md:h-[2px] relative z-10" style="
+                        background: linear-gradient(90deg, 
+                            transparent 0%, #880000 5%, #e60000 15%, 
+                            #ff1a1a 25%, #ff1a1a 75%, #e60000 85%, 
+                            #880000 95%, transparent 100%);
+                        clip-path: ellipse(50% 50% at 50% 50%);
+                    "></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="pt-4 pb-24 lg:pb-32">
+            
+            <!-- ============================== -->
+            <!-- HERO SECTION                   -->
+            <!-- ============================== -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-7xl">
+                <div class="text-center mb-8 lg:mb-12 reveal">
+                    <span class="section-tag mb-6">
+                        <span class="status-dot-red"></span>
+                        Privates 1-auf-1 Mentoring
+                    </span>
+                    <h1 class="font-oswald text-5xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
+                        Die meisten CEOs <br>
+                        <span class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">führen blind.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                        Sie kennen ihren Umsatz. Aber sie wissen nicht, wie viel sie wirklich verdienen. Wer ihre besten Kunden sind. Welcher Mitarbeiter Wertschöpfung erzeugt.
+                        <span class="text-gray-900 font-semibold block mt-3">Sie steuern ein Unternehmen, das sie selbst nicht verstehen.</span>
+                    </p>
+                </div>
+
+                <!-- CEO COCKPIT VISUAL (replaces VSL video) -->
+                <div class="max-w-5xl mx-auto mb-10 lg:mb-12 reveal" style="transition-delay: 0.1s;">
+                    <div class="cockpit-frame rounded-2xl p-4 md:p-6 lg:p-8 relative">
+                        <!-- Header bar -->
+                        <div class="flex items-center justify-between mb-5 lg:mb-6 pb-4 border-b border-white/10">
+                            <div class="flex items-center gap-3">
+                                <div class="flex gap-1.5">
+                                    <div class="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+                                    <div class="w-2.5 h-2.5 rounded-full bg-green-500/40"></div>
+                                </div>
+                                <span class="font-mono text-xs text-gray-400 uppercase tracking-widest hidden sm:inline">CEO://Dashboard</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="status-dot-red"></span>
+                                <span class="font-mono text-[0.65rem] md:text-xs text-brand-orange uppercase tracking-widest font-semibold">Kritisch: Daten fehlen</span>
+                            </div>
+                        </div>
+
+                        <!-- Metric Grid -->
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-2.5 md:gap-4">
+                            <!-- Profit -->
+                            <div class="metric-panel rounded-lg p-3 md:p-5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-mono text-[0.6rem] md:text-xs text-gray-400 uppercase tracking-wider">Profit / Unit</span>
+                                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-orange"></i>
+                                </div>
+                                <div class="metric-value-missing font-oswald text-3xl md:text-4xl lg:text-5xl font-bold">?</div>
+                                <div class="font-mono text-[0.6rem] md:text-[0.65rem] text-gray-500 mt-1 uppercase">Unbekannt</div>
+                            </div>
+                            <!-- CAC -->
+                            <div class="metric-panel rounded-lg p-3 md:p-5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-mono text-[0.6rem] md:text-xs text-gray-400 uppercase tracking-wider">CAC</span>
+                                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-orange"></i>
+                                </div>
+                                <div class="metric-value-missing font-oswald text-3xl md:text-4xl lg:text-5xl font-bold">?</div>
+                                <div class="font-mono text-[0.6rem] md:text-[0.65rem] text-gray-500 mt-1 uppercase">Nicht getrackt</div>
+                            </div>
+                            <!-- LTV -->
+                            <div class="metric-panel rounded-lg p-3 md:p-5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-mono text-[0.6rem] md:text-xs text-gray-400 uppercase tracking-wider">LTV / Kunde</span>
+                                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-orange"></i>
+                                </div>
+                                <div class="metric-value-missing font-oswald text-3xl md:text-4xl lg:text-5xl font-bold">?</div>
+                                <div class="font-mono text-[0.6rem] md:text-[0.65rem] text-gray-500 mt-1 uppercase">Unklar</div>
+                            </div>
+                            <!-- A-Player -->
+                            <div class="metric-panel rounded-lg p-3 md:p-5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-mono text-[0.6rem] md:text-xs text-gray-400 uppercase tracking-wider">A-Player Quote</span>
+                                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-orange"></i>
+                                </div>
+                                <div class="metric-value-missing font-oswald text-3xl md:text-4xl lg:text-5xl font-bold">?</div>
+                                <div class="font-mono text-[0.6rem] md:text-[0.65rem] text-gray-500 mt-1 uppercase">Bauchgefühl</div>
+                            </div>
+                            <!-- Attribution -->
+                            <div class="metric-panel rounded-lg p-3 md:p-5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-mono text-[0.6rem] md:text-xs text-gray-400 uppercase tracking-wider">Lead Attribution</span>
+                                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-orange"></i>
+                                </div>
+                                <div class="metric-value-missing font-oswald text-3xl md:text-4xl lg:text-5xl font-bold">?</div>
+                                <div class="font-mono text-[0.6rem] md:text-[0.65rem] text-gray-500 mt-1 uppercase">Keine Daten</div>
+                            </div>
+                            <!-- Engpass -->
+                            <div class="metric-panel rounded-lg p-3 md:p-5">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-mono text-[0.6rem] md:text-xs text-gray-400 uppercase tracking-wider">Engpass</span>
+                                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-orange"></i>
+                                </div>
+                                <div class="metric-value-missing font-oswald text-3xl md:text-4xl lg:text-5xl font-bold">?</div>
+                                <div class="font-mono text-[0.6rem] md:text-[0.65rem] text-gray-500 mt-1 uppercase">Unidentifiziert</div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom bar -->
+                        <div class="mt-5 lg:mt-6 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="zap-off" class="w-4 h-4 text-brand-orange"></i>
+                                <span class="font-mono text-[0.65rem] md:text-xs text-gray-400 uppercase tracking-widest">6 von 6 kritischen Metriken fehlen</span>
+                            </div>
+                            <div class="font-mono text-[0.65rem] md:text-xs text-gray-500">
+                                Status: <span class="text-brand-orange font-semibold">FLIEGEN OHNE INSTRUMENTE</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs md:text-sm text-gray-500 mt-4 italic font-light">
+                        Eine realistische Momentaufnahme der meisten Führungsetagen zwischen 50.000 € und 500.000 € Monatsumsatz.
+                    </p>
+                </div>
+
+                <!-- Primary CTA -->
+                <div class="text-center mb-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
+                    <p class="text-xs md:text-sm text-gray-500 mb-3 uppercase tracking-widest font-semibold">Nur für qualifizierte Geschäftsführer</p>
+                    <a href="#bewerbung" class="btn-glow inline-block w-full sm:w-auto px-8 py-4 md:px-14 md:py-6 rounded text-lg md:text-2xl font-bold font-oswald uppercase tracking-wide text-white">
+                        Jetzt auf Realität prüfen & bewerben
+                    </a>
+                    <p class="mt-4 text-xs md:text-sm text-gray-500 flex items-center justify-center gap-2">
+                        <i data-lucide="shield-alert" class="w-4 h-4 text-brand-orange"></i>
+                        Streng limitiert: 10 CEOs pro Quartal.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ============================== -->
+            <!-- PROBLEM SECTION                -->
+            <!-- ============================== -->
+            <section class="relative mt-24 lg:mt-36 py-16 lg:py-24 bg-gray-50 border-y border-gray-200 dot-grid-bg">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i>Die Diagnose</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            Du hast kein Vertriebsproblem.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">Du hast ein Kompetenzproblem.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Egal ob 50.000 € oder 500.000 € Monatsumsatz. Das Muster ist immer dasselbe.
+                        </p>
+                    </div>
+
+                    <!-- Diagnostic Grid -->
+                    <div class="grid md:grid-cols-2 gap-5 lg:gap-6 max-w-5xl mx-auto">
+                        <div class="interactive-card rounded-xl p-6 lg:p-8 reveal">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="calculator" class="w-6 h-6 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Keine Profitkalkulation</h3>
+                                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">Du kennst deinen Umsatz auf den Euro genau. Aber niemand im Unternehmen kann dir sagen, was ein einzelner Kunde wirklich wert ist. Oder was er dich wirklich kostet.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="interactive-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.1s;">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="users" class="w-6 h-6 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Falsche Leute auf falschen Positionen</h3>
+                                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">Du behältst Mitarbeiter, die keine A-Player sind. Nicht weil du das willst, sondern weil du selbst nicht einschätzen kannst, ob sie wirklich kompetent sind. Leistung wird toleriert.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="interactive-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.2s;">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="target" class="w-6 h-6 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Marketing läuft, aber niemand weiß warum</h3>
+                                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">Du bezahlst Agenturen, Ads, Funnels. Leads kommen rein. Aber woher genau sie kommen, was funktioniert und was nur teuer aussieht, kann niemand belastbar sagen.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="interactive-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.3s;">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="alarm-clock" class="w-6 h-6 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Entscheidungen nach Bauchgefühl</h3>
+                                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">Kündigungen werden zu spät ausgesprochen. Einstellungen zu schnell. Preise hochgesetzt, ohne zu wissen, was es mit der Marge macht. Jede Entscheidung ist ein Glücksspiel.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto mt-12 lg:mt-16 reveal">
+                        <div class="bg-white border-l-4 border-brand-orange rounded-r-xl p-6 lg:p-8 shadow-lg">
+                            <p class="text-lg lg:text-2xl font-semibold text-gray-900 leading-relaxed">
+                                Die meisten CEOs glauben dann, ihr Problem liegt irgendwo im Vertrieb. Das ist nicht das Problem.
+                                <span class="block mt-3 text-brand-orange">Sie verstehen nicht, wie ihr eigenes Unternehmen funktionieren sollte.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== -->
+            <!-- MONEY LOSS EXAMPLES            -->
+            <!-- ============================== -->
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="trending-down" class="w-3.5 h-3.5"></i>Die Kostenseite</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            Jeder Monat ohne Klarheit<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">kostet dich Geld.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Vier typische Szenarien aus Unternehmen zwischen 50.000 € und 500.000 € Monatsumsatz.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+                        <!-- Loss 1 -->
+                        <div class="loss-card rounded-xl p-6 reveal">
+                            <div class="flex items-center justify-between mb-5">
+                                <div class="w-11 h-11 rounded-lg bg-white border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="user-minus" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">Szenario 01</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Falsche Einstellung</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">Der Head of Sales, der im Interview beeindruckt hat, liefert nach sechs Monaten keine messbaren Zahlen. Du weißt nicht, ob er das Team kaputt macht oder rettet.</p>
+                            <div class="pt-4 border-t border-red-100">
+                                <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Typischer Schaden</div>
+                                <div class="font-oswald text-2xl font-bold text-brand-orange">60.000 € +</div>
+                                <div class="text-xs text-gray-500">Gehalt × verlorene Monate</div>
+                            </div>
+                        </div>
+                        <!-- Loss 2 -->
+                        <div class="loss-card rounded-xl p-6 reveal" style="transition-delay: 0.1s;">
+                            <div class="flex items-center justify-between mb-5">
+                                <div class="w-11 h-11 rounded-lg bg-white border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="hourglass" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">Szenario 02</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Zu späte Kündigung</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">Ein Mitarbeiter zieht das Team runter. Du merkst es seit Monaten. Aber ohne klare Performance-Kriterien wirst du die Entscheidung wieder vertagen.</p>
+                            <div class="pt-4 border-t border-red-100">
+                                <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Typischer Schaden</div>
+                                <div class="font-oswald text-2xl font-bold text-brand-orange">40.000 € +</div>
+                                <div class="text-xs text-gray-500">Opportunitätskosten / Quartal</div>
+                            </div>
+                        </div>
+                        <!-- Loss 3 -->
+                        <div class="loss-card rounded-xl p-6 reveal" style="transition-delay: 0.2s;">
+                            <div class="flex items-center justify-between mb-5">
+                                <div class="w-11 h-11 rounded-lg bg-white border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="tag" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">Szenario 03</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Falsche Preisentscheidung</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">Du verkaufst ein Angebot zum Durchschnittspreis des Marktes, ohne zu wissen, welche Marge dir am Ende wirklich bleibt. Deine Preise entstehen aus dem Nichts.</p>
+                            <div class="pt-4 border-t border-red-100">
+                                <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Typischer Schaden</div>
+                                <div class="font-oswald text-2xl font-bold text-brand-orange">15 - 30%</div>
+                                <div class="text-xs text-gray-500">Margenverlust pro Verkauf</div>
+                            </div>
+                        </div>
+                        <!-- Loss 4 -->
+                        <div class="loss-card rounded-xl p-6 reveal" style="transition-delay: 0.3s;">
+                            <div class="flex items-center justify-between mb-5">
+                                <div class="w-11 h-11 rounded-lg bg-white border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="megaphone" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">Szenario 04</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Intransparente Agentur</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">Du bezahlst monatlich fünfstellig für Paid Ads. Die Zahlen im Reporting sehen gut aus. Aber du kannst nicht bewerten, ob die Agentur wirklich liefert oder dich verarscht.</p>
+                            <div class="pt-4 border-t border-red-100">
+                                <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Typischer Schaden</div>
+                                <div class="font-oswald text-2xl font-bold text-brand-orange">30 - 50%</div>
+                                <div class="text-xs text-gray-500">des Media-Budgets verbrannt</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== -->
+            <!-- THE SYSTEM: 4 PHASES           -->
+            <!-- ============================== -->
+            <section class="relative py-20 lg:py-28 bg-gradient-to-b from-brand-dark to-gray-900 text-white overflow-hidden">
+                <!-- Background glow -->
+                <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-orange opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
+                <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+                <div class="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5" style="background: rgba(230,0,0,0.15); border-color: rgba(230,0,0,0.4); color: #ff6666;">
+                            <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>Das System
+                        </span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-7xl font-bold uppercase leading-tight mb-5 text-white">
+                            Das CEO<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff4d4d]">Operating System.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
+                            4 Phasen. 1 System. Vollständige Unternehmenssteuerung.
+                            <span class="block mt-2 text-gray-400 text-base">Kein Kurs. Kein Coaching. Ein vollständiges Betriebssystem für deine Rolle als CEO.</span>
+                        </p>
+                    </div>
+
+                    <!-- Phase Flow Diagram (desktop) -->
+                    <div class="relative max-w-6xl mx-auto reveal">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 lg:gap-5 mb-12 relative">
+                            <!-- Connector line (desktop) -->
+                            <div class="phase-flow-line hidden md:block"></div>
+
+                            <!-- Phase 1 -->
+                            <div class="relative z-10 bg-gray-900 border border-gray-800 rounded-xl p-5 lg:p-6 hover:border-brand-orange/40 transition-all duration-300 group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold tracking-widest">PHASE / 01</div>
+                                    <i data-lucide="crown" class="w-5 h-5 text-brand-orange group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white mb-2 leading-tight">CEO</h3>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider mb-4 font-semibold">Denken & Steuerung</div>
+                                <p class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-brand-orange/40 pl-3">
+                                    Wie denkt und handelt ein CEO?
+                                </p>
+                            </div>
+                            <!-- Phase 2 -->
+                            <div class="relative z-10 bg-gray-900 border border-gray-800 rounded-xl p-5 lg:p-6 hover:border-brand-orange/40 transition-all duration-300 group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold tracking-widest">PHASE / 02</div>
+                                    <i data-lucide="radar" class="w-5 h-5 text-brand-orange group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white mb-2 leading-tight">Marketing</h3>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider mb-4 font-semibold">Systemverständnis</div>
+                                <p class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-brand-orange/40 pl-3">
+                                    Woher kommen Leads, und warum?
+                                </p>
+                            </div>
+                            <!-- Phase 3 -->
+                            <div class="relative z-10 bg-gray-900 border border-gray-800 rounded-xl p-5 lg:p-6 hover:border-brand-orange/40 transition-all duration-300 group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold tracking-widest">PHASE / 03</div>
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-brand-orange group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white mb-2 leading-tight">Sales</h3>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider mb-4 font-semibold">Umsatzmechanik</div>
+                                <p class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-brand-orange/40 pl-3">
+                                    Wie wird aus einem Lead Umsatz?
+                                </p>
+                            </div>
+                            <!-- Phase 4 -->
+                            <div class="relative z-10 bg-gray-900 border border-gray-800 rounded-xl p-5 lg:p-6 hover:border-brand-orange/40 transition-all duration-300 group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold tracking-widest">PHASE / 04</div>
+                                    <i data-lucide="gauge" class="w-5 h-5 text-brand-orange group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white mb-2 leading-tight">Operations</h3>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider mb-4 font-semibold">Kontrolle & Skalierung</div>
+                                <p class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-brand-orange/40 pl-3">
+                                    Hält das System Wachstum aus?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Phase Breakdowns -->
+                    <div class="max-w-6xl mx-auto mt-16 lg:mt-20 space-y-6 lg:space-y-8">
+                        <!-- Phase 1 Detail -->
+                        <div class="reveal bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-10 backdrop-blur-sm">
+                            <div class="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="font-mono text-[0.7rem] text-brand-orange font-bold tracking-widest bg-brand-orange/10 border border-brand-orange/30 rounded px-2.5 py-1">PHASE 01</div>
+                                        <span class="font-mono text-[0.7rem] text-gray-500 uppercase">~30 Tage</span>
+                                    </div>
+                                    <h3 class="font-oswald text-3xl lg:text-4xl font-bold uppercase text-white leading-tight mb-3">CEO</h3>
+                                    <div class="text-brand-orange uppercase tracking-wider font-semibold text-sm mb-4">Denken & Steuerung</div>
+                                    <p class="text-gray-300 leading-relaxed mb-5">Der CEO verlässt die operative Rolle und beginnt, sein Unternehmen strukturiert zu steuern. Identität, Fokus, Engpass-Denken.</p>
+                                    <div class="pt-5 border-t border-white/10">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Ergebnis</div>
+                                        <p class="text-white font-semibold">Klarheit, Fokus und erste echte Steuerung.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-4">Module dieser Phase</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">01</span>Pre-Frame: Identität & Selbstführung</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">02</span>Financial Target</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">03</span>Big Domino: Fokus & Tagesstruktur</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">04</span>Data Collection: Ist-Zustand</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">05</span>Engpass-Denken</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">06</span>Leadership statt Kontrolle</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">07</span>HR: A-Player & Teamstruktur</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">08</span>Offer: Wertschöpfung & Geschäftsmodell</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 2 Detail -->
+                        <div class="reveal bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-10 backdrop-blur-sm">
+                            <div class="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="font-mono text-[0.7rem] text-brand-orange font-bold tracking-widest bg-brand-orange/10 border border-brand-orange/30 rounded px-2.5 py-1">PHASE 02</div>
+                                        <span class="font-mono text-[0.7rem] text-gray-500 uppercase">~30 Tage</span>
+                                    </div>
+                                    <h3 class="font-oswald text-3xl lg:text-4xl font-bold uppercase text-white leading-tight mb-3">Marketing</h3>
+                                    <div class="text-brand-orange uppercase tracking-wider font-semibold text-sm mb-4">Systemverständnis</div>
+                                    <p class="text-gray-300 leading-relaxed mb-5">Der CEO versteht Marketing als System und kann Kanäle, Daten und Performance fundiert bewerten. Keine Entscheidungen mehr nach Bauchgefühl.</p>
+                                    <div class="pt-5 border-t border-white/10">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Ergebnis</div>
+                                        <p class="text-white font-semibold">Marketing wird bewertbar statt emotional.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-4">Module dieser Phase</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">01</span>Foundation & Reality Gap</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">02</span>Marketing-System & Mechaniken</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">03</span>Tracking & Attribution</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">04</span>Paid Ads & Media Buying</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">05</span>Funnel & Conversion</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">06</span>Datenflüsse & Systemarchitektur</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">07</span>Kanalstrategie: Organic vs. Paid</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">08</span>Marketing-Team & Struktur</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">09</span>KPI & CEO-Dashboard</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">10</span>Automatisierung & Skalierung</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">11</span>Systemstabilität</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">12</span>AI & Weiterentwicklung</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 3 Detail -->
+                        <div class="reveal bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-10 backdrop-blur-sm">
+                            <div class="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="font-mono text-[0.7rem] text-brand-orange font-bold tracking-widest bg-brand-orange/10 border border-brand-orange/30 rounded px-2.5 py-1">PHASE 03</div>
+                                        <span class="font-mono text-[0.7rem] text-gray-500 uppercase">~30 Tage</span>
+                                    </div>
+                                    <h3 class="font-oswald text-3xl lg:text-4xl font-bold uppercase text-white leading-tight mb-3">Sales</h3>
+                                    <div class="text-brand-orange uppercase tracking-wider font-semibold text-sm mb-4">Umsatzmechanik</div>
+                                    <p class="text-gray-300 leading-relaxed mb-5">Der CEO versteht, wie aus Leads Umsatz entsteht und kann Sales-Systeme, Teams und Performance gezielt steuern, ohne Micromanagement.</p>
+                                    <div class="pt-5 border-t border-white/10">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Ergebnis</div>
+                                        <p class="text-white font-semibold">Sales wird steuerbar statt zufällig.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-4">Module dieser Phase</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">01</span>Sales-System: Lead zu Umsatz</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">02</span>Leadqualität & Qualifikation</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">03</span>Sales-Pipeline & Übergänge</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">04</span>Rollen: Setter, Closer, Head of Sales</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">05</span>Sales Environment & Kultur</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">06</span>Performance-Bewertung</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">07</span>Sales-Führung ohne Micromanagement</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">08</span>Marketing und Sales: Übergaben</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">09</span>Sales-Skalierung & Engpässe</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">10</span>Incentive-Based Pricing</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">11</span>Sales-Struktur & Pitch-Logik</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 4 Detail -->
+                        <div class="reveal bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-10 backdrop-blur-sm">
+                            <div class="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="font-mono text-[0.7rem] text-brand-orange font-bold tracking-widest bg-brand-orange/10 border border-brand-orange/30 rounded px-2.5 py-1">PHASE 04</div>
+                                        <span class="font-mono text-[0.7rem] text-gray-500 uppercase">~30 Tage</span>
+                                    </div>
+                                    <h3 class="font-oswald text-3xl lg:text-4xl font-bold uppercase text-white leading-tight mb-3">Operations</h3>
+                                    <div class="text-brand-orange uppercase tracking-wider font-semibold text-sm mb-4">Kontrolle & Skalierung</div>
+                                    <p class="text-gray-300 leading-relaxed mb-5">Der CEO steuert das Unternehmen auf Basis von Zahlen, Strukturen und klaren Entscheidungslogiken und baut ein skalierbares System.</p>
+                                    <div class="pt-5 border-t border-white/10">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Ergebnis</div>
+                                        <p class="text-white font-semibold">Das Unternehmen wird steuerbar, skalierbar und stabil.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-4">Module dieser Phase</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">01</span>Profit & Unit Economics</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">02</span>Steuern & Unternehmensstruktur</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">03</span>Reporting-System</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">04</span>Controlling-System</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">05</span>Meeting-System & Alignment</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">06</span>People-System: Hiring, Firing, Performance</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">07</span>Fulfillment-System</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">08</span>Skalierungssystem</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transformation Summary -->
+                    <div class="max-w-4xl mx-auto mt-16 lg:mt-20 reveal">
+                        <div class="bg-gradient-to-br from-brand-orange/10 to-transparent border border-brand-orange/30 rounded-2xl p-6 lg:p-10 text-center">
+                            <div class="font-mono text-xs text-brand-orange font-bold tracking-widest mb-4 uppercase">In 120 Tagen</div>
+                            <p class="font-oswald text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-white leading-tight">
+                                Du triffst keine Entscheidung mehr nach Bauchgefühl.<br>
+                                <span class="text-brand-orange">Du steuerst, statt zu reagieren.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== -->
+            <!-- FOUNDER / CREDIBILITY          -->
+            <!-- ============================== -->
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="award" class="w-3.5 h-3.5"></i>Woher diese Methode kommt</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            Das System wurde nicht<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">im Klassenzimmer entwickelt.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Es ist das Ergebnis aus über 200.000 € in Mentoring-Investment und jahrelanger Arbeit mit einem Top-0,0001%-Unternehmer.
+                        </p>
+                    </div>
+
+                    <!-- Big Stats -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16 lg:mb-20">
+                        <div class="big-stat-card rounded-xl p-5 lg:p-7 reveal">
+                            <div class="font-mono text-[0.65rem] text-gray-400 uppercase tracking-widest mb-3">Mentoring-Investment</div>
+                            <div class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none mb-2">200K €</div>
+                            <div class="text-xs lg:text-sm text-gray-400">in einen Underground Mentor</div>
+                        </div>
+                        <div class="big-stat-card rounded-xl p-5 lg:p-7 reveal" style="transition-delay: 0.1s;">
+                            <div class="font-mono text-[0.65rem] text-gray-400 uppercase tracking-widest mb-3">In 6 Monaten</div>
+                            <div class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none mb-2">2,4M $</div>
+                            <div class="text-xs lg:text-sm text-gray-400">im High-Ticket-Closing generiert</div>
+                        </div>
+                        <div class="big-stat-card rounded-xl p-5 lg:p-7 reveal" style="transition-delay: 0.2s;">
+                            <div class="font-mono text-[0.65rem] text-gray-400 uppercase tracking-widest mb-3">Als Geschäftsführer</div>
+                            <div class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none mb-2">9M €</div>
+                            <div class="text-xs lg:text-sm text-gray-400">Jahresumsatz skaliert (Rekord)</div>
+                        </div>
+                        <div class="big-stat-card rounded-xl p-5 lg:p-7 reveal" style="transition-delay: 0.3s;">
+                            <div class="font-mono text-[0.65rem] text-gray-400 uppercase tracking-widest mb-3">Eigenes Jahr</div>
+                            <div class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none mb-2">12M €</div>
+                            <div class="text-xs lg:text-sm text-gray-400">Umsatz nach dem Mentoring</div>
+                        </div>
+                    </div>
+
+                    <!-- Story / Narrative -->
+                    <div class="max-w-4xl mx-auto reveal">
+                        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 lg:p-10 relative overflow-hidden">
+                            <i data-lucide="quote" class="absolute top-6 right-6 w-12 h-12 text-brand-orange/10"></i>
+                            <div class="space-y-5 text-gray-700 leading-relaxed text-base lg:text-lg relative">
+                                <p>2021, meine erste GmbH. Planlos. Ahnungslos. Ich bezahlte für Kurse und Beratungen und habe es trotzdem nicht geschafft. Geld verbrannt. Zeit verschwendet.</p>
+                                <p>Dann kam die Begegnung, die alles verändert hat: Ein Mann, der zu den Top 0,0001% der Unternehmer weltweit gehört. Ich arbeitete 16 Stunden am Tag, 8 davon Cold Calling, nur um ihm zu beweisen, dass ich es wert bin, von ihm zu lernen.</p>
+                                <p class="text-gray-900 font-semibold">Über die Jahre habe ich mehr als 200.000 € investiert, um von ihm zu lernen. Drei Monate nach Beginn hatte ich meinen Umsatz verdoppelt. Ein Jahr später: über 12 Millionen Umsatz.</p>
+                                <p>Genau dieses Wissen, strukturiert in 4 Phasen, ist heute CEO Reality.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== -->
+            <!-- FOR WHOM / NOT FOR WHOM        -->
+            <!-- ============================== -->
+            <section class="py-20 lg:py-28 bg-gray-50 border-y border-gray-200">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="filter" class="w-3.5 h-3.5"></i>Reality Check</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            Dieses Programm ist<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">nichts für 99%.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Um die Erfolgsquote der verbleibenden 1% maximal zu halten, filtern wir hart.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+                        <!-- Not for you -->
+                        <div class="reveal bg-white border border-gray-200 rounded-2xl overflow-hidden">
+                            <div class="bg-gray-100 px-6 lg:px-8 py-4 border-b border-gray-200 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-700 flex items-center justify-center">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-oswald text-xl lg:text-2xl font-bold uppercase text-gray-700">Nicht für dich wenn</h3>
+                            </div>
+                            <div class="p-6 lg:p-8 space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">Du stehst noch ganz am Anfang und hast noch keine tragfähige Kundenbasis.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">Du brauchst jemanden, der dich vom Programm überzeugt, bevor du dich bewirbst.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">Du suchst einen günstigen Online-Kurs oder eine Gruppenbetreuung.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">Du willst Ergebnisse, ohne deine eigene Denkweise grundlegend zu verändern.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">Du bist auf eine Geld-zurück-Garantie angewiesen, um eine Entscheidung zu treffen.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- For you -->
+                        <div class="reveal bg-gradient-to-br from-gray-900 to-black text-white border border-brand-orange/30 rounded-2xl overflow-hidden" style="transition-delay: 0.1s;">
+                            <div class="bg-brand-orange/10 border-b border-brand-orange/20 px-6 lg:px-8 py-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-brand-orange text-white flex items-center justify-center">
+                                    <i data-lucide="check" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-oswald text-xl lg:text-2xl font-bold uppercase text-white">Für dich wenn</h3>
+                            </div>
+                            <div class="p-6 lg:p-8 space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">Du führst ein bestehendes Unternehmen mit Umsatz zwischen 50.000 € und 500.000 € im Monat.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">Du willst aufhören, dein Unternehmen nach Bauchgefühl zu steuern.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">Du bist bereit, signifikant Zeit, Energie und Kapital in dein eigenes Wachstum zu investieren.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">Du akzeptierst, dass Steuerung mit Zahlen beginnt, nicht mit Meinungen.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">Du willst 1-auf-1 mit jemandem arbeiten, der den Weg bereits selbst gegangen ist.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== -->
+            <!-- THE INVERSE GUARANTEE          -->
+            <!-- ============================== -->
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                    <div class="reveal stamp rounded-3xl p-8 md:p-12 lg:p-16 text-center relative">
+                        <div class="relative z-10">
+                            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1.5 bg-brand-orange/10 border border-brand-orange/30 rounded-full">
+                                <span class="status-dot-red"></span>
+                                <span class="font-mono text-[0.65rem] md:text-xs font-bold text-brand-orange uppercase tracking-widest">Die umgekehrte Garantie</span>
+                            </div>
+                            <h2 class="font-oswald text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-white leading-tight mb-6">
+                                Ich gebe dir <span class="text-brand-orange">keine</span> Geld-zurück-Garantie.
+                            </h2>
+                            <div class="max-w-3xl mx-auto space-y-5 text-gray-300 text-base md:text-lg lg:text-xl font-light leading-relaxed">
+                                <p>Stattdessen gebe ich dir eine andere. Eine, an die du glauben wirst, sobald du deine Zahlen zum ersten Mal wirklich verstehst.</p>
+                                <p class="text-white font-semibold text-xl md:text-2xl lg:text-3xl font-oswald uppercase border-l-4 border-brand-orange pl-5 py-2 text-left bg-white/[0.03] rounded-r-lg">
+                                    "Ich garantiere dir, dass du deutlich weniger Geld verdienen wirst, wenn du nicht Teil von CEO Reality wirst."
+                                </p>
+                                <p>Jeder Monat ohne Klarheit. Jede falsche Einstellung. Jede zu späte Kündigung. Jede falsche Preisentscheidung. Das alles kostet dich jeden Monat Geld, ob du Teil des Programms wirst oder nicht.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== -->
+            <!-- FAQ                            -->
+            <!-- ============================== -->
+            <section class="py-20 lg:py-28 bg-gray-50 border-y border-gray-200">
+                <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
+                    <div class="text-center mb-12 lg:mb-16 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="help-circle" class="w-3.5 h-3.5"></i>Offene Fragen</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight">
+                            Die ehrlichen<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">Antworten.</span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Was kostet das Programm?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                CEO Reality ist ein hochpreisiges 1-auf-1-Mentoring. Wenn du den Preis hörst, wirst du kurz schlucken. Das ist gewollt. Wer überzeugt werden muss, dass das Investment die Investition wert ist, ist nicht der richtige Kandidat. Den genauen Preis besprechen wir transparent im Reality-Check-Gespräch.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Wie lange dauert das Programm?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                120 Tage. Nicht ein Jahr. Nicht sechs Monate. In vier Phasen (CEO, Marketing, Sales, Operations) gehen wir komplett durch dein Unternehmen, bauen Steuerungslogiken, Reporting und Entscheidungsmechanik auf.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Gibt es eine Rückerstattung?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                Nein. Zu keinem Zeitpunkt. Aus keinem Grund. Wer eine Rückerstattungsklausel braucht, um eine Entscheidung treffen zu können, trifft später im Unternehmen auch keine Entscheidungen. Das ist der Filter.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Was unterscheidet euch von einem normalen Coaching?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                CEO Reality ist kein Kurs und kein klassisches Coaching. Es ist ein privates 1-auf-1-Programm mit einem vollständigen Operating System. Du lernst nicht, wie man Marketing macht, du lernst, wie man Marketing bewertet. Nicht wie man verkauft, sondern wie man Sales als System steuert. Wir arbeiten direkt an deinem Unternehmen, nicht an Theorie.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Wie viele Teilnehmer gibt es?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                10 CEOs pro Quartal. Nicht mehr. Diese Grenze gibt es nicht aus Marketinggründen, sondern weil 1-auf-1-Arbeit auf diesem Niveau nicht skaliert werden kann, ohne die Qualität zu opfern.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Was passiert nach der Bewerbung?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                Du füllst das Bewerbungsformular aus und buchst direkt einen Termin für ein kostenloses Reality-Check-Gespräch. In diesem Gespräch klären wir, ob dein Unternehmen und deine Situation zu CEO Reality passen, und du erfährst alle Details zu Programm, Umfang und Investment.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== -->
+            <!-- FINAL CTA / APPLICATION FORM   -->
+            <!-- ============================== -->
+            <section class="pt-20 lg:pt-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                    <div id="bewerbung" class="text-center bg-white px-4 py-10 sm:p-8 md:p-12 lg:p-16 border border-gray-200 shadow-2xl rounded-3xl reveal relative overflow-hidden">
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-brand-orange opacity-5 blur-[100px] pointer-events-none"></div>
+
+                        <span class="section-tag mb-5"><i data-lucide="calendar-check" class="w-3.5 h-3.5"></i>Bewerbung starten</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold mb-5 sm:mb-6 uppercase relative z-10 text-gray-900">Choose Wisely.</h2>
+                        <p class="text-gray-600 text-base sm:text-lg mb-8 font-light max-w-3xl mx-auto leading-relaxed relative z-10">
+                            Auf deinem aktuellen Level zu bleiben ist nicht nur schlecht für dein Unternehmen. Es ist verantwortungslos.
+                            Dein Unternehmen braucht Führung. Dein Team braucht einen CEO, der weiß, was er tut.
+                        </p>
+
+                        <!-- Multi-Step Application Form -->
+                        <div class="max-w-2xl mx-auto bg-white border border-gray-200 shadow-xl rounded-2xl relative z-10 text-left overflow-hidden mt-8 sm:mt-10">
+                            
+                            <!-- Progress Indicator -->
+                            <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:py-5 border-b border-gray-200 relative">
+                                <div class="absolute top-1/2 left-8 right-8 sm:left-10 sm:right-10 h-1 bg-gray-200 -translate-y-1/2 z-0 rounded-full"></div>
+                                <div id="progress-line" class="absolute top-1/2 left-8 sm:left-10 h-1 bg-brand-orange -translate-y-1/2 z-0 transition-all duration-500 rounded-full" style="width: 0%;"></div>
+                                
+                                <div class="flex justify-between relative z-10">
+                                    <div id="dot-1" class="step-dot active w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">1</div>
+                                    <div id="dot-2" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">2</div>
+                                    <div id="dot-3" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">3</div>
+                                    <div id="dot-4" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2"><i data-lucide="calendar" class="w-3 h-3 sm:w-4 sm:h-4"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="p-5 sm:p-6 md:p-8">
+                                <form id="application-form" onsubmit="return false;">
+                                    
+                                    <!-- STEP 1: Persönliche Daten -->
+                                    <div id="step-1" class="form-step block">
+                                        <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">1. Persönliche Daten</h3>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Bitte gib deine Kontaktdaten ein, damit wir dich erreichen können.</p>
+                                        
+                                        <div class="space-y-4">
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Vorname</label>
+                                                    <input type="text" class="input-field" placeholder="Max" required>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Nachname</label>
+                                                    <input type="text" class="input-field" placeholder="Mustermann" required>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">E-Mail Adresse</label>
+                                                <input type="email" class="input-field" placeholder="max@unternehmen.de" required>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Handynummer</label>
+                                                <input type="tel" class="input-field" placeholder="+49 151 12345678" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-8 flex justify-end">
+                                            <button type="button" onclick="goToStep(2)" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                                Weiter zu Schritt 2
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- STEP 2: Unternehmensdaten -->
+                                    <div id="step-2" class="form-step hidden">
+                                        <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">2. Unternehmensstatus</h3>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Wo steht dein Unternehmen aktuell?</p>
+                                        
+                                        <div class="space-y-4">
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Name deines Unternehmens</label>
+                                                <input type="text" class="input-field" placeholder="GmbH & Co. KG">
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Aktueller Monatsumsatz</label>
+                                                <select class="input-field cursor-pointer">
+                                                    <option value="" disabled selected>Bitte wählen...</option>
+                                                    <option value="under50k">Unter 50.000 €</option>
+                                                    <option value="50k-100k">50.000 € - 100.000 €</option>
+                                                    <option value="100k-500k">100.000 € - 500.000 €</option>
+                                                    <option value="over500k">Über 500.000 €</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Deine aktuell größte Herausforderung</label>
+                                                <textarea class="input-field min-h-[100px] resize-y" placeholder="Beschreibe kurz das größte Bottleneck..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-8 flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+                                            <button type="button" onclick="goToStep(1)" class="w-full sm:w-auto text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                                Zurück
+                                            </button>
+                                            <button type="button" onclick="goToStep(3)" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                                Weiter zu Schritt 3
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- STEP 3: Reality Check -->
+                                    <div id="step-3" class="form-step hidden">
+                                        <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">3. Reality Check</h3>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Bitte bestätige folgende Voraussetzungen.</p>
+                                        
+                                        <div class="space-y-4">
+                                            <div class="bg-orange-50/50 border border-brand-orange/20 p-4 rounded-lg">
+                                                <p class="text-gray-800 text-xs sm:text-sm font-medium mb-4">CEO Reality ist ein intensives und hochpreisiges 1-on-1 Mentoring-Programm. Bist du bereit, signifikant Zeit, Energie und Kapital in das Wachstum deines Unternehmens zu investieren?</p>
+                                                
+                                                <div class="space-y-2">
+                                                    <label class="flex items-start sm:items-center gap-3 cursor-pointer p-2 hover:bg-white rounded transition-colors border border-transparent hover:border-gray-200">
+                                                        <input type="radio" name="commitment" class="w-5 h-5 text-brand-orange focus:ring-brand-orange border-gray-300 mt-0.5 sm:mt-0">
+                                                        <span class="text-gray-900 font-medium text-xs sm:text-sm">Ja, ich bin zu 100% bereit.</span>
+                                                    </label>
+                                                    <label class="flex items-start sm:items-center gap-3 cursor-pointer p-2 hover:bg-white rounded transition-colors border border-transparent hover:border-gray-200">
+                                                        <input type="radio" name="commitment" class="w-5 h-5 text-gray-400 focus:ring-gray-400 border-gray-300 mt-0.5 sm:mt-0">
+                                                        <span class="text-gray-500 font-medium text-xs sm:text-sm">Nein, aktuell nicht der richtige Zeitpunkt.</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-8 flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+                                            <button type="button" onclick="goToStep(2)" class="w-full sm:w-auto text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                                Zurück
+                                            </button>
+                                            <button type="button" onclick="goToStep(4)" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                                Termin auswählen
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- STEP 4: Calendly Embed -->
+                                    <div id="step-4" class="form-step hidden">
+                                        <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900 text-center">4. Bewerbungs-Gespräch sichern</h3>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-2 text-center">Wähle jetzt einen passenden Termin für deinen kostenlosen Reality Check.</p>
+                                        
+                                        <!-- Calendly inline widget begin -->
+                                        <div class="calendly-inline-widget mt-4 border border-gray-100 rounded-xl overflow-hidden" data-url="https://calendly.com/dein-account/ceo-reality?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:100%;height:550px;"></div>
+                                        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                                        <!-- Calendly inline widget end -->
+
+                                        <div class="mt-4 flex justify-center">
+                                            <button type="button" onclick="goToStep(3)" class="text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                                Zurück zu den Daten
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <p class="mt-8 sm:mt-10 text-xs sm:text-sm text-gray-500 uppercase tracking-widest relative z-10 font-medium">
+                            Nur 10 Plätze pro Quartal. Dieses Programm ist nichts für 99% der Bewerber.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 py-8 mt-12 text-center text-gray-500 text-sm bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
+                    <a href="#" class="hover:text-brand-orange transition-colors">Impressum</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">Datenschutz</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">AGB</a>
+                </div>
+                <p>&copy; 2026 CEO Reality. Alle Rechte vorbehalten.</p>
+                <p class="mt-2 text-xs max-w-xl mx-auto opacity-70">Die geteilten Ergebnisse sind nicht typisch. Deine Ergebnisse hängen von deiner Arbeitsmoral, Erfahrung und deinem Fokus ab. Jegliches Geschäft birgt Risiken.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Initialize Icons & Interactions -->
+    <script>
+        lucide.createIcons();
+
+        // Multi-Step Form Logic
+        function goToStep(stepNumber) {
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.add('hidden');
+                step.classList.remove('block');
+            });
+            
+            document.getElementById(`step-${stepNumber}`).classList.remove('hidden');
+            document.getElementById(`step-${stepNumber}`).classList.add('block');
+
+            const progress = ((stepNumber - 1) / 3) * 100;
+            document.getElementById('progress-line').style.width = `${progress}%`;
+
+            for(let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                dot.classList.remove('active', 'inactive', 'completed');
+                
+                if (i < stepNumber) {
+                    dot.classList.add('completed');
+                    if(i !== 4) dot.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                } else if (i === stepNumber) {
+                    dot.classList.add('active');
+                    if(i !== 4) dot.innerHTML = i;
+                } else {
+                    dot.classList.add('inactive');
+                    if(i !== 4) dot.innerHTML = i;
+                }
+            }
+        }
+
+        // Scroll Reveal Interactivity
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
