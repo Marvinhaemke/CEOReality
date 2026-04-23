@@ -1218,6 +1218,7 @@
         }
 
         // Submit to Webhook and transition to Step 4
+        // Submit to Webhook and transition to Step 4
         function submitAndGoToStep4() {
             // Get form values
             const firstName = document.getElementById('firstName').value;
@@ -1249,7 +1250,7 @@
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
-                phone: phone, // Now contains formatted number e.g., +49151...
+                phone: phone, // Contains formatted number e.g., +49151...
                 company: company,
                 revenue: revenue,
                 challenge: challenge,
@@ -1274,10 +1275,13 @@
             goToStep(4);
 
             // Construct Cal.com query parameters for prefilling
+            // We pass the phone variable into the location fields
             const prefillQuery = new URLSearchParams({
                 name: `${firstName} ${lastName}`.trim(),
                 email: email,
-                "custom[phone]": phone,
+                location: phone,               // Targets standard Cal.com location field
+                "responses[location]": phone,  // Targets dynamic/new Cal.com location field
+                phone: phone,                  // Fallback
                 "custom[company]": company
             }).toString();
 
