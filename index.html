@@ -1277,10 +1277,11 @@
             const prefillQuery = new URLSearchParams({
                 name: `${firstName} ${lastName}`.trim(),
                 email: email,
-                // Pass the location as a JSON string targeting the 'phone' option
-                location: JSON.stringify({ optionValue: "phone", value: phone }),
-                // Fallbacks just in case you have standard phone fields too
+                // CORRECTED: 'value' is the type, 'optionValue' is the actual phone number
+                location: JSON.stringify({ value: "phone", optionValue: phone }),
+                // Extra fallbacks just to be safe
                 "responses[phone]": phone,
+                phone: phone,
                 "custom[company]": company
             }).toString();
 
