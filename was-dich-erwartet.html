@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Reality | Dein Reality Check ist bestätigt.</title>
+    <meta name="description" content="Dein 1-auf-1 Gespräch mit CEO Reality ist bestätigt. Sieh dir dieses kurze Video an, damit du vorbereitet bist.">
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Wistia Player -->
+    <script src="https://fast.wistia.com/player.js" async></script>
+    <script src="https://fast.wistia.com/embed/351ihj7z91.js" async type="module"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'oswald': ['Oswald', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'brand-dark': '#0a0a0a',
+                        'brand-orange': '#e60000',
+                        'brand-red': '#990000',
+                        'brand-ink': '#111827'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #0a0a0a;
+        }
+
+        /* Wistia placeholder (blur until loaded) */
+        wistia-player[media-id='351ihj7z91']:not(:defined) {
+            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/351ihj7z91/swatch');
+            display: block;
+            filter: blur(5px);
+            padding-top: 56.25%;
+        }
+
+        /* Subtle text glow */
+        .text-glow-orange {
+            text-shadow: 0 4px 15px rgba(230,0,0,0.2);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Video frame */
+        .video-frame {
+            background: linear-gradient(180deg, #0a0a0a 0%, #111827 100%);
+            border: 1px solid rgba(230, 0, 0, 0.3);
+            box-shadow:
+                0 25px 50px -12px rgba(0,0,0,0.25),
+                0 0 80px rgba(230, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            border-radius: 1rem;
+            overflow: hidden;
+            padding: 0.75rem;
+        }
+        .video-frame wistia-player {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            display: block;
+        }
+
+        /* Grid dot background */
+        .dot-grid-bg {
+            background-image: radial-gradient(rgba(17, 24, 39, 0.07) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Section label tag */
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            background: rgba(230, 0, 0, 0.08);
+            border: 1px solid rgba(230, 0, 0, 0.25);
+            border-radius: 2rem;
+            color: #990000;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Confirmation tag (green) */
+        .confirmation-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 2rem;
+            color: #059669;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Step card */
+        .step-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            position: relative;
+        }
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(230, 0, 0, 0.1);
+            border-color: rgba(230, 0, 0, 0.3);
+        }
+        .step-number {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e60000;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+        }
+
+        /* Prep checklist item */
+        .prep-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+        }
+        .prep-item:hover {
+            border-color: rgba(230, 0, 0, 0.3);
+            background: #fff5f5;
+        }
+        .prep-check {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(230, 0, 0, 0.1);
+            border: 1px solid rgba(230, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e60000;
+        }
+
+        /* Warning / not-for-you card */
+        .warning-card {
+            background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+            border: 1px solid rgba(230, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .warning-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(230,0,0,0.15), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(230,0,0,0.1), transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Selection */
+        ::selection { background: #e60000; color: white; }
+    </style>
+</head>
+<body class="font-inter antialiased relative min-h-screen bg-white">
+
+    <div class="relative z-10">
+        <!-- HEADER -->
+        <header class="py-3 flex justify-center">
+            <div class="inline-flex flex-col items-center justify-center relative mt-1">
+                <span class="font-oswald text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 uppercase leading-none z-10" style="transform: scaleY(1.4); transform-origin: bottom; margin-top: 30px !important; letter-spacing: -0.01em;">
+                    CEO REALITY<span class="text-[#e60000]">.</span>
+                </span>
+                <div class="relative w-[98%] mt-1.5 md:mt-3 flex items-center justify-center h-[2px]">
+                    <div class="absolute w-[96%] h-[10px] bg-[#cc0000] opacity-30 blur-[5px] rounded-full"></div>
+                    <div class="absolute w-[90%] h-[4px] bg-[#e60000] opacity-70 blur-[2px] rounded-full"></div>
+                    <div class="w-full h-[1.5px] md:h-[2px] relative z-10" style="
+                        background: linear-gradient(90deg,
+                            transparent 0%, #880000 5%, #e60000 15%,
+                            #ff1a1a 25%, #ff1a1a 75%, #e60000 85%,
+                            #880000 95%, transparent 100%);
+                        clip-path: ellipse(50% 50% at 50% 50%);
+                    "></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="pt-6 pb-24 lg:pb-32">
+
+            <!-- HERO + VIDEO -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                <div class="text-center mb-8 lg:mb-12 reveal">
+                    <div class="flex justify-center mb-6">
+                        <span class="confirmation-tag">
+                            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                            Termin bestätigt
+                        </span>
+                    </div>
+
+                    <h1 class="font-oswald text-4xl md:text-6xl lg:text-7xl font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
+                        Dein Reality Check <br>
+                        <span class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">ist gebucht.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
+                        Bevor wir sprechen, sieh dir dieses kurze Video an.
+                        <span class="text-gray-900 font-semibold block mt-2">Es entscheidet, ob der Call für dich ein Gewinn wird — oder verschwendete Zeit.</span>
+                    </p>
+                </div>
+
+                <!-- WISTIA VIDEO -->
+                <div class="reveal" style="transition-delay: 0.15s;">
+                    <div class="video-frame">
+                        <wistia-player media-id="351ihj7z91" aspect="1.7777777777777777"></wistia-player>
+                    </div>
+                    <p class="mt-4 text-center text-xs md:text-sm text-gray-500 uppercase tracking-widest font-semibold flex items-center justify-center gap-2">
+                        <i data-lucide="play-circle" class="w-4 h-4 text-brand-orange"></i>
+                        Pflicht-Video vor deinem Call · ca. 5 Min.
+                    </p>
+                </div>
+            </section>
+
+            <!-- WHAT TO EXPECT -->
+            <section class="relative mt-24 lg:mt-32 py-16 lg:py-20 bg-gray-50 border-y border-gray-200 dot-grid-bg">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                    <div class="text-center mb-12 lg:mb-16 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="compass" class="w-3.5 h-3.5"></i>So läuft der Call ab</span>
+                        <h2 class="font-oswald text-3xl md:text-4xl lg:text-5xl font-bold uppercase text-gray-900 leading-tight mb-4">
+                            Was dich im Gespräch <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">wirklich erwartet.</span>
+                        </h2>
+                        <p class="text-base md:text-lg text-gray-600 max-w-2xl mx-auto font-light">
+                            Kein Small-Talk. Kein Pitch. Eine ehrliche Diagnose in 45 Minuten.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-5 lg:gap-6">
+                        <div class="step-card rounded-xl p-6 lg:p-7 reveal">
+                            <div class="step-number mb-3">SCHRITT 01</div>
+                            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-red-50 border border-red-100 mb-4">
+                                <i data-lucide="search" class="w-6 h-6 text-brand-orange"></i>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Ist-Zustand</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                Wir gehen durch die Zahlen, die Struktur und die Engpässe deines Unternehmens. Keine Annahmen. Nur Fakten.
+                            </p>
+                        </div>
+
+                        <div class="step-card rounded-xl p-6 lg:p-7 reveal" style="transition-delay: 0.1s;">
+                            <div class="step-number mb-3">SCHRITT 02</div>
+                            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-red-50 border border-red-100 mb-4">
+                                <i data-lucide="crosshair" class="w-6 h-6 text-brand-orange"></i>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Diagnose</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                Wir identifizieren den einen Hebel, an dem es wirklich hängt. Du bekommst eine klare Antwort, warum du da stehst, wo du stehst.
+                            </p>
+                        </div>
+
+                        <div class="step-card rounded-xl p-6 lg:p-7 reveal" style="transition-delay: 0.2s;">
+                            <div class="step-number mb-3">SCHRITT 03</div>
+                            <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-red-50 border border-red-100 mb-4">
+                                <i data-lucide="git-branch" class="w-6 h-6 text-brand-orange"></i>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Entscheidung</h3>
+                            <p class="text-gray-600 leading-relaxed text-sm">
+                                Am Ende weißt du, ob CEO Reality für dich passt — oder nicht. Beide Antworten sind gültig. Keine Druckverkäufe.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PREPARATION -->
+            <section class="py-20 lg:py-24">
+                <div class="container mx-auto px-4 lg:px-8 max-w-3xl">
+                    <div class="text-center mb-10 lg:mb-14 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>Deine Vorbereitung</span>
+                        <h2 class="font-oswald text-3xl md:text-4xl lg:text-5xl font-bold uppercase text-gray-900 leading-tight mb-4">
+                            So holst du das Maximum <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">aus dem Call.</span>
+                        </h2>
+                        <p class="text-base md:text-lg text-gray-600 font-light">
+                            Nimm dir 10 Minuten. Diese Vorbereitung entscheidet über die Qualität des Gesprächs.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3 reveal">
+                        <div class="prep-item">
+                            <div class="prep-check">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900 mb-1">Schau das Video oben bis zum Ende</div>
+                                <p class="text-sm text-gray-600 leading-relaxed">Wer das Video nicht gesehen hat, kommt unvorbereitet. Wir bitten dann, den Termin zu verschieben.</p>
+                            </div>
+                        </div>
+
+                        <div class="prep-item">
+                            <div class="prep-check">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900 mb-1">Halte deine aktuellen Kennzahlen bereit</div>
+                                <p class="text-sm text-gray-600 leading-relaxed">Monatsumsatz, Rohmarge, Fixkosten, Anzahl Mitarbeiter. Grobe Zahlen reichen — aber sie müssen da sein.</p>
+                            </div>
+                        </div>
+
+                        <div class="prep-item">
+                            <div class="prep-check">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900 mb-1">Ruhiger Raum, stabile Verbindung</div>
+                                <p class="text-sm text-gray-600 leading-relaxed">Kein Auto, kein Café, keine parallelen Meetings. 45 Minuten ungestört, mit Headset und guter Kamera.</p>
+                            </div>
+                        </div>
+
+                        <div class="prep-item">
+                            <div class="prep-check">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900 mb-1">Komm pünktlich — oder sag rechtzeitig ab</div>
+                                <p class="text-sm text-gray-600 leading-relaxed">Wir haben 10 Plätze pro Quartal. Kurzfristige Absagen oder No-Shows führen automatisch zum Ausschluss aus dem Bewerbungsprozess.</p>
+                            </div>
+                        </div>
+
+                        <div class="prep-item">
+                            <div class="prep-check">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-900 mb-1">Entscheide vorher: Bist du bereit für ehrliches Feedback?</div>
+                                <p class="text-sm text-gray-600 leading-relaxed">Wir werden dir Dinge sagen, die du nicht hören willst. Wenn du das nicht aushältst, spar uns beiden die Zeit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINAL NOTE -->
+            <section class="pb-8">
+                <div class="container mx-auto px-4 lg:px-8 max-w-3xl">
+                    <div class="warning-card rounded-2xl p-8 lg:p-12 text-center reveal">
+                        <div class="relative z-10">
+                            <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-orange/15 border border-brand-orange/30 mb-5">
+                                <i data-lucide="alert-triangle" class="w-7 h-7 text-brand-orange"></i>
+                            </div>
+                            <h3 class="font-oswald text-2xl md:text-3xl font-bold uppercase text-white leading-tight mb-4">
+                                Ein letzter Hinweis.
+                            </h3>
+                            <p class="text-gray-300 leading-relaxed text-base md:text-lg max-w-xl mx-auto">
+                                Dieser Call ist kein Verkaufsgespräch im klassischen Sinn. Wir prüfen, ob du für CEO Reality in Frage kommst — nicht umgekehrt.
+                                <span class="block mt-3 text-white font-semibold">
+                                    Wenn du unvorbereitet oder halbherzig erscheinst, wird der Call nach 10 Minuten beendet.
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="mt-10 text-center text-sm text-gray-500 flex items-center justify-center gap-2">
+                        <i data-lucide="mail" class="w-4 h-4 text-brand-orange"></i>
+                        Bei Rückfragen oder Terminänderungen antworte einfach auf die Bestätigungs-E-Mail.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="border-t border-gray-200 py-8 mt-12 text-center text-gray-500 text-sm bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
+                    <a href="#" class="hover:text-brand-orange transition-colors">Impressum</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">Datenschutz</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">AGB</a>
+                </div>
+                <p>&copy; 2026 CEO Reality. Alle Rechte vorbehalten.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Scroll Reveal
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
