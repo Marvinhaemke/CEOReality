@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allgemeine Geschäftsbedingungen | CEO Reality</title>
+    <meta name="description" content="Allgemeine Geschäftsbedingungen für das CEO Reality Mentoring-Programm.">
+    <meta name="robots" content="noindex,follow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'oswald': ['Oswald', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'brand-dark': '#0a0a0a',
+                        'brand-orange': '#e60000',
+                        'brand-red': '#990000',
+                        'brand-ink': '#111827'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #0a0a0a;
+        }
+
+        ::selection { background: #e60000; color: white; }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(230, 0, 0, 0.06);
+            border: 1px solid rgba(230, 0, 0, 0.25);
+            border-radius: 2rem;
+            color: #990000;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .dot-grid-bg {
+            background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .legal-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+        .legal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #e60000, #990000);
+        }
+        .legal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -15px rgba(230, 0, 0, 0.12);
+            border-color: rgba(230, 0, 0, 0.25);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-num {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e60000;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+
+        .data-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #e5e7eb;
+            align-items: baseline;
+        }
+        .data-row:last-child { border-bottom: none; }
+        .data-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #6b7280;
+            font-weight: 600;
+            min-width: 160px;
+        }
+        .data-value {
+            color: #111827;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .notice-box {
+            background: linear-gradient(180deg, #ffffff, #fff5f5);
+            border: 1px solid rgba(230, 0, 0, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+        .notice-box::after {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 120px; height: 120px;
+            background: radial-gradient(circle, rgba(230,0,0,0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s ease;
+        }
+        .back-link:hover { color: #e60000; }
+
+        .content-link {
+            color: #e60000;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(230,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+        .content-link:hover {
+            color: #990000;
+            border-bottom-color: #990000;
+        }
+
+        ul.legal-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        ul.legal-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: #4b5563;
+            line-height: 1.65;
+        }
+        ul.legal-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #e60000, #990000);
+            border-radius: 2px;
+            transform: rotate(45deg);
+        }
+
+        .toc-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            color: #4b5563;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
+        .toc-link:hover {
+            background: #fff5f5;
+            border-color: rgba(230, 0, 0, 0.2);
+            color: #990000;
+            transform: translateX(3px);
+        }
+        .toc-num {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e60000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            min-width: 2rem;
+        }
+
+        .subsection-heading {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 0.04em;
+            color: #111827;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .subsection-heading:first-child { margin-top: 0; }
+
+        .inline-tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            background: #f3f4f6;
+            color: #374151;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 0.25rem;
+            border: 1px solid #e5e7eb;
+        }
+        .inline-tag-red {
+            background: #fff5f5;
+            color: #990000;
+            border-color: rgba(230,0,0,0.2);
+        }
+
+        /* B2B Banner */
+        .b2b-banner {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border: 1px solid rgba(230,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .b2b-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(230,0,0,0.15), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(230,0,0,0.1), transparent 50%);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-inter antialiased relative min-h-screen bg-white">
+
+    <div class="relative z-10">
+        <!-- Header -->
+        <header class="py-3 flex justify-center">
+            <a href="/" class="inline-flex flex-col items-center justify-center relative mt-1">
+                <span class="font-oswald text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 uppercase leading-none z-10" style="transform: scaleY(1.4); transform-origin: bottom; margin-top: 30px !important; letter-spacing: -0.01em;">
+                    CEO REALITY<span class="text-[#e60000]">.</span>
+                </span>
+                <div class="relative w-[98%] mt-1.5 md:mt-3 flex items-center justify-center h-[2px]">
+                    <div class="absolute w-[96%] h-[10px] bg-[#cc0000] opacity-30 blur-[5px] rounded-full"></div>
+                    <div class="absolute w-[90%] h-[4px] bg-[#e60000] opacity-70 blur-[2px] rounded-full"></div>
+                    <div class="w-full h-[1.5px] md:h-[2px] relative z-10" style="
+                        background: linear-gradient(90deg, 
+                            transparent 0%, #880000 5%, #e60000 15%, 
+                            #ff1a1a 25%, #ff1a1a 75%, #e60000 85%, 
+                            #880000 95%, transparent 100%);
+                        clip-path: ellipse(50% 50% at 50% 50%);
+                    "></div>
+                </div>
+            </a>
+        </header>
+
+        <main class="pt-8 pb-24 lg:pb-32">
+
+            <!-- Hero -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                <div class="mb-8 reveal">
+                    <a href="/" class="back-link">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        Zurück zur Startseite
+                    </a>
+                </div>
+                <div class="text-center mb-12 lg:mb-16 reveal">
+                    <span class="section-tag mb-5"><i data-lucide="file-signature" class="w-3.5 h-3.5"></i>Vertragsgrundlage</span>
+                    <h1 class="font-oswald text-5xl md:text-6xl lg:text-7xl font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
+                        Allgemeine<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">Geschäftsbedingungen.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                        Verbindliche Bedingungen für die Teilnahme am CEO Reality Mentoring-Programm.
+                    </p>
+                </div>
+
+                <!-- B2B-Hinweis-Banner -->
+                <div class="b2b-banner rounded-xl p-6 lg:p-8 reveal max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row items-start md:items-center gap-5 relative z-10">
+                        <div class="flex-shrink-0 w-14 h-14 rounded-lg bg-red-900/30 border border-red-500/30 flex items-center justify-center">
+                            <i data-lucide="briefcase" class="w-7 h-7 text-brand-orange"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h2 class="font-oswald text-xl md:text-2xl font-bold uppercase text-white mb-2">
+                                Ausschließlich für Unternehmer
+                            </h2>
+                            <p class="text-gray-300 leading-relaxed text-sm md:text-base">
+                                Das CEO Reality Programm richtet sich ausschließlich an Unternehmer, Selbstständige, juristische Personen und sonstige Gewerbetreibende im Sinne von § 14 BGB. Verbraucher (§ 13 BGB) sind nicht Zielgruppe und werden nicht aufgenommen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Anbieter -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl mt-16 lg:mt-20">
+                <div class="legal-card rounded-xl p-6 lg:p-8 reveal">
+                    <div class="flex items-center justify-between mb-5">
+                        <div class="w-11 h-11 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                            <i data-lucide="building-2" class="w-5 h-5 text-brand-orange"></i>
+                        </div>
+                        <span class="section-num">// Anbieter</span>
+                    </div>
+                    <h2 class="font-oswald text-2xl font-bold uppercase text-gray-900 mb-4 leading-tight">Vertragspartner</h2>
+                    <div>
+                        <div class="data-row">
+                            <span class="data-label">Firma</span>
+                            <span class="data-value">Nuvetra Inc.</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Marke / Programm</span>
+                            <span class="data-value">CEO Reality</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Anschrift</span>
+                            <span class="data-value">8 The Green, Unit A<br>Dover, DE 19901<br>Vereinigte Staaten</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">E-Mail</span>
+                            <span class="data-value"><a href="mailto:support@nuvetra-inc.com" class="content-link">support@nuvetra-inc.com</a></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="data-label">Rechtsform</span>
+                            <span class="data-value">Incorporated Business (Inc.) &middot; Delaware, USA</span>
+                        </div>
+                    </div>
+                    <p class="mt-5 pt-4 border-t border-gray-200 text-sm text-gray-500">
+                        Im Folgenden bezeichnet als <span class="inline-tag">"Anbieter"</span> oder <span class="inline-tag">"wir"</span>.
+                    </p>
+                </div>
+            </section>
+
+            <!-- TOC -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl mt-16">
+                <div class="text-center mb-8 reveal">
+                    <span class="section-tag mb-5"><i data-lucide="list" class="w-3.5 h-3.5"></i>Übersicht</span>
+                    <h2 class="font-oswald text-2xl md:text-3xl font-bold uppercase text-gray-900 leading-tight">
+                        Inhaltsverzeichnis
+                    </h2>
+                </div>
+                <div class="legal-card rounded-xl p-5 lg:p-6 reveal">
+                    <div class="grid md:grid-cols-2 gap-1">
+                        <a href="#geltungsbereich" class="toc-link"><span class="toc-num">// 01</span><span>Geltungsbereich & Begriffe</span></a>
+                        <a href="#vertragsgegenstand" class="toc-link"><span class="toc-num">// 02</span><span>Vertragsgegenstand</span></a>
+                        <a href="#vertragsschluss" class="toc-link"><span class="toc-num">// 03</span><span>Bewerbung & Vertragsschluss</span></a>
+                        <a href="#leistungen" class="toc-link"><span class="toc-num">// 04</span><span>Umfang der Leistungen</span></a>
+                        <a href="#verguetung" class="toc-link"><span class="toc-num">// 05</span><span>Vergütung & Zahlung</span></a>
+                        <a href="#mitwirkung" class="toc-link"><span class="toc-num">// 06</span><span>Mitwirkung des Kunden</span></a>
+                        <a href="#termine" class="toc-link"><span class="toc-num">// 07</span><span>Termine & Verfügbarkeit</span></a>
+                        <a href="#widerruf" class="toc-link"><span class="toc-num">// 08</span><span>Widerrufsrecht</span></a>
+                        <a href="#haftung" class="toc-link"><span class="toc-num">// 09</span><span>Haftung & Garantien</span></a>
+                        <a href="#vertraulichkeit" class="toc-link"><span class="toc-num">// 10</span><span>Vertraulichkeit</span></a>
+                        <a href="#urheberrecht" class="toc-link"><span class="toc-num">// 11</span><span>Urheber- & Nutzungsrechte</span></a>
+                        <a href="#kuendigung" class="toc-link"><span class="toc-num">// 12</span><span>Laufzeit & Kündigung</span></a>
+                        <a href="#datenschutz" class="toc-link"><span class="toc-num">// 13</span><span>Datenschutz</span></a>
+                        <a href="#schlussbestimmungen" class="toc-link"><span class="toc-num">// 14</span><span>Schlussbestimmungen</span></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hauptinhalt -->
+            <section class="relative mt-20 lg:mt-28 py-16 lg:py-24 bg-gray-50 border-y border-gray-200 dot-grid-bg">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+
+                    <div class="text-center mb-14 lg:mb-16 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i>Vertragsbedingungen</span>
+                        <h2 class="font-oswald text-3xl md:text-4xl lg:text-5xl font-bold uppercase text-gray-900 leading-tight mb-4">
+                            Klare Regeln.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">Klare Verantwortung.</span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-6">
+
+                        <!-- 01 Geltungsbereich -->
+                        <div id="geltungsbereich" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 01</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Geltungsbereich & Begriffsbestimmungen</h3>
+                            </div>
+                            <h4 class="subsection-heading">1.1 Geltungsbereich</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Diese Allgemeinen Geschäftsbedingungen (nachfolgend "AGB") gelten für sämtliche Verträge zwischen Nuvetra Inc. und seinen Kunden über die Teilnahme am Mentoring-Programm CEO Reality sowie über alle damit verbundenen Zusatzleistungen.
+                            </p>
+                            <h4 class="subsection-heading">1.2 Vorrang dieser AGB</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Abweichende, entgegenstehende oder ergänzende Geschäftsbedingungen des Kunden werden – auch bei Kenntnis – nicht Vertragsbestandteil, es sei denn, ihrer Geltung wird ausdrücklich schriftlich zugestimmt.
+                            </p>
+                            <h4 class="subsection-heading">1.3 Begriffsbestimmungen</h4>
+                            <ul class="legal-list">
+                                <li><strong class="text-gray-900">"Programm":</strong> das CEO Reality Mentoring-Programm in seiner zum Zeitpunkt des Vertragsschlusses gültigen Fassung.</li>
+                                <li><strong class="text-gray-900">"Kunde":</strong> der Unternehmer, Selbstständige oder juristische Person, der mit dem Anbieter einen Vertrag über die Teilnahme am Programm abschließt.</li>
+                                <li><strong class="text-gray-900">"Mentor":</strong> ein vom Anbieter benannter Coach, der die Inhalte des Programms vermittelt.</li>
+                                <li><strong class="text-gray-900">"Sitzung":</strong> ein einzelner 1-auf-1-Termin im Rahmen des Programms.</li>
+                            </ul>
+                            <h4 class="subsection-heading">1.4 Adressatenkreis</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Sämtliche Leistungen werden ausschließlich gegenüber Unternehmern (§ 14 BGB), juristischen Personen des öffentlichen Rechts und öffentlich-rechtlichen Sondervermögen erbracht. Verbraucher (§ 13 BGB) sind ausgeschlossen.
+                            </p>
+                        </div>
+
+                        <!-- 02 Vertragsgegenstand -->
+                        <div id="vertragsgegenstand" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.05s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 02</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Vertragsgegenstand</h3>
+                            </div>
+                            <h4 class="subsection-heading">2.1 Beschreibung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Das CEO Reality Programm ist ein privates 1-auf-1 Mentoring-Programm für Unternehmer, in der Regel mit einer Laufzeit von 120 Tagen, gegliedert in vier aufeinander aufbauende Phasen. Inhaltlicher Schwerpunkt ist die Vermittlung von Methoden, Frameworks und unternehmerischer Klarheit zur Steuerung des eigenen Unternehmens.
+                            </p>
+                            <h4 class="subsection-heading">2.2 Dienstvertrag</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der Vertrag wird als Dienstvertrag im Sinne der §§ 611 ff. BGB geschlossen. Der Anbieter schuldet das fachgerechte Erbringen der vereinbarten Mentoring-Leistung, jedoch keinen bestimmten wirtschaftlichen Erfolg.
+                            </p>
+                            <div class="notice-box rounded-lg p-5">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="alert-triangle" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <h4 class="font-oswald text-base font-bold uppercase text-gray-900 mb-2 tracking-wide">Keine Erfolgsgarantie</h4>
+                                        <p class="text-sm text-gray-700 leading-relaxed">
+                                            Der Erfolg einer Teilnahme hängt maßgeblich von der Mitwirkung, Disziplin, Erfahrung und unternehmerischen Realität des Kunden ab. Der Anbieter sichert ausdrücklich keinen Umsatz-, Gewinn- oder Wachstumserfolg zu. Bezugnahmen auf Ergebnisse anderer Teilnehmer stellen keine zugesicherten Eigenschaften dar.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 03 Vertragsschluss -->
+                        <div id="vertragsschluss" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.1s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 03</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Bewerbung & Vertragsschluss</h3>
+                            </div>
+                            <h4 class="subsection-heading">3.1 Bewerbungsverfahren</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Die Teilnahme am Programm setzt eine erfolgreiche Bewerbung voraus. Der Interessent gibt im Rahmen des mehrstufigen Online-Formulars ("Realitätscheck") Angaben zu Person, Unternehmen und unternehmerischer Ausgangslage ab und vereinbart einen Termin für ein unverbindliches Erstgespräch.
+                            </p>
+                            <h4 class="subsection-heading">3.2 Angebot</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Sämtliche Darstellungen auf der Website, in Werbeanzeigen oder in Inhalten Dritter stellen keine bindenden Angebote dar, sondern eine Aufforderung zur Abgabe einer Bewerbung (<em>invitatio ad offerendum</em>). Ein verbindliches Angebot wird ausschließlich nach dem Erstgespräch in Textform durch den Anbieter unterbreitet.
+                            </p>
+                            <h4 class="subsection-heading">3.3 Annahme & Zustandekommen</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der Vertrag kommt zustande, sobald der Kunde das in Textform übermittelte Angebot des Anbieters in Textform (z. B. per E-Mail oder via Vertrags-Tool) annimmt. Maßgeblich ist der Zugang der Annahmeerklärung beim Anbieter.
+                            </p>
+                            <h4 class="subsection-heading">3.4 Auswahlrecht</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Der Anbieter behält sich vor, Bewerbungen ohne Angabe von Gründen abzulehnen. Es besteht kein Anspruch auf Aufnahme in das Programm.
+                            </p>
+                        </div>
+
+                        <!-- 04 Leistungen -->
+                        <div id="leistungen" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.15s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 04</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Umfang der Leistungen</h3>
+                            </div>
+                            <h4 class="subsection-heading">4.1 Leistungsumfang</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der konkrete Leistungsumfang ergibt sich aus dem individuellen Angebot bzw. der Vertragsbestätigung. Dazu können insbesondere zählen:
+                            </p>
+                            <ul class="legal-list">
+                                <li>1-auf-1 Sitzungen mit den jeweiligen Mentoren (per Videocall oder Telefon)</li>
+                                <li>Schriftliche Materialien, Frameworks, Checklisten, Templates</li>
+                                <li>Zugang zu einer Programm-Plattform bzw. einem geschlossenen Mitgliederbereich</li>
+                                <li>Reaktion auf Nachrichten in einem definierten Kommunikationskanal innerhalb angemessener Zeit</li>
+                                <li>Begleitende Aufgaben und Reflexionsanstöße zwischen den Sitzungen</li>
+                            </ul>
+                            <h4 class="subsection-heading">4.2 Form der Leistungserbringung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Die Leistungen werden grundsätzlich digital erbracht. Ein Anspruch auf Präsenztermine besteht nicht, sofern dies nicht ausdrücklich im Angebot vereinbart wurde.
+                            </p>
+                            <h4 class="subsection-heading">4.3 Einsatz von Subunternehmern</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der Anbieter ist berechtigt, sich zur Erfüllung der vertraglichen Leistungen qualifizierter Mitarbeiter, Mentoren oder Subunternehmer zu bedienen.
+                            </p>
+                            <h4 class="subsection-heading">4.4 Leistungsänderungen</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Der Anbieter behält sich vor, Inhalte, Module, Plattformen und Kommunikationskanäle des Programms anzupassen, soweit dies dem Kunden zumutbar ist und der wesentliche Charakter des Programms gewahrt bleibt.
+                            </p>
+                        </div>
+
+                        <!-- 05 Vergütung -->
+                        <div id="verguetung" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.2s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 05</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Vergütung & Zahlung</h3>
+                            </div>
+                            <h4 class="subsection-heading">5.1 Höhe der Vergütung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Die Höhe der Vergütung ergibt sich aus dem individuellen Angebot. Sämtliche Preise verstehen sich – sofern nicht anders ausgewiesen – als Nettopreise zuzüglich der gesetzlichen Umsatzsteuer, soweit anwendbar. Bei grenzüberschreitenden Leistungen kommen die jeweils einschlägigen umsatzsteuerlichen Regelungen zur Anwendung (insb. Reverse-Charge gemäß § 13b UStG).
+                            </p>
+                            <h4 class="subsection-heading">5.2 Fälligkeit</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Die Vergütung ist – sofern nicht ausdrücklich Ratenzahlung vereinbart wurde – mit Vertragsschluss in voller Höhe fällig. Bei vereinbarter Ratenzahlung bleiben alle weiteren Raten unabhängig von einer tatsächlichen Inanspruchnahme der Leistungen fällig.
+                            </p>
+                            <h4 class="subsection-heading">5.3 Zahlungsmethoden</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Zulässige Zahlungsmethoden werden im Angebot benannt. Die Zahlung erfolgt in der Regel per Banküberweisung oder über etablierte Zahlungsdienstleister.
+                            </p>
+                            <h4 class="subsection-heading">5.4 Verzug</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Gerät der Kunde mit der Zahlung in Verzug, ist der Anbieter berechtigt, Verzugszinsen in gesetzlicher Höhe (§ 288 BGB) sowie eine Pauschale gemäß § 288 Abs. 5 BGB zu verlangen. Weitergehende Ansprüche bleiben vorbehalten. Der Anbieter ist berechtigt, bei Zahlungsverzug die Leistungserbringung bis zum vollständigen Ausgleich auszusetzen.
+                            </p>
+                            <h4 class="subsection-heading">5.5 Aufrechnung & Zurückbehaltungsrecht</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Der Kunde kann nur mit unbestrittenen oder rechtskräftig festgestellten Forderungen aufrechnen. Ein Zurückbehaltungsrecht steht dem Kunden nur zu, soweit es auf demselben Vertragsverhältnis beruht.
+                            </p>
+                        </div>
+
+                        <!-- 06 Mitwirkung -->
+                        <div id="mitwirkung" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.25s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 06</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Mitwirkung des Kunden</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der Erfolg des Programms hängt maßgeblich von der aktiven Mitwirkung des Kunden ab. Der Kunde verpflichtet sich insbesondere zu:
+                            </p>
+                            <ul class="legal-list">
+                                <li>Pünktlicher und vorbereiteter Teilnahme an vereinbarten Sitzungen.</li>
+                                <li>Wahrheitsgemäßen, vollständigen und aktuellen Angaben zu seinem Unternehmen.</li>
+                                <li>Bereitstellung der für die Beratung erforderlichen Informationen, Daten und Unterlagen in angemessener Zeit.</li>
+                                <li>Bearbeitung der zwischen den Sitzungen vereinbarten Aufgaben.</li>
+                                <li>Sicherstellung einer geeigneten technischen Ausstattung für Videocalls (stabile Internetverbindung, Mikrofon, Kamera).</li>
+                            </ul>
+                            <p class="text-gray-600 leading-relaxed mt-4">
+                                Verzögerungen, die auf einer fehlenden, verspäteten oder unzureichenden Mitwirkung des Kunden beruhen, gehen nicht zu Lasten des Anbieters und führen nicht zu einer Verlängerung der Programmlaufzeit oder zu einer Minderung der Vergütung.
+                            </p>
+                        </div>
+
+                        <!-- 07 Termine -->
+                        <div id="termine" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.3s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 07</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Termine, Verschiebungen & Verfügbarkeit</h3>
+                            </div>
+                            <h4 class="subsection-heading">7.1 Terminvereinbarung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Sitzungstermine werden im gegenseitigen Einvernehmen, in der Regel über das vom Anbieter bereitgestellte Buchungstool, vereinbart.
+                            </p>
+                            <h4 class="subsection-heading">7.2 Absage durch den Kunden</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Eine Absage oder Verschiebung von Sitzungen durch den Kunden ist bis spätestens 24 Stunden vor dem vereinbarten Termin in Textform mitzuteilen. Bei kurzfristiger Absage oder Nichterscheinen ("No-Show") gilt der Termin als wahrgenommen und kann nicht nachgeholt werden, sofern der Anbieter nicht aus Kulanz eine Nachholung anbietet.
+                            </p>
+                            <h4 class="subsection-heading">7.3 Absage durch den Anbieter</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der Anbieter ist berechtigt, Termine bei Krankheit, höherer Gewalt oder sonstigen wichtigen Gründen zu verschieben. Der Kunde wird unverzüglich informiert; ein Ersatztermin wird zeitnah angeboten.
+                            </p>
+                            <h4 class="subsection-heading">7.4 Verfall</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Nicht in Anspruch genommene Sitzungen verfallen mit Ablauf der vereinbarten Programmlaufzeit ohne Anspruch auf Erstattung.
+                            </p>
+                        </div>
+
+                        <!-- 08 Widerruf -->
+                        <div id="widerruf" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.35s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 08</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Widerrufsrecht</h3>
+                            </div>
+                            <div class="notice-box rounded-lg p-5 mb-4">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="info" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <h4 class="font-oswald text-base font-bold uppercase text-gray-900 mb-2 tracking-wide">Hinweis</h4>
+                                        <p class="text-sm text-gray-700 leading-relaxed">
+                                            Da das Programm ausschließlich an Unternehmer im Sinne des § 14 BGB gerichtet ist, besteht <strong>kein gesetzliches Widerrufsrecht</strong>. Die §§ 312 ff. BGB (Verbraucherschutz bei außerhalb von Geschäftsräumen geschlossenen Verträgen und Fernabsatzverträgen) finden keine Anwendung.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed">
+                                Sollte ein Kunde wider Erwarten Verbrauchereigenschaft besitzen, weist der Anbieter darauf hin, dass das Widerrufsrecht für Dienstleistungen gemäß § 356 Abs. 4 BGB vorzeitig erlischt, sobald der Anbieter die Dienstleistung vollständig erbracht hat und mit der Ausführung der Dienstleistung erst begonnen wurde, nachdem der Verbraucher dazu seine ausdrückliche Zustimmung gegeben und gleichzeitig seine Kenntnis davon bestätigt hat, dass er sein Widerrufsrecht bei vollständiger Vertragserfüllung verliert.
+                            </p>
+                        </div>
+
+                        <!-- 09 Haftung -->
+                        <div id="haftung" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.4s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 09</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Haftung & Garantien</h3>
+                            </div>
+                            <h4 class="subsection-heading">9.1 Unbeschränkte Haftung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der Anbieter haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit, die auf einer vorsätzlichen oder fahrlässigen Pflichtverletzung beruhen, sowie für sonstige Schäden, die auf Vorsatz oder grober Fahrlässigkeit beruhen, sowie nach dem Produkthaftungsgesetz.
+                            </p>
+                            <h4 class="subsection-heading">9.2 Beschränkte Haftung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Bei einer leicht fahrlässigen Verletzung wesentlicher Vertragspflichten (Kardinalpflichten) ist die Haftung des Anbieters auf den vertragstypischen, vorhersehbaren Schaden begrenzt. Wesentliche Vertragspflichten sind solche, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung der Kunde regelmäßig vertrauen darf.
+                            </p>
+                            <h4 class="subsection-heading">9.3 Haftungsausschluss</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Eine darüber hinausgehende Haftung – insbesondere für entgangene Gewinne, mittelbare Schäden, Folgeschäden, Schäden aus Geschäftsunterbrechung oder den Verlust unternehmerischer Chancen – ist ausgeschlossen.
+                            </p>
+                            <h4 class="subsection-heading">9.4 Keine Steuer- oder Rechtsberatung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Die Inhalte des Programms ersetzen keine individuelle Steuer-, Rechts-, Finanz- oder Anlageberatung. Der Anbieter erbringt ausschließlich Mentoring- und Beratungsleistungen unternehmerischer Natur. Für die Umsetzung sowie für rechtliche, steuerliche und wirtschaftliche Konsequenzen ist der Kunde allein verantwortlich.
+                            </p>
+                            <h4 class="subsection-heading">9.5 Keine Erfolgsgarantie</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Der Anbieter übernimmt keine Garantie für einen bestimmten Umsatz, Gewinn oder sonstigen wirtschaftlichen Erfolg. Aussagen zu Ergebnissen früherer Teilnehmer stellen keine Zusicherung dar.
+                            </p>
+                        </div>
+
+                        <!-- 10 Vertraulichkeit -->
+                        <div id="vertraulichkeit" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.45s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 10</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Vertraulichkeit</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Die Parteien verpflichten sich, sämtliche im Rahmen der Zusammenarbeit ausgetauschten vertraulichen Informationen – insbesondere Geschäftsdaten, Strategien, Zahlen, Personalia und persönliche Themen – streng vertraulich zu behandeln und Dritten gegenüber nicht zu offenbaren.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Diese Verpflichtung gilt auch über das Vertragsende hinaus. Ausgenommen sind Informationen, die nachweislich allgemein bekannt sind, von dritter Seite rechtmäßig bekannt werden oder aufgrund gesetzlicher Pflichten offenzulegen sind.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                Der Anbieter ist berechtigt, anonymisierte Erfahrungswerte und nicht identifizierende Fallbeispiele für eigene Marketing- und Schulungszwecke zu verwenden, sofern keine Rückschlüsse auf den Kunden möglich sind.
+                            </p>
+                        </div>
+
+                        <!-- 11 Urheberrecht -->
+                        <div id="urheberrecht" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.5s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 11</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Urheber- & Nutzungsrechte</h3>
+                            </div>
+                            <h4 class="subsection-heading">11.1 Eigentum</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Sämtliche im Rahmen des Programms überlassenen Inhalte – insbesondere Texte, Frameworks, Templates, Aufzeichnungen, Grafiken, Software und Marken – sind urheberrechtlich geschützt und Eigentum des Anbieters bzw. seiner Lizenzgeber.
+                            </p>
+                            <h4 class="subsection-heading">11.2 Nutzungsrecht</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der Kunde erhält ein einfaches, nicht übertragbares, nicht unterlizenzierbares Nutzungsrecht zur ausschließlich persönlichen bzw. internen unternehmerischen Verwendung der überlassenen Inhalte für die Dauer der Programmteilnahme und – soweit ausdrücklich freigegeben – darüber hinaus.
+                            </p>
+                            <h4 class="subsection-heading">11.3 Verbote</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Insbesondere untersagt sind:
+                            </p>
+                            <ul class="legal-list">
+                                <li>Das Vervielfältigen, Verbreiten, öffentliche Zugänglichmachen oder die Bearbeitung der Inhalte ohne ausdrückliche schriftliche Zustimmung des Anbieters.</li>
+                                <li>Die Aufzeichnung von Sitzungen ohne ausdrückliche Zustimmung.</li>
+                                <li>Die Weitergabe von Zugangsdaten an Dritte.</li>
+                                <li>Die kommerzielle Verwertung der Inhalte (z. B. eigene Schulungen, Reseller, "White-Label").</li>
+                            </ul>
+                            <h4 class="subsection-heading">11.4 Vertragsstrafe</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Bei schuldhafter Verletzung der vorgenannten Pflichten verpflichtet sich der Kunde zur Zahlung einer angemessenen Vertragsstrafe, deren Höhe der Anbieter nach billigem Ermessen festsetzt und die im Streitfall vom zuständigen Gericht überprüft werden kann. Die Geltendmachung weiterer Schäden bleibt vorbehalten.
+                            </p>
+                        </div>
+
+                        <!-- 12 Kündigung -->
+                        <div id="kuendigung" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.55s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 12</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Laufzeit & Kündigung</h3>
+                            </div>
+                            <h4 class="subsection-heading">12.1 Laufzeit</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Die Vertragslaufzeit ergibt sich aus dem individuellen Angebot, in der Regel 120 Tage. Eine ordentliche Kündigung während der vereinbarten Laufzeit ist beidseits ausgeschlossen.
+                            </p>
+                            <h4 class="subsection-heading">12.2 Außerordentliche Kündigung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt (§ 626 BGB). Ein wichtiger Grund liegt für den Anbieter insbesondere vor bei:
+                            </p>
+                            <ul class="legal-list">
+                                <li>Erheblichem Zahlungsverzug des Kunden trotz angemessener Mahnung mit Fristsetzung.</li>
+                                <li>Schwerwiegender Verletzung der Vertraulichkeits- oder Urheberrechtspflichten.</li>
+                                <li>Verhalten des Kunden, das die vertrauensvolle Zusammenarbeit unzumutbar macht (z. B. Beleidigungen, diskriminierendes oder bedrohendes Verhalten).</li>
+                                <li>Falschangaben im Rahmen der Bewerbung, die für den Vertragsschluss wesentlich waren.</li>
+                            </ul>
+                            <h4 class="subsection-heading">12.3 Form</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Kündigungen bedürfen mindestens der Textform (§ 126b BGB).
+                            </p>
+                            <h4 class="subsection-heading">12.4 Folgen einer berechtigten außerordentlichen Kündigung</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Bei einer vom Kunden zu vertretenden außerordentlichen Kündigung durch den Anbieter bleibt der Anspruch auf die volle vereinbarte Vergütung bestehen, abzüglich ersparter Aufwendungen.
+                            </p>
+                        </div>
+
+                        <!-- 13 Datenschutz -->
+                        <div id="datenschutz" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.6s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 13</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Datenschutz</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed">
+                                Der Anbieter verarbeitet personenbezogene Daten ausschließlich im Rahmen der gesetzlichen Bestimmungen, insbesondere der DSGVO und des BDSG. Einzelheiten ergeben sich aus der <a href="/datenschutz" class="content-link">Datenschutzerklärung</a>.
+                            </p>
+                        </div>
+
+                        <!-- 14 Schlussbestimmungen -->
+                        <div id="schlussbestimmungen" class="legal-card rounded-xl p-6 lg:p-8 reveal scroll-mt-24" style="transition-delay: 0.65s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 14</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Schlussbestimmungen</h3>
+                            </div>
+                            <h4 class="subsection-heading">14.1 Anwendbares Recht</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Es gilt das jeweils anwendbare Recht. Soweit der Kunde seinen Sitz in der Bundesrepublik Deutschland hat, gilt deutsches Recht unter Ausschluss des UN-Kaufrechts (CISG).
+                            </p>
+                            <h4 class="subsection-heading">14.2 Gerichtsstand</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Soweit zulässig, ist als ausschließlicher Gerichtsstand der Sitz des Anbieters bzw. – bei Wahlrecht – der Sitz des Kunden vereinbart. Zwingende gesetzliche Gerichtsstände bleiben unberührt.
+                            </p>
+                            <h4 class="subsection-heading">14.3 Textform</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Änderungen und Ergänzungen dieses Vertrags bedürfen der Textform. Dies gilt auch für die Aufhebung dieses Textformerfordernisses.
+                            </p>
+                            <h4 class="subsection-heading">14.4 Salvatorische Klausel</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Sollten einzelne Bestimmungen dieser AGB ganz oder teilweise unwirksam sein oder werden, wird die Wirksamkeit der übrigen Bestimmungen nicht berührt. Anstelle der unwirksamen Bestimmung gilt diejenige wirksame Regelung als vereinbart, die dem wirtschaftlichen Zweck der unwirksamen Bestimmung am nächsten kommt. Gleiches gilt für Regelungslücken.
+                            </p>
+                            <h4 class="subsection-heading">14.5 Streitbeilegung</h4>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Der Anbieter ist nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+                            </p>
+                            <div class="mt-5 pt-4 border-t border-gray-200 flex items-center gap-3">
+                                <i data-lucide="calendar-clock" class="w-4 h-4 text-brand-orange"></i>
+                                <span class="font-mono text-xs uppercase tracking-widest text-gray-500 font-semibold">
+                                    Stand: 25. April 2026
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kontakt -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl mt-20 lg:mt-28">
+                <div class="text-center mb-10 lg:mb-12 reveal">
+                    <span class="section-tag mb-5"><i data-lucide="message-square" class="w-3.5 h-3.5"></i>Kontakt</span>
+                    <h2 class="font-oswald text-3xl md:text-4xl lg:text-5xl font-bold uppercase text-gray-900 leading-tight mb-4">
+                        Fragen zu diesen<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">Bedingungen?</span>
+                    </h2>
+                </div>
+
+                <div class="legal-card rounded-xl p-8 lg:p-10 reveal max-w-3xl mx-auto text-center">
+                    <div class="w-14 h-14 mx-auto mb-5 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                        <i data-lucide="send" class="w-6 h-6 text-brand-orange"></i>
+                    </div>
+                    <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900 mb-2">Nuvetra Inc.</h3>
+                    <p class="text-gray-600 leading-relaxed mb-1">8 The Green, Unit A</p>
+                    <p class="text-gray-600 leading-relaxed mb-1">Dover, DE 19901</p>
+                    <p class="text-gray-600 leading-relaxed mb-6">Vereinigte Staaten</p>
+
+                    <a href="mailto:support@nuvetra-inc.com" class="content-link text-lg font-mono">
+                        support@nuvetra-inc.com
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 py-8 mt-12 text-center text-gray-500 text-sm bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
+                    <a href="/impressum" class="hover:text-brand-orange transition-colors">Impressum</a>
+                    <a href="/datenschutz" class="hover:text-brand-orange transition-colors">Datenschutz</a>
+                    <a href="/agb" class="text-brand-orange font-semibold">AGB</a>
+                </div>
+                <p>&copy; 2026 CEO Reality. Alle Rechte vorbehalten.</p>
+                <p class="mt-2 text-xs max-w-xl mx-auto opacity-70">CEO Reality ist eine Marke von Nuvetra Inc. Die geteilten Ergebnisse sind nicht typisch. Deine Ergebnisse hängen von deiner Arbeitsmoral, Erfahrung und deinem Fokus ab. Jegliches Geschäft birgt Risiken.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
