@@ -6,24 +6,6 @@
     <title>CEO Reality | Die meisten CEOs führen blind.</title>
     <meta name="description" content="CEO Reality ist ein privates 1-auf-1 Mentoring-Programm für Unternehmer. 4 Phasen. 120 Tage. Vollständige Steuerung über dein Unternehmen.">
 
-    <!-- Meta Pixel Code -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '26542472978694567');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-        src="https://www.facebook.com/tr?id=26542472978694567&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -370,6 +352,15 @@
                 radial-gradient(circle at 20% 30%, rgba(230,0,0,0.15), transparent 50%),
                 radial-gradient(circle at 80% 70%, rgba(230,0,0,0.1), transparent 50%);
             pointer-events: none;
+        }
+
+        /* Cookie Consent Banner */
+        #cookie-banner {
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #cookie-banner.cookie-banner-visible {
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -1173,9 +1164,10 @@
         <footer class="border-t border-gray-200 py-8 mt-12 text-center text-gray-500 text-sm bg-gray-50">
             <div class="container mx-auto px-4">
                 <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
-                    <a href="/impressum.html" class="hover:text-brand-orange transition-colors">Impressum</a>
-                    <a href="/datenschutz.html" class="hover:text-brand-orange transition-colors">Datenschutz</a>
-                    <a href="/agb.html" class="hover:text-brand-orange transition-colors">AGB</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">Impressum</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">Datenschutz</a>
+                    <a href="#" class="hover:text-brand-orange transition-colors">AGB</a>
+                    <button type="button" onclick="openCookieSettings()" class="hover:text-brand-orange transition-colors bg-transparent border-0 p-0 cursor-pointer text-sm text-gray-500 font-inherit">Cookie-Einstellungen</button>
                 </div>
                 <p>&copy; 2026 CEO Reality. Alle Rechte vorbehalten.</p>
                 <p class="mt-2 text-xs max-w-xl mx-auto opacity-70">Die geteilten Ergebnisse sind nicht typisch. Deine Ergebnisse hängen von deiner Arbeitsmoral, Erfahrung und deinem Fokus ab. Jegliches Geschäft birgt Risiken.</p>
@@ -1301,18 +1293,20 @@
             }
             step1Submitted = true;
 
-            // Tracking variables for CAPI / attribution
+            // Marketing tracking only with consent (Art. 6(1)(a) GDPR + § 25 TDDDG).
+            // The webhook itself still fires with contact data — that's pre-contractual (Art. 6(1)(b)).
+            const consent = window.marketingConsent === true;
             const urlParams = getUrlParams();
-            const fbc = getCookie('_fbc') || urlParams['fbc'] || '';
-            const fbp = getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '';
-            const fbclid = urlParams['fbclid'] || '';
+            const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
+            const fbp = consent ? (getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
 
             // Shared event ID for browser-pixel <-> server-CAPI deduplication
             const eventId = generateEventId();
             const eventTime = Math.floor(Date.now() / 1000);
 
-            // Fire Meta Pixel Lead event (browser side)
-            if (typeof fbq === 'function') {
+            // Fire Meta Pixel Lead event only with consent
+            if (consent && typeof fbq === 'function') {
                 fbq('track', 'Lead', {
                     content_name: 'CEO Reality Application - Step 1'
                 }, { eventID: eventId });
@@ -1330,6 +1324,7 @@
                 event_time: eventTime,
                 event_source_url: window.location.href,
                 user_agent: navigator.userAgent,
+                marketing_consent: consent ? 'granted' : 'denied',
                 utm_source: urlParams['utm_source'] || '',
                 utm_medium: urlParams['utm_medium'] || '',
                 utm_campaign: urlParams['utm_campaign'] || '',
@@ -1370,11 +1365,12 @@
                 }
             }
 
-            // Get tracking variables
+            // Get tracking variables — only with marketing consent
+            const consent = window.marketingConsent === true;
             const urlParams = getUrlParams();
-            const fbc = getCookie('_fbc') || urlParams['fbc'] || '';
-            const fbp = getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || ''; 
-            const fbclid = urlParams['fbclid'] || '';
+            const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
+            const fbp = consent ? (getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
 
             // Construct payload
             const payload = {
@@ -1386,6 +1382,7 @@
                 revenue: revenue,
                 challenge: challenge,
                 commitment: commitment,
+                marketing_consent: consent ? 'granted' : 'denied',
                 utm_source: urlParams['utm_source'] || '',
                 utm_medium: urlParams['utm_medium'] || '',
                 utm_campaign: urlParams['utm_campaign'] || '',
@@ -1456,6 +1453,126 @@
                 preferredCountries: ["de", "at", "ch"], // Prioritize DACH region
                 utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js",
             });
+        });
+    </script>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung" class="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-4 pointer-events-none">
+        <div class="max-w-3xl mx-auto bg-brand-dark text-white rounded-xl shadow-2xl border border-gray-800 p-5 md:p-6 pointer-events-auto">
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+                <div class="flex-1">
+                    <p class="font-oswald font-bold text-base uppercase tracking-wide mb-1 text-white">Wir nutzen Cookies</p>
+                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                        Wir verwenden Cookies und ähnliche Technologien (z.&nbsp;B. Meta&nbsp;Pixel) für Marketing und Reichweitenmessung. Daten können dabei in die USA übertragen werden. Du kannst frei entscheiden &mdash; deine Wahl lässt sich jederzeit über &bdquo;Cookie-Einstellungen&ldquo; im Footer ändern. Mehr in der <a href="#" class="underline hover:text-brand-orange">Datenschutzerklärung</a>.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 md:flex-shrink-0 md:min-w-[260px]">
+                    <button type="button" onclick="rejectCookies()" class="flex-1 px-5 py-2.5 rounded-lg border border-gray-600 text-gray-200 hover:bg-gray-800 hover:border-gray-500 transition-colors text-sm font-oswald font-bold uppercase tracking-wide">
+                        Ablehnen
+                    </button>
+                    <button type="button" onclick="acceptCookies()" class="flex-1 px-5 py-2.5 rounded-lg bg-brand-orange hover:bg-brand-red text-white transition-colors text-sm font-oswald font-bold uppercase tracking-wide">
+                        Akzeptieren
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Cookie Consent Management =====
+        const CONSENT_STORAGE_KEY = 'ceo_reality_consent';
+        const CONSENT_EXPIRY_DAYS = 365;
+
+        window.marketingConsent = false;
+        let pixelLoaded = false;
+
+        function getStoredConsent() {
+            try {
+                const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (parsed.expires && Date.now() > parsed.expires) {
+                    localStorage.removeItem(CONSENT_STORAGE_KEY);
+                    return null;
+                }
+                return parsed.value; // 'accepted' | 'rejected'
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function storeConsent(value) {
+            try {
+                localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({
+                    value: value,
+                    timestamp: Date.now(),
+                    expires: Date.now() + CONSENT_EXPIRY_DAYS * 24 * 60 * 60 * 1000
+                }));
+            } catch (e) {
+                console.warn('Could not store consent:', e);
+            }
+        }
+
+        // Load Meta Pixel only after consent
+        function loadMetaPixel() {
+            if (pixelLoaded) return;
+            pixelLoaded = true;
+
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '26542472978694567');
+            fbq('track', 'PageView');
+        }
+
+        function showCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (!banner) return;
+            requestAnimationFrame(() => {
+                banner.classList.add('cookie-banner-visible');
+            });
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (!banner) return;
+            banner.classList.remove('cookie-banner-visible');
+        }
+
+        function acceptCookies() {
+            storeConsent('accepted');
+            window.marketingConsent = true;
+            loadMetaPixel();
+            hideCookieBanner();
+        }
+
+        function rejectCookies() {
+            storeConsent('rejected');
+            window.marketingConsent = false;
+            hideCookieBanner();
+        }
+
+        function openCookieSettings() {
+            showCookieBanner();
+        }
+
+        // Initialize consent state on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const stored = getStoredConsent();
+            if (stored === 'accepted') {
+                window.marketingConsent = true;
+                loadMetaPixel();
+            } else if (stored === 'rejected') {
+                window.marketingConsent = false;
+            } else {
+                // No decision yet → show banner shortly after load
+                setTimeout(showCookieBanner, 400);
+            }
         });
     </script>
 </body>
