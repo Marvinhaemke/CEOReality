@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CEO Reality | Die meisten CEOs führen blind.</title>
     <meta name="description" content="CEO Reality ist ein privates 1-auf-1 Mentoring-Programm für Unternehmer. 4 Phasen. 120 Tage. Vollständige Steuerung über dein Unternehmen.">
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '26542472978694567');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=26542472978694567&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -1050,8 +1069,10 @@
                                             </div>
                                         </div>
 
+                                        <div id="step-1-error" class="hidden mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm"></div>
+
                                         <div class="mt-8 flex justify-end">
-                                            <button type="button" onclick="goToStep(2)" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                            <button type="button" onclick="validateAndAdvanceStep1()" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
                                                 Weiter zu Schritt 2
                                             </button>
                                         </div>
@@ -1218,6 +1239,114 @@
                 result[key] = value;
             }
             return result;
+        }
+
+        // Generate a UUID for event deduplication (Pixel browser event <-> CAPI server event)
+        function generateEventId() {
+            if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+                return window.crypto.randomUUID();
+            }
+            return 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
+        }
+
+        // Anti-double-fire flag for the Step 1 Lead event
+        let step1Submitted = false;
+
+        // Validate Step 1, fire Pixel Lead event + send contact data to Zapier, then advance.
+        function validateAndAdvanceStep1() {
+            const errorBox = document.getElementById('step-1-error');
+            errorBox.classList.add('hidden');
+            errorBox.textContent = '';
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phoneRaw = document.getElementById('phone').value.trim();
+
+            const errors = [];
+            if (!firstName) errors.push('Bitte gib deinen Vornamen ein.');
+            if (!lastName) errors.push('Bitte gib deinen Nachnamen ein.');
+
+            // Native email validation via type=email + a simple regex backup
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                errors.push('Bitte gib eine gültige E-Mail-Adresse ein.');
+            }
+
+            // Phone validation via intl-tel-input (utils script is loaded)
+            let phoneValid = false;
+            let phoneFormatted = phoneRaw;
+            if (phoneInputInstance && typeof phoneInputInstance.isValidNumber === 'function') {
+                phoneValid = phoneInputInstance.isValidNumber();
+                if (phoneValid) {
+                    phoneFormatted = phoneInputInstance.getNumber() || phoneRaw;
+                }
+            } else {
+                // Fallback if utils didn't load: just require non-empty
+                phoneValid = phoneRaw.length > 0;
+            }
+            if (!phoneValid) errors.push('Bitte gib eine gültige Handynummer ein.');
+
+            if (errors.length > 0) {
+                errorBox.innerHTML = errors.map(e => '&bull; ' + e).join('<br>');
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            // Anti-double-fire: if user goes back to Step 1 and clicks "Weiter" again,
+            // don't re-fire the Lead event or re-send the webhook.
+            if (step1Submitted) {
+                goToStep(2);
+                return;
+            }
+            step1Submitted = true;
+
+            // Tracking variables for CAPI / attribution
+            const urlParams = getUrlParams();
+            const fbc = getCookie('_fbc') || urlParams['fbc'] || '';
+            const fbp = getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '';
+            const fbclid = urlParams['fbclid'] || '';
+
+            // Shared event ID for browser-pixel <-> server-CAPI deduplication
+            const eventId = generateEventId();
+            const eventTime = Math.floor(Date.now() / 1000);
+
+            // Fire Meta Pixel Lead event (browser side)
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead', {
+                    content_name: 'CEO Reality Application - Step 1'
+                }, { eventID: eventId });
+            }
+
+            // Send contact data to Zapier (for CRM + optional server-side CAPI)
+            const payload = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                phone: phoneFormatted,
+                step: 1,
+                event_name: 'Lead',
+                event_id: eventId,
+                event_time: eventTime,
+                event_source_url: window.location.href,
+                user_agent: navigator.userAgent,
+                utm_source: urlParams['utm_source'] || '',
+                utm_medium: urlParams['utm_medium'] || '',
+                utm_campaign: urlParams['utm_campaign'] || '',
+                utm_term: urlParams['utm_term'] || '',
+                utm_content: urlParams['utm_content'] || '',
+                fbclid: fbclid,
+                fbc: fbc,
+                fbp: fbp
+            };
+
+            fetch('https://hooks.zapier.com/hooks/catch/24204039/uv3ic6d/', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            }).catch(error => console.error('Step 1 Webhook Error:', error));
+
+            // Advance UI to Step 2
+            goToStep(2);
         }
 
         // Submit to Webhook and transition to Step 4
