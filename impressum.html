@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressum | CEO Reality</title>
+    <meta name="description" content="Impressum & rechtliche Hinweise zu CEO Reality. Angaben gemäß § 5 DDG.">
+    <meta name="robots" content="noindex,follow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'oswald': ['Oswald', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'brand-dark': '#0a0a0a',
+                        'brand-orange': '#e60000',
+                        'brand-red': '#990000',
+                        'brand-ink': '#111827'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #0a0a0a;
+        }
+
+        ::selection { background: #e60000; color: white; }
+
+        /* Section tag */
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(230, 0, 0, 0.06);
+            border: 1px solid rgba(230, 0, 0, 0.25);
+            border-radius: 2rem;
+            color: #990000;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Dot grid background */
+        .dot-grid-bg {
+            background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Interactive card */
+        .interactive-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .interactive-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -10px rgba(230, 0, 0, 0.1);
+            border-color: rgba(230, 0, 0, 0.3);
+        }
+
+        /* Legal section card with left border */
+        .legal-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+        .legal-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #e60000, #990000);
+        }
+        .legal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -15px rgba(230, 0, 0, 0.12);
+            border-color: rgba(230, 0, 0, 0.25);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section number */
+        .section-num {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e60000;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Data row */
+        .data-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #e5e7eb;
+            align-items: baseline;
+        }
+        .data-row:last-child { border-bottom: none; }
+        .data-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #6b7280;
+            font-weight: 600;
+            min-width: 160px;
+        }
+        .data-value {
+            color: #111827;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        /* Notice box */
+        .notice-box {
+            background: linear-gradient(180deg, #ffffff, #fff5f5);
+            border: 1px solid rgba(230, 0, 0, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+        .notice-box::after {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 120px; height: 120px;
+            background: radial-gradient(circle, rgba(230,0,0,0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s ease;
+        }
+        .back-link:hover { color: #e60000; }
+
+        /* Link styling within content */
+        .content-link {
+            color: #e60000;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(230,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+        .content-link:hover {
+            color: #990000;
+            border-bottom-color: #990000;
+        }
+
+        /* Numbered list */
+        ul.legal-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        ul.legal-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: #4b5563;
+            line-height: 1.65;
+        }
+        ul.legal-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #e60000, #990000);
+            border-radius: 2px;
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="font-inter antialiased relative min-h-screen bg-white">
+
+    <div class="relative z-10">
+        <!-- Header -->
+        <header class="py-3 flex justify-center">
+            <a href="/" class="inline-flex flex-col items-center justify-center relative mt-1">
+                <span class="font-oswald text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 uppercase leading-none z-10" style="transform: scaleY(1.4); transform-origin: bottom; margin-top: 30px !important; letter-spacing: -0.01em;">
+                    CEO REALITY<span class="text-[#e60000]">.</span>
+                </span>
+                <div class="relative w-[98%] mt-1.5 md:mt-3 flex items-center justify-center h-[2px]">
+                    <div class="absolute w-[96%] h-[10px] bg-[#cc0000] opacity-30 blur-[5px] rounded-full"></div>
+                    <div class="absolute w-[90%] h-[4px] bg-[#e60000] opacity-70 blur-[2px] rounded-full"></div>
+                    <div class="w-full h-[1.5px] md:h-[2px] relative z-10" style="
+                        background: linear-gradient(90deg, 
+                            transparent 0%, #880000 5%, #e60000 15%, 
+                            #ff1a1a 25%, #ff1a1a 75%, #e60000 85%, 
+                            #880000 95%, transparent 100%);
+                        clip-path: ellipse(50% 50% at 50% 50%);
+                    "></div>
+                </div>
+            </a>
+        </header>
+
+        <main class="pt-8 pb-24 lg:pb-32">
+
+            <!-- Hero -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                <div class="mb-8 reveal">
+                    <a href="/" class="back-link">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        Zurück zur Startseite
+                    </a>
+                </div>
+                <div class="text-center mb-12 lg:mb-16 reveal">
+                    <span class="section-tag mb-5"><i data-lucide="scale" class="w-3.5 h-3.5"></i>Rechtliche Hinweise</span>
+                    <h1 class="font-oswald text-5xl md:text-6xl lg:text-7xl font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
+                        Impressum
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                        Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG) und § 18 Medienstaatsvertrag (MStV).
+                    </p>
+                </div>
+            </section>
+
+            <!-- Anbieter & Kontakt -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl mt-12 lg:mt-16">
+                <div class="grid md:grid-cols-2 gap-5 lg:gap-6">
+
+                    <div class="legal-card rounded-xl p-6 lg:p-8 reveal">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-11 h-11 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                <i data-lucide="building-2" class="w-5 h-5 text-brand-orange"></i>
+                            </div>
+                            <span class="section-num">// Anbieter</span>
+                        </div>
+                        <h2 class="font-oswald text-2xl font-bold uppercase text-gray-900 mb-4 leading-tight">Diensteanbieter</h2>
+                        <div>
+                            <div class="data-row">
+                                <span class="data-label">Firma</span>
+                                <span class="data-value">Nuvetra Inc.</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Geschäftsfeld</span>
+                                <span class="data-value">Business Services & Financial Consulting</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Marke / Produkt</span>
+                                <span class="data-value">CEO Reality</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Anschrift</span>
+                                <span class="data-value">8 The Green, Unit A<br>Dover, DE 19901<br>Vereinigte Staaten</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Rechtsform</span>
+                                <span class="data-value">Incorporated Business (Inc.)</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Sitz</span>
+                                <span class="data-value">Delaware, USA</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Gegründet</span>
+                                <span class="data-value">2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="legal-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.1s;">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-11 h-11 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                <i data-lucide="mail" class="w-5 h-5 text-brand-orange"></i>
+                            </div>
+                            <span class="section-num">// Kontakt</span>
+                        </div>
+                        <h2 class="font-oswald text-2xl font-bold uppercase text-gray-900 mb-4 leading-tight">Kontaktdaten</h2>
+                        <div>
+                            <div class="data-row">
+                                <span class="data-label">Postanschrift</span>
+                                <span class="data-value">8 The Green, Unit A<br>Dover, DE 19901<br>Vereinigte Staaten</span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">E-Mail</span>
+                                <span class="data-value"><a href="mailto:support@nuvetra-inc.com" class="content-link">support@nuvetra-inc.com</a></span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Website</span>
+                                <span class="data-value"><a href="https://nuvetra-inc.com" class="content-link">nuvetra-inc.com</a></span>
+                            </div>
+                            <div class="data-row">
+                                <span class="data-label">Antwortzeit</span>
+                                <span class="data-value">In der Regel innerhalb von 24–48 Stunden an Werktagen</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Verantwortlich für den Inhalt -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl mt-16 lg:mt-20">
+                <div class="text-center mb-10 lg:mb-12 reveal">
+                    <span class="section-tag mb-5"><i data-lucide="user-check" class="w-3.5 h-3.5"></i>§ 18 Abs. 2 MStV</span>
+                    <h2 class="font-oswald text-3xl md:text-4xl lg:text-5xl font-bold uppercase text-gray-900 leading-tight mb-4">
+                        Verantwortlich für<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">den Inhalt</span>
+                    </h2>
+                </div>
+
+                <div class="legal-card rounded-xl p-6 lg:p-8 reveal max-w-3xl mx-auto">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                            <i data-lucide="shield-check" class="w-6 h-6 text-brand-orange"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-3">Inhaltliche Verantwortung</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Verantwortlich für sämtliche Inhalte dieser Website ist die Geschäftsführung von Nuvetra Inc. unter der oben genannten Anschrift. Dies umfasst Texte, Bilder, Videos sowie sämtliche interaktiven Elemente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rechtliche Bestimmungen -->
+            <section class="relative mt-20 lg:mt-28 py-16 lg:py-24 bg-gray-50 border-y border-gray-200 dot-grid-bg">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+
+                    <div class="text-center mb-14 lg:mb-16 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i>Rechtliche Bestimmungen</span>
+                        <h2 class="font-oswald text-3xl md:text-4xl lg:text-5xl font-bold uppercase text-gray-900 leading-tight mb-4">
+                            Haftung, Rechte<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">& Nutzung.</span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-6">
+
+                        <!-- 1. Haftungsausschluss -->
+                        <div class="legal-card rounded-xl p-6 lg:p-8 reveal">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 01</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Haftungsausschluss</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-5">
+                                Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Die Nutzung der Website erfolgt auf eigene Gefahr.
+                            </p>
+                            <h4 class="font-oswald text-base font-bold uppercase text-gray-900 mb-3 tracking-wide">Haftungsbeschränkung</h4>
+                            <ul class="legal-list">
+                                <li>Nuvetra Inc. haftet nicht für direkte, indirekte, beiläufige, mittelbare oder Strafschäden, die aus der Nutzung dieser Website entstehen.</li>
+                                <li>Wir übernehmen keine Garantie dafür, dass die Website unterbrechungsfrei, sicher oder fehlerfrei betrieben wird.</li>
+                                <li>Die Inhalte stellen weder eine Steuer-, Rechts- noch verbindliche Geschäftsberatung dar.</li>
+                                <li>Wir behalten uns vor, Teile der Website oder das gesamte Angebot ohne gesonderte Ankündigung zu ändern oder einzustellen.</li>
+                            </ul>
+                        </div>
+
+                        <!-- 2. Externe Links -->
+                        <div class="legal-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.05s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 02</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Haftung für externe Links</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-5">
+                                Diese Website enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Aus diesem Grund können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.
+                            </p>
+                            <div class="notice-box rounded-lg p-5">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="external-link" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <h4 class="font-oswald text-base font-bold uppercase text-gray-900 mb-2 tracking-wide">Wichtiger Hinweis</h4>
+                                        <p class="text-sm text-gray-700 leading-relaxed">
+                                            Beim Klick auf externe Links verlassen Sie unsere Website. Wir empfehlen, die Datenschutz- und Nutzungsbedingungen der jeweiligen Drittanbieter zu prüfen. Bei Bekanntwerden von Rechtsverletzungen werden derartige Links umgehend entfernt.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Urheberrecht -->
+                        <div class="legal-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.1s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 03</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Urheber- & Schutzrechte</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-5">
+                                Sofern nicht anders angegeben, liegen sämtliche Rechte an den auf dieser Website veröffentlichten Inhalten bei Nuvetra Inc. bzw. den jeweiligen Lizenzgebern. Alle Rechte vorbehalten.
+                            </p>
+                            <h4 class="font-oswald text-base font-bold uppercase text-gray-900 mb-3 tracking-wide">Hinweise zum Copyright</h4>
+                            <ul class="legal-list">
+                                <li>Sämtliche Inhalte – insbesondere Texte, Grafiken, Logos, Bilder, Videos und Software – sind Eigentum von Nuvetra Inc.</li>
+                                <li>Die Vervielfältigung, Verbreitung oder Veränderung dieser Inhalte ohne ausdrückliche schriftliche Zustimmung ist untersagt.</li>
+                                <li>Inhalte dürfen ausschließlich zum persönlichen, nicht-kommerziellen Gebrauch angesehen und heruntergeladen werden.</li>
+                                <li>Die kommerzielle Nutzung jeglicher Inhalte bedarf der vorherigen schriftlichen Genehmigung.</li>
+                            </ul>
+                        </div>
+
+                        <!-- 4. Datenschutz -->
+                        <div class="legal-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.15s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 04</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Datenschutz</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Wir verarbeiten personenbezogene Daten ausschließlich im Rahmen der geltenden gesetzlichen Bestimmungen, insbesondere der Datenschutz-Grundverordnung (DSGVO) und des Bundesdatenschutzgesetzes (BDSG). Detaillierte Informationen zur Erhebung, Verarbeitung und zum Schutz personenbezogener Daten finden Sie in unserer <a href="/datenschutz" class="content-link">Datenschutzerklärung</a>.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                <span class="font-semibold text-gray-900">Datenverarbeitung:</span> Mit der Nutzung dieser Website stimmen Sie der Erhebung und Nutzung Ihrer Daten gemäß unserer Datenschutzerklärung zu.
+                            </p>
+                        </div>
+
+                        <!-- 5. Nutzungsbedingungen -->
+                        <div class="legal-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.2s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 05</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Nutzungsbedingungen</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-5">
+                                Mit dem Aufruf und der Nutzung dieser Website erklären Sie sich mit den nachfolgenden Bestimmungen sowie allen geltenden Gesetzen einverstanden. Sollten Sie mit diesen Bestimmungen nicht einverstanden sein, ist Ihnen die Nutzung dieser Website untersagt.
+                            </p>
+                            <h4 class="font-oswald text-base font-bold uppercase text-gray-900 mb-3 tracking-wide">Pflichten der Nutzer</h4>
+                            <ul class="legal-list">
+                                <li>Nutzung der Website ausschließlich zu rechtmäßigen Zwecken.</li>
+                                <li>Wahrung sämtlicher Urheber- und Schutzrechte Dritter.</li>
+                                <li>Keine Versuche, die Sicherheit der Website zu kompromittieren oder den Betrieb zu stören.</li>
+                                <li>Bei Anfragen oder Anmeldungen sind wahrheitsgemäße Angaben zu machen.</li>
+                                <li>Die Privatsphäre und Rechte anderer Nutzer sind jederzeit zu respektieren.</li>
+                            </ul>
+                        </div>
+
+                        <!-- 6. Anwendbares Recht -->
+                        <div class="legal-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.25s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 06</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Anwendbares Recht</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed">
+                                Diese Bestimmungen unterliegen dem jeweils anwendbaren Recht. Streitigkeiten im Zusammenhang mit dieser Website oder den hier genannten Bestimmungen unterliegen der ausschließlichen Zuständigkeit der jeweils zuständigen Gerichte.
+                            </p>
+                        </div>
+
+                        <!-- 7. EU-Streitschlichtung -->
+                        <div class="legal-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.3s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 07</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Streitbeilegung</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-3">
+                                Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+                                <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener" class="content-link">https://ec.europa.eu/consumers/odr/</a>
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+                            </p>
+                        </div>
+
+                        <!-- 8. Änderungen -->
+                        <div class="legal-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.35s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="section-num">// 08</span>
+                                <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900">Änderungen dieses Impressums</h3>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed">
+                                Wir behalten uns vor, diese rechtlichen Hinweise jederzeit zu aktualisieren oder anzupassen. Änderungen werden auf dieser Seite mit aktualisiertem Datum veröffentlicht. Eine regelmäßige Überprüfung dieser Seite wird empfohlen.
+                            </p>
+                            <div class="mt-5 pt-4 border-t border-gray-200 flex items-center gap-3">
+                                <i data-lucide="calendar-clock" class="w-4 h-4 text-brand-orange"></i>
+                                <span class="font-mono text-xs uppercase tracking-widest text-gray-500 font-semibold">
+                                    Stand: 25. April 2026
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kontakt CTA -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-5xl mt-20 lg:mt-28">
+                <div class="text-center mb-10 lg:mb-12 reveal">
+                    <span class="section-tag mb-5"><i data-lucide="message-square" class="w-3.5 h-3.5"></i>Kontakt</span>
+                    <h2 class="font-oswald text-3xl md:text-4xl lg:text-5xl font-bold uppercase text-gray-900 leading-tight mb-4">
+                        Fragen zu diesem<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">Impressum?</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
+                        Bei rechtlichen Anfragen oder zur direkten Kontaktaufnahme nutzen Sie bitte folgende Daten.
+                    </p>
+                </div>
+
+                <div class="legal-card rounded-xl p-8 lg:p-10 reveal max-w-3xl mx-auto text-center">
+                    <div class="w-14 h-14 mx-auto mb-5 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                        <i data-lucide="send" class="w-6 h-6 text-brand-orange"></i>
+                    </div>
+                    <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900 mb-2">Nuvetra Inc.</h3>
+                    <p class="text-gray-600 leading-relaxed mb-1">8 The Green, Unit A</p>
+                    <p class="text-gray-600 leading-relaxed mb-1">Dover, DE 19901</p>
+                    <p class="text-gray-600 leading-relaxed mb-6">Vereinigte Staaten</p>
+
+                    <a href="mailto:support@nuvetra-inc.com" class="content-link text-lg font-mono">
+                        support@nuvetra-inc.com
+                    </a>
+
+                    <p class="mt-6 text-xs text-gray-500 italic">
+                        Wir bemühen uns, sämtliche Anfragen innerhalb von 24–48 Stunden an Werktagen zu beantworten.
+                    </p>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 py-8 mt-12 text-center text-gray-500 text-sm bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
+                    <a href="/impressum" class="text-brand-orange font-semibold">Impressum</a>
+                    <a href="/datenschutz" class="hover:text-brand-orange transition-colors">Datenschutz</a>
+                    <a href="/agb" class="hover:text-brand-orange transition-colors">AGB</a>
+                </div>
+                <p>&copy; 2026 CEO Reality. Alle Rechte vorbehalten.</p>
+                <p class="mt-2 text-xs max-w-xl mx-auto opacity-70">CEO Reality ist eine Marke von Nuvetra Inc. Die geteilten Ergebnisse sind nicht typisch. Deine Ergebnisse hängen von deiner Arbeitsmoral, Erfahrung und deinem Fokus ab. Jegliches Geschäft birgt Risiken.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
