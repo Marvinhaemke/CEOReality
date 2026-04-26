@@ -1324,7 +1324,35 @@
                 }, { eventID: eventId });
             }
 
-            // Send contact data to Zapier (for CRM + optional server-side CAPI)
+            // Send same Lead event server-side via Meta CAPI, sharing event_id
+            // with the Pixel so Meta deduplicates the two on the same eventId.
+            if (consent) {
+                fetch('/api/meta-capi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        event_name: 'Lead',
+                        event_id: eventId,
+                        event_time: eventTime,
+                        event_source_url: window.location.href,
+                        action_source: 'website',
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        phone: phoneFormatted,
+                        country: 'DE',
+                        fbc: fbc,
+                        fbp: fbp,
+                        fbclid: fbclid,
+                        custom_data: {
+                            content_name: 'CEO Reality Application - Step 1'
+                        }
+                    })
+                }).catch(error => console.error('Step 1 CAPI Error:', error));
+            }
+
+            // Send contact data to Zapier (for CRM)
             const payload = {
                 firstName: firstName,
                 lastName: lastName,
@@ -1401,6 +1429,47 @@
             const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
             const fbp = consent ? (getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '') : '';
             const fbclid = consent ? (urlParams['fbclid'] || '') : '';
+
+            // Shared event ID for browser-pixel <-> server-CAPI deduplication
+            const submitEventId = generateEventId();
+            const submitEventTime = Math.floor(Date.now() / 1000);
+
+            // Fire Meta Pixel SubmitApplication event (consent-gated)
+            if (consent && typeof fbq === 'function') {
+                fbq('track', 'SubmitApplication', {
+                    content_name: 'CEO Reality Application - Step 3'
+                }, { eventID: submitEventId });
+            }
+
+            // Send same SubmitApplication event server-side via Meta CAPI,
+            // sharing event_id with the Pixel for deduplication.
+            if (consent) {
+                fetch('/api/meta-capi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        event_name: 'SubmitApplication',
+                        event_id: submitEventId,
+                        event_time: submitEventTime,
+                        event_source_url: window.location.href,
+                        action_source: 'website',
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        phone: phone,
+                        country: 'DE',
+                        fbc: fbc,
+                        fbp: fbp,
+                        fbclid: fbclid,
+                        custom_data: {
+                            content_name: 'CEO Reality Application - Step 3',
+                            revenue: revenue,
+                            commitment: commitment
+                        }
+                    })
+                }).catch(error => console.error('Step 3 CAPI Error:', error));
+            }
 
             // Construct payload
             const payload = {
