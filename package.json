@@ -1,0 +1,14 @@
+{
+  "name": "ceoreality",
+  "private": true,
+  "version": "1.0.0",
+  "description": "CEO Reality landing page",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./dist/tailwind.css --minify",
+    "dev": "tailwindcss -i ./src/input.css -o ./dist/tailwind.css --watch",
+    "vercel-build": "npm run build"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
