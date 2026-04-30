@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dein Reality Check | CEO Reality</title>
+    <title>Reality Check Quiz | CEO Reality</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
     
     <script>
         tailwind.config = {
@@ -28,107 +30,388 @@
         }
     </script>
     <style>
-        body { background-color: #ffffff; color: #0a0a0a; }
-        .text-glow-orange { text-shadow: 0 4px 15px rgba(230,0,0,0.2); }
-        .loss-card {
-            background: linear-gradient(180deg, #ffffff, #fff5f5);
-            border: 1px solid rgba(230, 0, 0, 0.18);
+        body { background-color: #f9fafb; color: #0a0a0a; }
+        
+        .btn-glow {
+            background: linear-gradient(135deg, #e60000, #990000);
+            box-shadow: 0 10px 25px rgba(230, 0, 0, 0.4);
+            transition: all 0.3s ease-in-out;
             position: relative;
             overflow: hidden;
         }
+        .btn-glow:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(230, 0, 0, 0.5);
+        }
+
+        .input-field {
+            width: 100%; padding: 0.875rem 1rem; background-color: #f9fafb;
+            border: 1px solid #e5e7eb; border-radius: 0.5rem; color: #111827;
+            outline: none; transition: all 0.2s; font-family: 'Inter', sans-serif;
+        }
+        .input-field:focus { border-color: #e60000; box-shadow: 0 0 0 2px rgba(230, 0, 0, 0.2); background-color: #ffffff; }
+        
+        .quiz-option {
+            display: block; width: 100%; padding: 1.25rem; background: #fff;
+            border: 2px solid #e5e7eb; border-radius: 0.75rem; cursor: pointer;
+            transition: all 0.2s; text-align: left;
+        }
+        .quiz-option:hover { border-color: rgba(230,0,0,0.3); background: #fff5f5; }
+        .quiz-option input:checked + div { border-color: #e60000; background: #fff5f5; box-shadow: 0 4px 15px rgba(230,0,0,0.1); }
+        .quiz-option-content { transition: all 0.2s; border: 2px solid transparent; border-radius: 0.75rem; margin: -1.25rem; padding: 1.25rem; }
+
+        .form-step { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .loss-card {
+            background: linear-gradient(180deg, #ffffff, #fff5f5);
+            border: 1px solid rgba(230, 0, 0, 0.18);
+            position: relative; overflow: hidden;
+        }
         .loss-card::after {
             content: ''; position: absolute; top: -20px; right: -20px;
-            width: 120px; height: 120px;
-            background: radial-gradient(circle, rgba(230,0,0,0.1), transparent 70%);
-            pointer-events: none;
+            width: 120px; height: 120px; background: radial-gradient(circle, rgba(230,0,0,0.1), transparent 70%); pointer-events: none;
         }
+        .text-glow-orange { text-shadow: 0 4px 15px rgba(230,0,0,0.2); }
+        
+        .iti { width: 100%; display: block; }
+        .iti .input-field { padding-left: 52px !important; }
     </style>
 </head>
-<body class="font-inter antialiased relative min-h-screen bg-gray-50">
+<body class="font-inter antialiased min-h-screen flex items-center justify-center py-12 px-4">
 
-    <main class="pt-12 pb-24 px-4">
-        <div class="max-w-4xl mx-auto">
-            
-            <!-- Result Header -->
-            <div class="text-center mb-12">
-                <span class="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-red-100 border border-red-200 rounded-full text-brand-orange font-mono text-xs font-bold uppercase tracking-widest">
-                    <i data-lucide="alert-triangle" class="w-4 h-4"></i> Diagnose Abgeschlossen
-                </span>
-                <h1 class="font-oswald text-4xl md:text-6xl font-bold uppercase text-gray-900 leading-tight mb-4">
-                    Dein Blindflug kostet dich <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange" id="calculated-loss">~28.500 €</span> / Monat.
-                </h1>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto font-light">
-                    Das ist kein theoretischer Wert. Das ist das Kapital, das jeden Monat durch falsche Preise, ineffiziente Mitarbeiter und intransparentes Marketing verbrennt.
-                </p>
+    <div class="w-full max-w-3xl bg-white border border-gray-200 shadow-2xl rounded-3xl relative overflow-hidden">
+        
+        <!-- Background Glow -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-brand-orange opacity-5 blur-[100px] pointer-events-none"></div>
+
+        <!-- Progress Bar Header (Hidden on Results Step) -->
+        <div id="quiz-header" class="bg-gray-50 px-6 py-5 border-b border-gray-200 relative">
+            <div class="flex justify-between items-center mb-3">
+                <span class="font-oswald font-bold uppercase text-gray-900 tracking-wider">CEO Reality Check</span>
+                <span id="step-counter" class="text-xs font-mono text-gray-500 font-bold">Schritt 1 / 5</span>
             </div>
+            <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div id="progress-line" class="h-full bg-brand-orange transition-all duration-500 rounded-full" style="width: 20%;"></div>
+            </div>
+        </div>
 
-            <!-- Context / Reality Check -->
-            <div class="loss-card rounded-2xl p-8 mb-12 shadow-xl">
-                <h2 class="font-oswald text-2xl font-bold uppercase text-gray-900 mb-4">Jeder weitere Monat ohne Klarheit ist verantwortungslos.</h2>
-                <p class="text-gray-700 leading-relaxed mb-6">
-                    Du hast kein Vertriebsproblem, du hast ein Kompetenzproblem. Solange du dein Unternehmen nach Bauchgefühl steuerst, wirst du dieses Geld weiterhin jeden Monat verlieren. Es ist Zeit für ein Operating System.
-                </p>
-                <div class="grid sm:grid-cols-3 gap-4 border-t border-red-100 pt-6">
-                    <div>
-                        <div class="text-xs text-gray-500 uppercase font-semibold mb-1">Status</div>
-                        <div class="font-mono text-brand-orange font-bold">Inakzeptabel</div>
-                    </div>
-                    <div>
-                        <div class="text-xs text-gray-500 uppercase font-semibold mb-1">Hochrechnung Jahr</div>
-                        <div class="font-mono text-brand-orange font-bold" id="yearly-loss">~342.000 €</div>
-                    </div>
-                    <div>
-                        <div class="text-xs text-gray-500 uppercase font-semibold mb-1">Lösung</div>
-                        <div class="font-mono text-gray-900 font-bold">120 Tage Setup</div>
+        <div class="p-6 sm:p-10 relative z-10">
+            <form id="quiz-form" onsubmit="return false;">
+                
+                <!-- STEP 1: Umsatz -->
+                <div id="step-1" class="form-step block">
+                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-2 text-gray-900 leading-tight">Wo steht dein Unternehmen aktuell?</h3>
+                    <p class="text-sm text-gray-500 mb-6">Wähle deinen durchschnittlichen Monatsumsatz. (Basis für die Kalkulation)</p>
+                    
+                    <div class="space-y-3">
+                        <label class="quiz-option relative">
+                            <input type="radio" name="revenue" value="25000" class="absolute opacity-0" onchange="autoAdvance(1)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">Unter 50.000 €</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                        <label class="quiz-option relative">
+                            <input type="radio" name="revenue" value="75000" class="absolute opacity-0" onchange="autoAdvance(1)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">50.000 € - 100.000 €</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                        <label class="quiz-option relative">
+                            <input type="radio" name="revenue" value="300000" class="absolute opacity-0" onchange="autoAdvance(1)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">100.000 € - 500.000 €</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                        <label class="quiz-option relative">
+                            <input type="radio" name="revenue" value="500000" class="absolute opacity-0" onchange="autoAdvance(1)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">Über 500.000 €</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
                     </div>
                 </div>
-            </div>
 
-            <!-- Booking Section -->
-            <div class="bg-white border border-gray-200 shadow-2xl rounded-3xl p-6 md:p-10 text-center">
-                <h3 class="font-oswald text-3xl font-bold uppercase text-gray-900 mb-2">Beende den Blindflug.</h3>
-                <p class="text-gray-500 text-sm mb-8">Wähle jetzt einen Termin für deinen kostenlosen Reality Check. Nur für qualifizierte Geschäftsführer.</p>
-                
-                <!-- Cal.com Embed Container -->
-                <div id="cal-embed-container" style="width:100%;height:600px;overflow:scroll;border-radius:12px;" class="border border-gray-100 bg-gray-50"></div>
-            </div>
+                <!-- STEP 2: HR / Team -->
+                <div id="step-2" class="form-step hidden">
+                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-2 text-gray-900 leading-tight">Das Personal-Bottleneck</h3>
+                    <p class="text-sm text-gray-500 mb-6">Tolerierst du aktuell Mitarbeiter, die das Team runterziehen, oder hast du Neueinstellungen, die keine messbaren Zahlen liefern?</p>
+                    
+                    <div class="space-y-3">
+                        <label class="quiz-option relative">
+                            <input type="radio" name="team" value="yes" class="absolute opacity-0" onchange="autoAdvance(2)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">Ja, kenne ich aus meinem Alltag.</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                        <label class="quiz-option relative">
+                            <input type="radio" name="team" value="no" class="absolute opacity-0" onchange="autoAdvance(2)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">Nein, mein Team besteht zu 100% aus A-Playern.</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="mt-6"><button type="button" onclick="goToStep(1)" class="text-sm text-gray-500 font-semibold">Zurück</button></div>
+                </div>
 
+                <!-- STEP 3: Marge -->
+                <div id="step-3" class="form-step hidden">
+                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-2 text-gray-900 leading-tight">Die Preis-Illusion</h3>
+                    <p class="text-sm text-gray-500 mb-6">Kennst du die exakte Marge jedes deiner Angebote, oder orientieren sich deine Preise am Marktdurchschnitt & Bauchgefühl?</p>
+                    
+                    <div class="space-y-3">
+                        <label class="quiz-option relative">
+                            <input type="radio" name="margin" value="gutfeeling" class="absolute opacity-0" onchange="autoAdvance(3)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">Eher nach Gefühl und Konkurrenz.</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                        <label class="quiz-option relative">
+                            <input type="radio" name="margin" value="exact" class="absolute opacity-0" onchange="autoAdvance(3)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">Ich kenne meine exakte Marge bis auf den Euro.</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="mt-6"><button type="button" onclick="goToStep(2)" class="text-sm text-gray-500 font-semibold">Zurück</button></div>
+                </div>
+
+                <!-- STEP 4: Marketing -->
+                <div id="step-4" class="form-step hidden">
+                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-2 text-gray-900 leading-tight">Die Marketing-Blackbox</h3>
+                    <p class="text-sm text-gray-500 mb-6">Weißt du exakt, aus welchen Quellen deine Kunden kommen, oder sehen nur die Agentur-Reportings gut aus?</p>
+                    
+                    <div class="space-y-3">
+                        <label class="quiz-option relative">
+                            <input type="radio" name="marketing" value="opaque" class="absolute opacity-0" onchange="autoAdvance(4)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">Ist für mich eher eine Blackbox / Intransparent.</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                        <label class="quiz-option relative">
+                            <input type="radio" name="marketing" value="exact" class="absolute opacity-0" onchange="autoAdvance(4)">
+                            <div class="quiz-option-content flex justify-between items-center">
+                                <span class="font-semibold text-gray-900">Jeder Lead ist sauber attribuiert und messbar.</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="mt-6"><button type="button" onclick="goToStep(3)" class="text-sm text-gray-500 font-semibold">Zurück</button></div>
+                </div>
+
+                <!-- STEP 5: Lead Capture & Calculation Trigger -->
+                <div id="step-5" class="form-step hidden">
+                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-2 text-gray-900 leading-tight">Letzter Schritt zur Analyse</h3>
+                    <p class="text-sm text-gray-500 mb-6">Wo sollen wir dein Ergebnis hinschicken? Danach siehst du sofort deine Hochrechnung.</p>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Vorname</label>
+                                <input type="text" id="firstName" class="input-field" placeholder="Max" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Nachname</label>
+                                <input type="text" id="lastName" class="input-field" placeholder="Mustermann" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">E-Mail Adresse</label>
+                            <input type="email" id="email" class="input-field" placeholder="max@unternehmen.de" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Handynummer</label>
+                            <input type="tel" id="phone" class="input-field" required>
+                        </div>
+
+                        <!-- Commitment Checkbox -->
+                        <div class="bg-orange-50 border border-brand-orange/20 p-4 rounded-lg mt-4">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" id="commitment" class="w-5 h-5 text-brand-orange mt-0.5 border-gray-300 rounded focus:ring-brand-orange" required>
+                                <span class="text-gray-800 text-sm font-medium">Ich verstehe, dass CEO Reality ein hochpreisiges 1-on-1 Mentoring ist und bin bereit, in mein Unternehmen zu investieren.</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="form-error" class="hidden mb-4 p-3 rounded bg-red-50 text-red-700 text-sm font-semibold"></div>
+
+                    <div class="flex justify-between items-center border-t border-gray-100 pt-6">
+                        <button type="button" onclick="goToStep(4)" class="text-sm text-gray-500 font-semibold">Zurück</button>
+                        <button type="button" onclick="calculateAndShowResults()" class="btn-glow px-8 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-lg flex items-center gap-2">
+                            <i data-lucide="calculator" class="w-5 h-5"></i> Ergebnis berechnen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 6: Results & Booking (Hidden by default) -->
+                <div id="step-6" class="form-step hidden">
+                    
+                    <!-- Result Header -->
+                    <div class="text-center mb-10">
+                        <span class="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-red-100 border border-red-200 rounded-full text-brand-orange font-mono text-xs font-bold uppercase tracking-widest">
+                            <i data-lucide="alert-triangle" class="w-4 h-4"></i> Diagnose Abgeschlossen
+                        </span>
+                        <h2 class="font-oswald text-4xl md:text-5xl font-bold uppercase text-gray-900 leading-tight mb-4">
+                            Dein Blindflug kostet dich <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange" id="calc-monthly">~0 €</span> / Monat.
+                        </h2>
+                        <p class="text-sm sm:text-base text-gray-600 max-w-xl mx-auto font-light">
+                            Das ist kein theoretischer Wert. Das ist das Kapital, das jeden Monat durch fehlende Strukturen verbrennt.
+                        </p>
+                    </div>
+
+                    <!-- Context Card -->
+                    <div class="loss-card rounded-2xl p-6 sm:p-8 mb-10 shadow-lg text-left">
+                        <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-3">Jeder weitere Monat ohne Klarheit ist verantwortungslos.</h3>
+                        <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
+                            Du hast kein Vertriebsproblem, du hast ein Kompetenzproblem. Solange du dein Unternehmen nach Bauchgefühl steuerst, wirst du dieses Geld weiterhin jeden Monat verlieren.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 border-t border-red-100 pt-5">
+                            <div>
+                                <div class="text-[0.65rem] sm:text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Verlust pro Jahr</div>
+                                <div class="font-mono text-lg sm:text-xl text-brand-orange font-bold" id="calc-yearly">~0 €</div>
+                            </div>
+                            <div>
+                                <div class="text-[0.65rem] sm:text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Die Lösung</div>
+                                <div class="font-mono text-lg sm:text-xl text-gray-900 font-bold">120 Tage Setup</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Booking Section -->
+                    <div class="text-center border-t border-gray-200 pt-10">
+                        <h3 class="font-oswald text-3xl font-bold uppercase text-gray-900 mb-2">Beende den Blindflug.</h3>
+                        <p class="text-gray-500 text-sm mb-6">Sichere dir jetzt deinen kostenlosen Reality Check.</p>
+                        
+                        <!-- Cal.com Embed Container -->
+                        <div id="cal-embed-container" style="width:100%;height:600px;overflow:scroll;border-radius:12px;border:1px solid #e5e7eb" class="bg-white"></div>
+                    </div>
+
+                </div>
+            </form>
         </div>
-    </main>
+    </div>
 
-    <!-- Cal.com Script Integration -->
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
     <script>
         lucide.createIcons();
 
-        // Initialize Cal.com Snippet
+        // Phone Validation Init
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInputInstance = window.intlTelInput(phoneInputField, {
+            initialCountry: "de",
+            preferredCountries: ["de", "at", "ch"],
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js",
+        });
+
+        // Load Cal.com API
         (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
         Cal("init", {origin:"https://cal.com"});
 
-        // Retrieve URL parameters (Assuming you pass the calculated data via URL from the Quiz steps)
-        // Example: ?loss=28500&name=Max&email=max@test.de
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        // Populate the dynamic numbers (If passed via URL, otherwise defaults show)
-        if(urlParams.has('loss')) {
-            const lossAmount = parseInt(urlParams.get('loss'));
-            document.getElementById('calculated-loss').innerText = `~${lossAmount.toLocaleString('de-DE')} €`;
-            document.getElementById('yearly-loss').innerText = `~${(lossAmount * 12).toLocaleString('de-DE')} €`;
+        const TOTAL_QUIZ_STEPS = 5;
+
+        function updateProgress(step) {
+            if(step > TOTAL_QUIZ_STEPS) {
+                // Hide header on results page
+                document.getElementById('quiz-header').style.display = 'none';
+                return;
+            }
+            document.getElementById('quiz-header').style.display = 'block';
+            document.getElementById('step-counter').innerText = `Schritt ${step} / ${TOTAL_QUIZ_STEPS}`;
+            const percentage = (step / TOTAL_QUIZ_STEPS) * 100;
+            document.getElementById('progress-line').style.width = `${percentage}%`;
         }
 
-        // Prefill Data for the calendar
-        const prefillQuery = new URLSearchParams({
-            name: urlParams.get('name') || '',
-            email: urlParams.get('email') || ''
-        }).toString();
+        function goToStep(step) {
+            document.querySelectorAll('.form-step').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('block');
+            });
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+            document.getElementById(`step-${step}`).classList.add('block');
+            updateProgress(step);
+        }
 
-        // Render Embed
-        Cal("inline", {
-            elementOrSelector: "#cal-embed-container",
-            calLink: "team/ceo-reality/realitycheck?" + prefillQuery,
-            layout: "month_view"
-        });
-        Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#e60000"}},"hideEventTypeDetails":false,"layout":"month_view"});
+        function autoAdvance(currentStep) {
+            setTimeout(() => { goToStep(currentStep + 1); }, 300);
+        }
+
+        function calculateAndShowResults() {
+            // 1. Validate Form
+            const fName = document.getElementById('firstName').value.trim();
+            const lName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const commitment = document.getElementById('commitment').checked;
+            const errorBox = document.getElementById('form-error');
+            
+            let phoneValid = phoneInputInstance.isValidNumber ? phoneInputInstance.isValidNumber() : document.getElementById('phone').value.trim().length > 5;
+            
+            if(!fName || !lName || !email || !phoneValid || !commitment) {
+                errorBox.innerText = "Bitte fülle alle Felder korrekt aus und bestätige die Konditionen.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            errorBox.classList.add('hidden');
+
+            // 2. Fetch Quiz Answers
+            const revenueVal = document.querySelector('input[name="revenue"]:checked')?.value || 25000;
+            const teamVal = document.querySelector('input[name="team"]:checked')?.value || 'no';
+            const marginVal = document.querySelector('input[name="margin"]:checked')?.value || 'exact';
+            const marketingVal = document.querySelector('input[name="marketing"]:checked')?.value || 'exact';
+
+            const baseRevenue = parseInt(revenueVal);
+            let monthlyLoss = 0;
+
+            // 3. Calculation Logic based on CEO Reality metrics
+            // Team Drag: 40k Opportunity cost per quarter = ~13,333 / month
+            if(teamVal === 'yes') monthlyLoss += 13333; 
+            
+            // Margin Bleed: 15-30% loss (Average ~22.5% of revenue)
+            if(marginVal === 'gutfeeling') monthlyLoss += (baseRevenue * 0.225);
+            
+            // Ad Burn: Burning 30-50% of ad budget (Assuming ad budget is 10% of revenue, that's ~4% total revenue loss)
+            if(marketingVal === 'opaque') monthlyLoss += (baseRevenue * 0.04);
+
+            // Give them a minimum loss value so it's always impactful
+            if (monthlyLoss < 5000) monthlyLoss = 5000; 
+
+            // 4. Update DOM Elements
+            document.getElementById('calc-monthly').innerText = `~${Math.round(monthlyLoss).toLocaleString('de-DE')} €`;
+            document.getElementById('calc-yearly').innerText = `~${Math.round(monthlyLoss * 12).toLocaleString('de-DE')} €`;
+
+            // 5. Render Cal.com Embed with prefilled data
+            const phoneStr = phoneInputInstance.getNumber ? phoneInputInstance.getNumber() : document.getElementById('phone').value;
+            const prefillQuery = new URLSearchParams({
+                name: `${fName} ${lName}`,
+                email: email,
+                location: JSON.stringify({ value: "phone", optionValue: phoneStr }),
+                "responses[phone]": phoneStr
+            }).toString();
+
+            document.getElementById('cal-embed-container').innerHTML = ''; // Clear just in case
+            Cal("inline", {
+                elementOrSelector: "#cal-embed-container",
+                calLink: "team/ceo-reality/realitycheck?" + prefillQuery,
+                layout: "month_view"
+            });
+            Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#e60000"}},"hideEventTypeDetails":false,"layout":"month_view"});
+
+            // 6. Transition to Result Step
+            goToStep(6);
+            
+            // Note: In a real environment, you would also trigger your Webhook/Zapier push here
+            // fetch('YOUR_ZAPIER_WEBHOOK', { method: 'POST', body: JSON.stringify({...}) });
+        }
     </script>
 </body>
 </html>
