@@ -10,6 +10,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
     
+    <!-- Umami Analytics -->
+    <script defer src="https://umami-peach-xi.vercel.app/script.js" data-website-id="5d768786-ca16-4d87-a609-448f35305230"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -92,6 +95,15 @@
         
         .iti { width: 100%; display: block; }
         .iti .input-field { padding-left: 52px !important; }
+
+        /* Cookie Banner Styles */
+        #cookie-banner {
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #cookie-banner.cookie-banner-visible {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="font-inter antialiased min-h-screen flex items-center justify-center py-12 px-4">
@@ -122,13 +134,53 @@
 
     </div>
 
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung" class="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-4 pointer-events-none">
+        <div class="max-w-3xl mx-auto bg-brand-dark text-white rounded-xl shadow-2xl border border-gray-800 p-5 md:p-6 pointer-events-auto">
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+                <div class="flex-1">
+                    <p class="font-oswald font-bold text-base uppercase tracking-wide mb-1 text-white">Wir nutzen Cookies</p>
+                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                        Wir verwenden Cookies und ähnliche Technologien (z.&nbsp;B. Meta&nbsp;Pixel) für Marketing und Reichweitenmessung. Daten können dabei in die USA übertragen werden. Du kannst frei entscheiden. Mehr in der <a href="#" class="underline hover:text-brand-orange">Datenschutzerklärung</a>.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 md:flex-shrink-0 md:min-w-[260px]">
+                    <button type="button" onclick="rejectCookies()" class="flex-1 px-5 py-2.5 rounded-lg border border-gray-600 text-gray-200 hover:bg-gray-800 hover:border-gray-500 transition-colors text-sm font-oswald font-bold uppercase tracking-wide">
+                        Ablehnen
+                    </button>
+                    <button type="button" onclick="acceptCookies()" class="flex-1 px-5 py-2.5 rounded-lg bg-brand-orange hover:bg-brand-red text-white transition-colors text-sm font-oswald font-bold uppercase tracking-wide">
+                        Akzeptieren
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
     <script>
         lucide.createIcons();
 
+        // --- TRACKING & CONSENT HELPER ---
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            if (match) return match[2];
+            return null;
+        }
+
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const result = {};
+            for (const [key, value] of params.entries()) { result[key] = value; }
+            return result;
+        }
+
+        function generateEventId() {
+            if (window.crypto && typeof window.crypto.randomUUID === 'function') { return window.crypto.randomUUID(); }
+            return 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
+        }
+
         // --- QUIZ DATA ---
-        // Added 'category' for area-scoring and 'redFlag' to collect specific bottlenecks
         const questions = [
             {
                 rubrik: "RUBRIK 1: MARKETING",
@@ -212,7 +264,7 @@
                 rubrik: "RUBRIK 3: OPERATIONS & FÜHRUNG",
                 category: "ops",
                 text: "Stell dir vor, dein wichtigster IT-Dienstleister kündigt morgen die Zusammenarbeit. Was passiert?",
-                note: "Ein Unternehmen, das von einem einzelnen Dienstleister abhängt, gehört dir nur auf dem Papier.",
+                note: "",
                 shuffle: false,
                 answers: [
                     { text: "Kein Problem", points: 4, feedback: "Resilient gebaut." },
@@ -288,7 +340,6 @@
             }
         ];
 
-        // Helper to shuffle arrays
         function shuffleArray(array) {
             const newArr = [...array];
             for (let i = newArr.length - 1; i > 0; i--) {
@@ -301,7 +352,6 @@
         // --- APP STATE ---
         let currentQuestionIndex = 0;
         
-        // Track detailed scores
         const areaScores = {
             marketing: { points: 0, max: 12, label: "Marketing" },
             sales: { points: 0, max: 12, label: "Sales" },
@@ -309,7 +359,7 @@
             steuerung: { points: 0, max: 12, label: "Steuerung" }
         };
         
-        let collectedRedFlags = []; // Array of string warnings
+        let collectedRedFlags = [];
 
         const DOM_CONTENT = document.getElementById('dynamic-content');
         const DOM_HEADER = document.getElementById('quiz-header');
@@ -328,7 +378,6 @@
             document.getElementById('step-counter').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
             document.getElementById('progress-line').style.width = `${progress}%`;
 
-            // Keep original index mapping so handleAnswer gets the correct object even if shuffled
             const mappedAnswers = q.answers.map((ans, originalIdx) => ({ ...ans, originalIdx }));
             const displayedAnswers = q.shuffle ? shuffleArray(mappedAnswers) : mappedAnswers;
 
@@ -361,13 +410,11 @@
             const q = questions[currentQuestionIndex];
             const chosenAnswer = q.answers[originalDataIdx];
             
-            // 1. Store Data
             areaScores[q.category].points += chosenAnswer.points;
             if (chosenAnswer.redFlag) {
                 collectedRedFlags.push(chosenAnswer.redFlag);
             }
             
-            // 2. Mark the selected button
             const container = document.getElementById('answers-container');
             const buttons = container.querySelectorAll('.quiz-option');
             
@@ -380,7 +427,6 @@
                 }
             });
 
-            // 3. Visual Feedback
             const isGoodAnswer = chosenAnswer.points >= 3;
             const borderClass = isGoodAnswer ? 'border-green-500' : 'border-brand-orange';
             const iconClass = isGoodAnswer ? 'text-green-500' : 'text-brand-orange';
@@ -488,7 +534,6 @@
             });
         }
 
-        // Helper to define string feedback based on area score
         function getAreaStatus(points) {
             if (points <= 5) return { label: "Kritischer Engpass", color: "text-brand-orange", bg: "bg-brand-orange" };
             if (points <= 9) return { label: "Instabil", color: "text-orange-500", bg: "bg-orange-500" };
@@ -501,9 +546,10 @@
             const email = document.getElementById('email').value.trim();
             const revenue = document.getElementById('revenue').value;
             const commitment = document.getElementById('commitment').checked;
+            const phoneVal = document.getElementById('phone').value.trim();
             const errorBox = document.getElementById('form-error');
             
-            let phoneValid = phoneInputInstance.isValidNumber ? phoneInputInstance.isValidNumber() : document.getElementById('phone').value.trim().length > 5;
+            let phoneValid = phoneInputInstance && phoneInputInstance.isValidNumber ? phoneInputInstance.isValidNumber() : phoneVal.length > 5;
             
             if(!fName || !lName || !email || !revenue || !phoneValid || !commitment) {
                 errorBox.innerText = "Bitte fülle alle Felder korrekt aus.";
@@ -511,10 +557,8 @@
                 return;
             }
 
-            // Calc total score
             const totalScore = Object.values(areaScores).reduce((sum, area) => sum + area.points, 0);
 
-            // Refined Categorization based strictly on overall maturity level
             let categoryName = "";
             let categoryDesc = "";
             
@@ -532,13 +576,72 @@
                 categoryDesc = "Echte CEO-Mentalität. Du triffst Entscheidungen datenbasiert und steuerst das System von außen. Jetzt geht es darum, die bestehende Effizienz maximal zu hebeln und den Output zu vervielfachen.";
             }
 
-            renderFinalResult(fName, lName, email, categoryName, categoryDesc, totalScore);
+            // --- TRACKING & API PUSH ---
+            const consent = window.marketingConsent === true;
+            const eventId = generateEventId();
+            const eventTime = Math.floor(Date.now() / 1000);
+            const urlParams = getUrlParams();
+            const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
+            const fbp = consent ? (getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
+            
+            const formattedPhone = phoneInputInstance && phoneInputInstance.getNumber ? phoneInputInstance.getNumber() : phoneVal;
+
+            // 1. Meta Pixel Lead Event
+            if (consent && typeof fbq === 'function') {
+                fbq('track', 'Lead', {
+                    content_name: 'CEO Reality Quiz Completion',
+                    content_category: categoryName,
+                    value: totalScore
+                }, { eventID: eventId });
+            }
+
+            // 2. Umami Tracking Event
+            if (typeof umami !== 'undefined' && umami.track) {
+                umami.track('Lead', {
+                    category: categoryName,
+                    score: totalScore,
+                    revenue_bracket: revenue
+                });
+            }
+
+            // 3. Zapier Webhook
+            const payload = {
+                firstName: fName,
+                lastName: lName,
+                email: email,
+                phone: formattedPhone,
+                revenue: revenue,
+                score: totalScore,
+                category: categoryName,
+                event_name: 'Lead',
+                event_id: eventId,
+                event_time: eventTime,
+                event_source_url: window.location.href,
+                user_agent: navigator.userAgent,
+                marketing_consent: consent ? 'granted' : 'denied',
+                utm_source: urlParams['utm_source'] || '',
+                utm_medium: urlParams['utm_medium'] || '',
+                utm_campaign: urlParams['utm_campaign'] || '',
+                utm_term: urlParams['utm_term'] || '',
+                utm_content: urlParams['utm_content'] || '',
+                fbclid: fbclid,
+                fbc: fbc,
+                fbp: fbp
+            };
+
+            fetch('https://hooks.zapier.com/hooks/catch/12560168/uv0vxpk/', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            }).catch(error => console.error('Webhook Error:', error));
+            // --- END TRACKING ---
+
+            renderFinalResult(fName, lName, email, categoryName, categoryDesc, totalScore, formattedPhone);
         }
 
-        function renderFinalResult(fName, lName, email, categoryName, categoryDesc, totalScore) {
+        function renderFinalResult(fName, lName, email, categoryName, categoryDesc, totalScore, formattedPhone) {
             DOM_HEADER.style.display = 'none';
             
-            // Build Area Bars HTML
             const areaBarsHTML = Object.values(areaScores).map(area => {
                 const status = getAreaStatus(area.points);
                 const percent = (area.points / area.max) * 100;
@@ -555,7 +658,6 @@
                 `;
             }).join('');
 
-            // Build Red Flags HTML
             let redFlagsHTML = "";
             if (collectedRedFlags.length > 0) {
                 const listItems = collectedRedFlags.map(flag => `
@@ -627,15 +729,13 @@
             `;
             lucide.createIcons();
 
-            // Cal.com Init & Embed
             (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
             Cal("init", {origin:"https://cal.com"});
 
-            const phoneStr = phoneInputInstance ? phoneInputInstance.getNumber() : "";
             const prefillQuery = new URLSearchParams({
                 name: `${fName} ${lName}`,
                 email: email,
-                "responses[phone]": phoneStr
+                "responses[phone]": formattedPhone
             }).toString();
 
             Cal("inline", {
@@ -646,8 +746,17 @@
             Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#e60000"}},"hideEventTypeDetails":false,"layout":"month_view"});
         }
 
-        // --- INIT ---
-        document.addEventListener('DOMContentLoaded', () => {
+        // --- COOKIE INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const stored = getStoredConsent();
+            if (stored === 'accepted') {
+                window.marketingConsent = true;
+                loadMetaPixel();
+            } else if (stored === 'rejected') {
+                window.marketingConsent = false;
+            } else {
+                setTimeout(showCookieBanner, 400);
+            }
             renderQuestion();
         });
     </script>
