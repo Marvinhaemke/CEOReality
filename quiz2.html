@@ -162,6 +162,76 @@
         lucide.createIcons();
 
         // --- TRACKING & CONSENT HELPER ---
+        const CONSENT_STORAGE_KEY = 'ceo_reality_consent';
+        const CONSENT_EXPIRY_DAYS = 365;
+        window.marketingConsent = false;
+        let pixelLoaded = false;
+
+        function getStoredConsent() {
+            try {
+                const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (parsed.expires && Date.now() > parsed.expires) {
+                    localStorage.removeItem(CONSENT_STORAGE_KEY);
+                    return null;
+                }
+                return parsed.value;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function storeConsent(value) {
+            try {
+                localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({
+                    value: value,
+                    timestamp: Date.now(),
+                    expires: Date.now() + CONSENT_EXPIRY_DAYS * 24 * 60 * 60 * 1000
+                }));
+            } catch (e) {
+                console.warn('Could not store consent:', e);
+            }
+        }
+
+        function loadMetaPixel() {
+            if (pixelLoaded) return;
+            pixelLoaded = true;
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '26542472978694567');
+            fbq('track', 'PageView');
+        }
+
+        function showCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (banner) requestAnimationFrame(() => { banner.classList.add('cookie-banner-visible'); });
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (banner) banner.classList.remove('cookie-banner-visible');
+        }
+
+        function acceptCookies() {
+            storeConsent('accepted'); 
+            window.marketingConsent = true; 
+            loadMetaPixel(); 
+            hideCookieBanner();
+        }
+
+        function rejectCookies() {
+            storeConsent('rejected'); 
+            window.marketingConsent = false; 
+            hideCookieBanner();
+        }
+
         function getCookie(name) {
             const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
             if (match) return match[2];
@@ -576,7 +646,7 @@
                 categoryDesc = "Echte CEO-Mentalität. Du triffst Entscheidungen datenbasiert und steuerst das System von außen. Jetzt geht es darum, die bestehende Effizienz maximal zu hebeln und den Output zu vervielfachen.";
             }
 
-            // --- TRACKING & API PUSH ---
+            // --- EVENT TRACKING LOGIC ---
             const consent = window.marketingConsent === true;
             const eventId = generateEventId();
             const eventTime = Math.floor(Date.now() / 1000);
