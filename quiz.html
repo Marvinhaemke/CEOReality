@@ -293,20 +293,13 @@
             DOM_CONTENT.innerHTML = `
                 <div class="fade-in">
                     <span class="text-brand-orange font-mono text-xs font-bold tracking-widest uppercase mb-2 block">${q.rubrik}</span>
-                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-4 text-gray-900 leading-tight">${q.text}</h3>
+                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-6 text-gray-900 leading-tight">${q.text}</h3>
                     
-                    ${q.note ? `
-                    <div class="mb-6 bg-gray-50 border-l-4 border-gray-900 p-4 rounded-r-lg shadow-sm">
-                        <p class="text-sm sm:text-base text-gray-800 font-medium leading-relaxed">
-                            <span class="font-bold font-oswald uppercase tracking-wider text-gray-900 mr-1">Notiz:</span> ${q.note}
-                        </p>
-                    </div>` : ''}
-
                     <div class="space-y-3 relative" id="answers-container">
                         ${answersHTML}
                     </div>
 
-                    <!-- Placeholder for the feedback toast -->
+                    <!-- Placeholder for the feedback toast and note -->
                     <div id="feedback-container"></div>
                 </div>
             `;
@@ -315,6 +308,7 @@
 
         function handleAnswer(btnIdx, points, feedbackText) {
             totalScore += points;
+            const q = questions[currentQuestionIndex];
             
             // Mark the selected button
             const container = document.getElementById('answers-container');
@@ -338,24 +332,38 @@
             const labelText = isGoodAnswer ? 'Solide' : 'Reality Check';
 
             const feedbackHTML = `
-                <div class="feedback-toast mt-6 bg-gray-900 text-white p-5 sm:p-6 rounded-xl border-l-4 ${borderClass} shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-                    <div class="flex items-start gap-4">
+                <div class="feedback-toast mt-8 flex flex-col gap-4">
+                    
+                    <!-- Answer Evaluation -->
+                    <div class="bg-gray-900 text-white p-5 sm:p-6 rounded-xl border-l-4 ${borderClass} shadow-xl flex items-start gap-4">
                         <i data-lucide="${iconName}" class="w-6 h-6 ${iconClass} flex-shrink-0 mt-0.5"></i>
                         <div>
                             <div class="text-[0.65rem] text-gray-400 uppercase tracking-widest mb-1 font-mono">${labelText}</div>
                             <p class="font-semibold text-base sm:text-lg leading-snug">${feedbackText}</p>
                         </div>
                     </div>
-                    <button type="button" onclick="advanceToNextQuestion()" class="btn-glow px-6 py-3 rounded-lg text-sm font-oswald font-bold uppercase tracking-wide flex-shrink-0 w-full sm:w-auto text-center flex items-center justify-center gap-2">
-                        Weiter <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
+
+                    <!-- Deep Dive Note -->
+                    ${q.note ? `
+                    <div class="bg-gray-50 border border-gray-200 border-l-4 border-l-gray-900 p-5 rounded-r-lg">
+                        <p class="text-sm sm:text-base text-gray-800 font-medium leading-relaxed">
+                            <span class="font-bold font-oswald uppercase tracking-wider text-gray-900 mr-2">Notiz:</span> ${q.note}
+                        </p>
+                    </div>` : ''}
+
+                    <!-- Next Button -->
+                    <div class="flex justify-end mt-4">
+                        <button type="button" onclick="advanceToNextQuestion()" class="btn-glow px-8 py-4 rounded-lg text-base font-oswald font-bold uppercase tracking-wide w-full sm:w-auto text-center flex items-center justify-center gap-2">
+                            Weiter <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
                 </div>
             `;
             
             document.getElementById('feedback-container').innerHTML = feedbackHTML;
             lucide.createIcons();
             
-            // Scroll down a bit on mobile so the toast is fully visible
+            // Scroll down a bit on mobile so the feedback is fully visible
             if (window.innerWidth < 640) {
                 document.getElementById('feedback-container').scrollIntoView({ behavior: 'smooth', block: 'end' });
             }
