@@ -10,6 +10,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
     
+    <!-- Umami Analytics -->
+    <script src="https://umami-peach-xi.vercel.app/script.js" data-website-id="5d768786-ca16-4d87-a609-448f35305230"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -61,7 +64,6 @@
         .quiz-option.selected { border-color: #e60000; background: #fff5f5; box-shadow: 0 4px 15px rgba(230,0,0,0.1); }
         .quiz-option:disabled { cursor: not-allowed; opacity: 0.6; }
         
-        /* Feedback Toast Animation */
         .feedback-toast {
             opacity: 0;
             animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -71,7 +73,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Der Fix für das Flackern: opacity: 0 als Startwert */
         .fade-in { 
             opacity: 0; 
             animation: fadeIn 0.4s ease-out forwards; 
@@ -94,6 +95,15 @@
         
         .iti { width: 100%; display: block; }
         .iti .input-field { padding-left: 52px !important; }
+
+        /* Cookie Banner Styles */
+        #cookie-banner {
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #cookie-banner.cookie-banner-visible {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="font-inter antialiased min-h-screen flex items-center justify-center py-12 px-4">
@@ -124,150 +134,304 @@
 
     </div>
 
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung" class="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-4 pointer-events-none">
+        <div class="max-w-3xl mx-auto bg-brand-dark text-white rounded-xl shadow-2xl border border-gray-800 p-5 md:p-6 pointer-events-auto">
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+                <div class="flex-1">
+                    <p class="font-oswald font-bold text-base uppercase tracking-wide mb-1 text-white">Wir nutzen Cookies</p>
+                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                        Wir verwenden Cookies und ähnliche Technologien (z.&nbsp;B. Meta&nbsp;Pixel) für Marketing und Reichweitenmessung. Daten können dabei in die USA übertragen werden. Du kannst frei entscheiden. Mehr in der <a href="#" class="underline hover:text-brand-orange">Datenschutzerklärung</a>.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 md:flex-shrink-0 md:min-w-[260px]">
+                    <button type="button" onclick="rejectCookies()" class="flex-1 px-5 py-2.5 rounded-lg border border-gray-600 text-gray-200 hover:bg-gray-800 hover:border-gray-500 transition-colors text-sm font-oswald font-bold uppercase tracking-wide">
+                        Ablehnen
+                    </button>
+                    <button type="button" onclick="acceptCookies()" class="flex-1 px-5 py-2.5 rounded-lg bg-brand-orange hover:bg-brand-red text-white transition-colors text-sm font-oswald font-bold uppercase tracking-wide">
+                        Akzeptieren
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
     <script>
         lucide.createIcons();
 
+        // --- TRACKING & CONSENT HELPER ---
+        const CONSENT_STORAGE_KEY = 'ceo_reality_consent';
+        const CONSENT_EXPIRY_DAYS = 365;
+        window.marketingConsent = false;
+        let pixelLoaded = false;
+
+        function getStoredConsent() {
+            try {
+                const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (parsed.expires && Date.now() > parsed.expires) {
+                    localStorage.removeItem(CONSENT_STORAGE_KEY);
+                    return null;
+                }
+                return parsed.value;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function storeConsent(value) {
+            try {
+                localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({
+                    value: value,
+                    timestamp: Date.now(),
+                    expires: Date.now() + CONSENT_EXPIRY_DAYS * 24 * 60 * 60 * 1000
+                }));
+            } catch (e) {
+                console.warn('Could not store consent:', e);
+            }
+        }
+
+        function loadMetaPixel() {
+            if (pixelLoaded) return;
+            pixelLoaded = true;
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '26542472978694567');
+            fbq('track', 'PageView');
+        }
+
+        function showCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (banner) requestAnimationFrame(() => { banner.classList.add('cookie-banner-visible'); });
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (banner) banner.classList.remove('cookie-banner-visible');
+        }
+
+        function acceptCookies() {
+            storeConsent('accepted'); 
+            window.marketingConsent = true; 
+            loadMetaPixel(); 
+            hideCookieBanner();
+        }
+
+        function rejectCookies() {
+            storeConsent('rejected'); 
+            window.marketingConsent = false; 
+            hideCookieBanner();
+        }
+
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            if (match) return match[2];
+            return null;
+        }
+
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const result = {};
+            for (const [key, value] of params.entries()) { result[key] = value; }
+            return result;
+        }
+
+        function generateEventId() {
+            if (window.crypto && typeof window.crypto.randomUUID === 'function') { return window.crypto.randomUUID(); }
+            return 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
+        }
+
         // --- QUIZ DATA ---
         const questions = [
             {
                 rubrik: "RUBRIK 1: MARKETING",
+                category: "marketing",
                 text: "Wenn du jetzt, in diesem Moment, wissen willst von welcher Kampagne dein letzter zahlender Kunde kam: Wie schnell hast du die Antwort?",
                 note: "Wer den Preis seiner Kundengewinnung nicht kennt, steuert sein Geschäft im Blindflug.",
+                shuffle: false,
                 answers: [
                     { text: "1 Minute", points: 4, feedback: "Du bist am Steuer. Genau so führt ein CEO sein Marketing." },
                     { text: "5 Minuten, muss ich ausrechnen", points: 2, feedback: "Du hast die Daten, aber sie liegen nicht griffbereit. Wer ausrechnen muss, reagiert nur." },
-                    { text: "Muss mein Team fragen", points: 1, feedback: "Dann bist du nicht CEO. Du bist Zuschauer." },
-                    { text: "Ich mache kein Performance Marketing", points: 0, feedback: "WHAT?!" }
+                    { text: "Muss mein Team fragen", points: 1, feedback: "Dann bist du nicht CEO. Du bist Zuschauer.", redFlag: "Du bist im Marketing eher Zuschauer als Entscheider (Kein Echtzeit-Zugriff auf Daten)." },
+                    { text: "Ich mache kein Performance Marketing", points: 0, feedback: "WHAT?!", redFlag: "Kein Performance Marketing bedeutet Verzicht auf planbares, steuerbares Wachstum." }
                 ]
             },
             {
                 rubrik: "RUBRIK 1: MARKETING",
+                category: "marketing",
                 text: "Wann hast du das letzte Mal selbst eine Marketing-Botschaft deines Unternehmens vollständig geprüft, nicht im Vorbeigehen, sondern bewusst?",
                 note: "Marketing prüfen ist nicht dasselbe wie Marketing steuern. Beides nicht zu tun ist Distanz, beides zu vermischen ist Mikromanagement.",
+                shuffle: false,
                 answers: [
-                    { text: "Ich prüfe täglich", points: 1, feedback: "Micro Manager & Kontrollfreak - kein A-Player bleibt bei dir." },
-                    { text: "Ich prüfe monatlich", points: 4, feedback: "Sweet-spot. Nah genug am Marketing um zu steuern, weit genug weg um zu führen." },
+                    { text: "Ich prüfe täglich", points: 1, feedback: "Micro Manager & Kontrollfreak - kein A-Player bleibt bei dir.", redFlag: "Micromanagement-Alarm im Marketing: Du bist zu tief im Tagesgeschäft." },
                     { text: "Ich prüfe wöchentlich", points: 3, feedback: "Akzeptabel, aber zu nah dran. Wer wöchentlich prüft, ist eher Operator als Stratege." },
-                    { text: "Das ist Aufgabe meines Teams oder Agentur", points: 0, feedback: "Wow.. Du solltest dir bei uns schnell einen Call buchen." }
+                    { text: "Ich prüfe monatlich", points: 4, feedback: "Sweet-spot. Nah genug am Marketing um zu steuern, weit genug weg um zu führen." },
+                    { text: "Das ist Aufgabe meines Teams oder Agentur", points: 0, feedback: "Wow.. Du solltest dir bei uns schnell einen Call buchen.", redFlag: "Gefährliche Distanz: Komplette Abgabe der Marketing-Kontrolle ohne eigene Überprüfung." }
                 ]
             },
             {
                 rubrik: "RUBRIK 1: MARKETING",
+                category: "marketing",
                 text: "Welche Auswirkungen hat das Meta-Andromeda-Update auf deine Media-Buying-Strategie?",
                 note: "Du musst kein Media-Buyer sein. Aber wenn du nicht prüfen kannst, ob deiner seinen Job macht, bezahlst du für Vertrauen – nicht für Strategie.",
+                shuffle: true,
                 answers: [
                     { text: "Ich kann die Auswirkungen konkret benennen.", points: 4, feedback: "Top, wir hoffen die sind auch richtig." },
-                    { text: "Ich weiß nicht, was das ist.", points: 0, feedback: "Autsch." },
+                    { text: "Ich weiß nicht, was das ist.", points: 0, feedback: "Autsch.", redFlag: "Fehlendes Plattform-Verständnis führt zu blinder Abhängigkeit von Agenturen." },
                     { text: "Das ist Aufgabe meines Teams oder meiner Agentur.", points: 3, feedback: "Solide, wenn du wenigstens das Ergebnis bewerten kannst." },
-                    { text: "Ich mache kein Performance-Marketing über Meta.", points: 0, feedback: "WARUM?" }
+                    { text: "Ich mache kein Performance-Marketing über Meta.", points: 0, feedback: "WARUM?", redFlag: "Du nutzt einen der wichtigsten Akquise-Kanäle der Welt nicht." }
                 ]
             },
             {
                 rubrik: "RUBRIK 2: SALES",
+                category: "sales",
                 text: "Was kostet dich aktuell ein Abschluss, also dein Customer Acquisition Cost?",
                 note: "Wer nicht weiß was ein Kunde kostet, kann nicht entscheiden was ein Kunde wert ist.",
+                shuffle: false,
                 answers: [
                     { text: "Ich kenne die Zahl auf den Euro genau", points: 4, feedback: "CEO-Niveau. Weiter so." },
                     { text: "Grobe Hausnummer im Kopf", points: 3, feedback: "Grob ist nicht genau, skalierst du Glück?" },
-                    { text: "Müsste ich nachfragen", points: 1, feedback: "Du steuerst nichts. Die Zahl steuert dich." },
-                    { text: "Keine Ahnung", points: 0, feedback: "Roulette mit Mitarbeitergehältern." }
+                    { text: "Müsste ich nachfragen", points: 1, feedback: "Du steuerst nichts. Die Zahl steuert dich.", redFlag: "Keine griffbereiten Akquisekosten: Du steuerst Sales nach Gefühl, nicht nach Zahlen." },
+                    { text: "Keine Ahnung", points: 0, feedback: "Roulette mit Mitarbeitergehältern.", redFlag: "Totaler Blindflug beim CAC. Du verbrennst wahrscheinlich unbemerkt Kapital." }
                 ]
             },
             {
                 rubrik: "RUBRIK 2: SALES",
+                category: "sales",
                 text: "Deine Closing-Rate bricht diesen Monat um 30% ein. Was ist deine erste konkrete Handlung, nicht dein erster Gedanke, sondern was du tatsächlich tust?",
                 note: "Wer Symptome bekämpft ohne Daten anzusehen, schraubt am falschen Ende.",
+                shuffle: true,
                 answers: [
                     { text: "Ich höre mir 5 bis 10 verlorene Calls an", points: 3, feedback: "Direkt an die Quelle. Daten lügen nicht, aber Calls zeigen warum." },
                     { text: "Ich schaue in die Daten", points: 3, feedback: "Solide. Aber Daten zeigen das Was, nicht das Warum." },
-                    { text: "Ich setze ein Meeting mit dem Sales-Team an", points: 1, feedback: "Du fragst die, die das Problem haben, nach der Lösung. Das ergibt Meinungen, keine Wahrheit." },
-                    { text: "Ich kaufe mehr Leads ein", points: 0, feedback: "Volumen-Hebel auf ein Conversion-Problem. Du verbrennst Geld." }
+                    { text: "Ich setze ein Meeting mit dem Sales-Team an", points: 1, feedback: "Du fragst die, die das Problem haben, nach der Lösung. Das ergibt Meinungen, keine Wahrheit.", redFlag: "Problemlösung durch Meinungen statt durch Daten (Meetings statt Call-Reviews)." },
+                    { text: "Ich kaufe mehr Leads ein", points: 0, feedback: "Volumen-Hebel auf ein Conversion-Problem. Du verbrennst Geld.", redFlag: "Tödlicher Sales-Fehler: Volumen auf ein Conversion-Problem zu werfen." }
                 ]
             },
             {
                 rubrik: "RUBRIK 2: SALES",
+                category: "sales",
                 text: "In deinem Unternehmen werden aktuell 80% der Sales-Calls abgeschlossen. Was ist deine erste konkrete Handlung?",
                 note: "80% Closing-Rate ist kein Erfolg. Es ist ein Hinweis darauf, dass du zu billig bist oder zu wenige Leads hast.",
+                shuffle: true,
                 answers: [
                     { text: "Preise erhöhen", points: 4, feedback: "Ein Markt sagt zu schnell Ja. Marge verschenkt." },
-                    { text: "Lead-Volumen skalieren", points: 1, feedback: "Du skalierst gerade ein Pricing-Problem. Mehr Volumen, gleiches Loch." },
-                    { text: "Einen weiteren Closer einstellen", points: 0, feedback: "Quatsch.. Doppelte Personalkosten ohne Margen-Fix. Du verschlimmbesserst." },
-                    { text: "Weiterlaufen lassen", points: 1, feedback: "''Läuft ja'' ist extrem teuer." }
+                    { text: "Lead-Volumen skalieren", points: 1, feedback: "Du skalierst gerade ein Pricing-Problem. Mehr Volumen, gleiches Loch.", redFlag: "Du skalierst ein Pricing-Problem durch mehr Lead-Volumen." },
+                    { text: "Einen weiteren Closer einstellen", points: 0, feedback: "Quatsch.. Doppelte Personalkosten ohne Margen-Fix. Du verschlimmbesserst.", redFlag: "Falsche Hebel im Sales: Neue Closer lösen kein Marge/Pricing-Problem." },
+                    { text: "Weiterlaufen lassen", points: 1, feedback: "''Läuft ja'' ist extrem teuer.", redFlag: "Verschenkte Marge: Eine extrem hohe Abschlussrate ohne Preisanpassung wird toleriert." }
                 ]
             },
             {
                 rubrik: "RUBRIK 3: OPERATIONS & FÜHRUNG",
+                category: "ops",
                 text: "Stell dir vor, dein wichtigster IT-Dienstleister kündigt morgen die Zusammenarbeit. Was passiert?",
                 note: "",
+                shuffle: false,
                 answers: [
                     { text: "Kein Problem", points: 4, feedback: "Resilient gebaut." },
                     { text: "Stressig, aber machbar", points: 3, feedback: "Du überlebst immerhin mit Reibung. Es gibt blinde Stellen, die du erst im Notfall siehst." },
-                    { text: "Der kündigt nicht", points: 1, feedback: "Genau diese Annahme ruiniert Unternehmen." },
-                    { text: "Darüber will ich lieber nicht nachdenken", points: 0, feedback: "Das Risiko ist real. Du ignorierst es nur." }
+                    { text: "Der kündigt nicht", points: 1, feedback: "Genau diese Annahme ruiniert Unternehmen.", redFlag: "Naive Risikobewertung: Hoffnung ist dein Backup-Plan bei Dienstleistern." },
+                    { text: "Darüber will ich lieber nicht nachdenken", points: 0, feedback: "Das Risiko ist real. Du ignorierst es nur.", redFlag: "Verdrängung von existenziellen Klumpenrisiken im Operations-Bereich." }
                 ]
             },
             {
                 rubrik: "RUBRIK 3: OPERATIONS & FÜHRUNG",
+                category: "ops",
                 text: "Wenn du auf deine letzten 7 Tage zurückblickst, woran hast du hauptsächlich gearbeitet?",
                 note: "Wer alltägliche Aufgaben erledigt oder Feuer löscht, arbeitet IM Unternehmen, nicht AM Unternehmen.",
+                shuffle: true,
                 answers: [
                     { text: "Strategisch am Unternehmen gearbeitet", points: 4, feedback: "CEO-Modus. Hoffen wir, das war ehrlich." },
                     { text: "Ich habe an Prozessen gearbeitet", points: 2, feedback: "Du baust gerade den Job eines anderen." },
-                    { text: "Ich habe alltägliche Aufgaben erledigt", points: 1, feedback: "Du bist der teuerste Mitarbeiter deines Unternehmens." },
-                    { text: "Ich habe Feuer gelöscht", points: 0, feedback: "Kein Kommentar." }
+                    { text: "Ich habe alltägliche Aufgaben erledigt", points: 1, feedback: "Du bist der teuerste Mitarbeiter deines Unternehmens.", redFlag: "Du bist der teuerste und ineffizienteste Sachbearbeiter deines Unternehmens." },
+                    { text: "Ich habe Feuer gelöscht", points: 0, feedback: "Kein Kommentar.", redFlag: "Dauerhafter Brandlöscher-Modus: Dein Unternehmen steuert dich, nicht umgekehrt." }
                 ]
             },
             {
                 rubrik: "RUBRIK 3: OPERATIONS & FÜHRUNG",
+                category: "ops",
                 text: "Wie lange solltest du maximal warten, bevor du über die Zukunft eines B-Performers entscheidest?",
                 note: "Wer zu lange wartet, schützt nicht den B-Player. Er schadet dem Team, das ihn trägt.",
+                shuffle: false,
                 answers: [
                     { text: "30 Tage", points: 4, feedback: "Konsequent. So führen Top-CEOs." },
                     { text: "3 bis 6 Monate", points: 2, feedback: "Dein Team verliert in der Zeit Energie und Vertrauen." },
-                    { text: "6 bis 12 Monate", points: 1, feedback: "Entweder du wirst verarscht, oder deine Mitarbeiter verlieren schon die Motivation." },
-                    { text: "Solange wie nötig, ich gebe Leuten Zeit", points: 0, feedback: "Führungsversagen." }
+                    { text: "6 bis 12 Monate", points: 1, feedback: "Entweder du wirst verarscht, oder deine Mitarbeiter verlieren schon die Motivation.", redFlag: "Toleranz von B-Performern (6+ Monate) zerstört aktiv deine Team-Moral." },
+                    { text: "Solange wie nötig, ich gebe Leuten Zeit", points: 0, feedback: "Führungsversagen.", redFlag: "Akutes Führungsversagen durch absolute Inkonsequenz bei schlechter Leistung." }
                 ]
             },
             {
                 rubrik: "RUBRIK 4: STEUERUNG",
+                category: "steuerung",
                 text: "Wenn du morgen 30 Tage außer Gefecht bist, was passiert mit deinem Unternehmen?",
                 note: "Ein Unternehmen, das ohne dich nicht funktioniert, ist kein Unternehmen – es ist ein gut bezahlter Job mit Mitarbeitern.",
+                shuffle: false,
                 answers: [
                     { text: "Es wächst auch ohne mich", points: 4, feedback: "Das ist ein Unternehmen." },
                     { text: "Es läuft solide weiter", points: 3, feedback: "Stabil, aber Wachstum steht still. Du bist immer noch Engpass für Skalierung." },
-                    { text: "Es bricht in Teilen zusammen", points: 1, feedback: "Du bist Single Point of Failure. Risiko für dich, dein Team und deine Kunden." },
-                    { text: "Katastrophe", points: 0, feedback: "Du hast kein Unternehmen." }
+                    { text: "Es bricht in Teilen zusammen", points: 1, feedback: "Du bist Single Point of Failure. Risiko für dich, dein Team und deine Kunden.", redFlag: "Single Point of Failure: Das System bricht in Teilen zusammen, wenn du fehlst." },
+                    { text: "Katastrophe", points: 0, feedback: "Du hast kein Unternehmen.", redFlag: "Kein echtes Business: Du hast dir nur einen extrem stressigen Job erschaffen." }
                 ]
             },
             {
                 rubrik: "RUBRIK 4: STEUERUNG",
+                category: "steuerung",
                 text: "Wenn dein Unternehmen die nächste Wachstumsphase erfordert, bedeutet das mehr Einsatz, weniger Komfort, weniger Routine. Wie stehst du dazu?",
                 note: "Wer nicht bereit ist zu investieren, will nicht skalieren. Er will eine bessere Version des Status quo.",
+                shuffle: true,
                 answers: [
                     { text: "Ich bin bereit", points: 4, feedback: "Echte Skalierungs-Mentalität. Du verstehst den Preis." },
                     { text: "Bin mir nicht sicher, ob ich wirklich skalieren will", points: 1, feedback: "Ohne Klarheit über das Ziel ist jede Strategie willkürlich." },
-                    { text: "Ich will skalieren ohne meine Lebensqualität zu verändern", points: 1, feedback: "Ergebnis ohne Preis. Das gibt es nicht." },
+                    { text: "Ich will skalieren ohne meine Lebensqualität zu verändern", points: 1, feedback: "Ergebnis ohne Preis. Das gibt es nicht.", redFlag: "Wunschdenken: Du willst Wachstum ohne die nötigen Opfer oder systemischen Veränderungen." },
                     { text: "Ich möchte nicht skalieren", points: 2, feedback: "Ehrliche Antwort. Besser nicht skalieren als halbherzig skalieren." }
                 ]
             },
             {
                 rubrik: "RUBRIK 4: STEUERUNG",
+                category: "steuerung",
                 text: "Wann hast du das letzte Mal die Substanz deines Hauptangebots grundlegend in Frage gestellt (nicht Preise, sondern das Offer)?",
                 note: "Wer sein Offer in Frage stellen kann, ist CEO. Wer es verteidigt, ist verheiratet mit einer Idee.",
+                shuffle: false,
                 answers: [
                     { text: "In den letzten 6 Monaten", points: 4, feedback: "Du behandelst dein Offer wie ein lebendes Produkt. Genau richtig." },
                     { text: "Vor über einem Jahr", points: 2, feedback: "Zu lange. Märkte ändern sich schneller als du." },
-                    { text: "Seit Erstellung nicht mehr", points: 0, feedback: "Klassischer Sunk-Cost. Du verkaufst Vergangenheit." },
-                    { text: "Mein Offer funktioniert", points: 1, feedback: "Genau diese Antwort tötet langfristige Unternehmen." }
+                    { text: "Seit Erstellung nicht mehr", points: 0, feedback: "Klassischer Sunk-Cost. Du verkaufst Vergangenheit.", redFlag: "Sunk-Cost-Falle: Du hängst an veralteten Angeboten und ignorierst den Markt." },
+                    { text: "Mein Offer funktioniert", points: 1, feedback: "Genau diese Antwort tötet langfristige Unternehmen.", redFlag: "'Läuft ja' - Gefährliche Stagnation bei der Produkt- und Angebotsentwicklung." }
                 ]
             }
         ];
 
+        function shuffleArray(array) {
+            const newArr = [...array];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        }
+
         // --- APP STATE ---
         let currentQuestionIndex = 0;
-        let totalScore = 0;
+        let userResponses = []; // Track detailed answers for the webhook
+        
+        const areaScores = {
+            marketing: { points: 0, max: 12, label: "Marketing" },
+            sales: { points: 0, max: 12, label: "Sales" },
+            ops: { points: 0, max: 12, label: "Operations" },
+            steuerung: { points: 0, max: 12, label: "Steuerung" }
+        };
+        
+        let collectedRedFlags = [];
+
         const DOM_CONTENT = document.getElementById('dynamic-content');
         const DOM_HEADER = document.getElementById('quiz-header');
         let phoneInputInstance = null;
@@ -285,8 +449,11 @@
             document.getElementById('step-counter').innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
             document.getElementById('progress-line').style.width = `${progress}%`;
 
-            let answersHTML = q.answers.map((ans, idx) => `
-                <button type="button" id="btn-${idx}" onclick="handleAnswer(${idx}, ${ans.points}, '${ans.feedback.replace(/'/g, "\\'")}')" 
+            const mappedAnswers = q.answers.map((ans, originalIdx) => ({ ...ans, originalIdx }));
+            const displayedAnswers = q.shuffle ? shuffleArray(mappedAnswers) : mappedAnswers;
+
+            let answersHTML = displayedAnswers.map((ans, idx) => `
+                <button type="button" id="btn-${idx}" onclick="handleAnswer(${idx}, ${ans.originalIdx})" 
                     class="quiz-option fade-in group" style="animation-delay: ${idx * 0.1}s">
                     <div class="flex justify-between items-center">
                         <span class="font-semibold text-gray-900 transition-colors">${ans.text}</span>
@@ -298,39 +465,48 @@
             DOM_CONTENT.innerHTML = `
                 <div class="fade-in">
                     <span class="text-brand-orange font-mono text-xs font-bold tracking-widest uppercase mb-2 block">${q.rubrik}</span>
-                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-6 text-gray-900 leading-tight">${q.text}</h3>
+                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold mb-6 text-gray-900 leading-tight">${q.text}</h3>
                     
                     <div class="space-y-3 relative" id="answers-container">
                         ${answersHTML}
                     </div>
 
-                    <!-- Placeholder for the feedback toast and note -->
                     <div id="feedback-container"></div>
                 </div>
             `;
             lucide.createIcons();
         }
 
-        function handleAnswer(btnIdx, points, feedbackText) {
-            totalScore += points;
+        function handleAnswer(btnDOMIdx, originalDataIdx) {
             const q = questions[currentQuestionIndex];
+            const chosenAnswer = q.answers[originalDataIdx];
             
-            // Mark the selected button
+            areaScores[q.category].points += chosenAnswer.points;
+            if (chosenAnswer.redFlag) {
+                collectedRedFlags.push(chosenAnswer.redFlag);
+            }
+            
+            // Record user's choice for the webhook integration
+            userResponses.push({
+                question: q.text,
+                rubrik: q.rubrik,
+                answer: chosenAnswer.text,
+                points: chosenAnswer.points
+            });
+
             const container = document.getElementById('answers-container');
             const buttons = container.querySelectorAll('.quiz-option');
             
             buttons.forEach((btn, idx) => {
-                btn.disabled = true; // Disable all to prevent double-clicks
-                if (idx === btnIdx) {
+                btn.disabled = true;
+                if (idx === btnDOMIdx) {
                     btn.classList.add('selected');
                 } else {
                     btn.classList.add('opacity-40');
                 }
             });
 
-            // Determine if it's a "Good" or "Bad" answer visually (3-4 points is good, 0-2 is bad)
-            const isGoodAnswer = points >= 3;
-            
+            const isGoodAnswer = chosenAnswer.points >= 3;
             const borderClass = isGoodAnswer ? 'border-green-500' : 'border-brand-orange';
             const iconClass = isGoodAnswer ? 'text-green-500' : 'text-brand-orange';
             const iconName = isGoodAnswer ? 'check-circle' : 'alert-triangle';
@@ -338,17 +514,14 @@
 
             const feedbackHTML = `
                 <div class="feedback-toast mt-8 flex flex-col gap-4">
-                    
-                    <!-- Answer Evaluation -->
                     <div class="bg-gray-900 text-white p-5 sm:p-6 rounded-xl border-l-4 ${borderClass} shadow-xl flex items-start gap-4">
                         <i data-lucide="${iconName}" class="w-6 h-6 ${iconClass} flex-shrink-0 mt-0.5"></i>
                         <div>
                             <div class="text-[0.65rem] text-gray-400 uppercase tracking-widest mb-1 font-mono">${labelText}</div>
-                            <p class="font-semibold text-base sm:text-lg leading-snug">${feedbackText}</p>
+                            <p class="font-semibold text-base sm:text-lg leading-snug">${chosenAnswer.feedback}</p>
                         </div>
                     </div>
 
-                    <!-- Deep Dive Note -->
                     ${q.note ? `
                     <div class="bg-gray-50 border border-gray-200 border-l-4 border-l-gray-900 p-5 rounded-r-lg">
                         <p class="text-sm sm:text-base text-gray-800 font-medium leading-relaxed">
@@ -356,7 +529,6 @@
                         </p>
                     </div>` : ''}
 
-                    <!-- Next Button -->
                     <div class="flex justify-end mt-4">
                         <button type="button" onclick="advanceToNextQuestion()" class="btn-glow px-8 py-4 rounded-lg text-base font-oswald font-bold uppercase tracking-wide w-full sm:w-auto text-center flex items-center justify-center gap-2">
                             Weiter <i data-lucide="arrow-right" class="w-5 h-5"></i>
@@ -368,7 +540,6 @@
             document.getElementById('feedback-container').innerHTML = feedbackHTML;
             lucide.createIcons();
             
-            // Scroll down a bit on mobile so the feedback is fully visible
             if (window.innerWidth < 640) {
                 document.getElementById('feedback-container').scrollIntoView({ behavior: 'smooth', block: 'end' });
             }
@@ -385,8 +556,8 @@
 
             DOM_CONTENT.innerHTML = `
                 <div class="fade-in">
-                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-2 text-gray-900 leading-tight">Die Auswertung ist bereit.</h3>
-                    <p class="text-sm text-gray-500 mb-6">Wir haben berechnet, auf welchem Level du aktuell operierst. Wohin dürfen wir das Ergebnis schicken?</p>
+                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-2 text-gray-900 leading-tight">Die Analyse ist bereit.</h3>
+                    <p class="text-sm text-gray-500 mb-6">Wir haben deine Engpässe identifiziert. Wohin dürfen wir das Detail-Ergebnis schicken?</p>
                     
                     <form id="lead-form" class="space-y-4 mb-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -429,13 +600,12 @@
                         <div id="form-error" class="hidden p-3 rounded bg-red-50 text-red-700 text-sm font-semibold"></div>
 
                         <button type="button" onclick="calculateResult()" class="btn-glow w-full px-8 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-lg mt-6">
-                            Mein Profil enthüllen
+                            Detail-Analyse enthüllen
                         </button>
                     </form>
                 </div>
             `;
 
-            // Init Phone Input
             const phoneInputField = document.querySelector("#phone");
             phoneInputInstance = window.intlTelInput(phoneInputField, {
                 initialCountry: "de", preferredCountries: ["de", "at", "ch"],
@@ -443,16 +613,22 @@
             });
         }
 
+        function getAreaStatus(points) {
+            if (points <= 5) return { label: "Kritischer Engpass", color: "text-brand-orange", bg: "bg-brand-orange" };
+            if (points <= 9) return { label: "Instabil", color: "text-orange-500", bg: "bg-orange-500" };
+            return { label: "Solide Systematik", color: "text-gray-900", bg: "bg-gray-900" };
+        }
+
         function calculateResult() {
-            // Validation
             const fName = document.getElementById('firstName').value.trim();
             const lName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('email').value.trim();
             const revenue = document.getElementById('revenue').value;
             const commitment = document.getElementById('commitment').checked;
+            const phoneVal = document.getElementById('phone').value.trim();
             const errorBox = document.getElementById('form-error');
             
-            let phoneValid = phoneInputInstance.isValidNumber ? phoneInputInstance.isValidNumber() : document.getElementById('phone').value.trim().length > 5;
+            let phoneValid = phoneInputInstance && phoneInputInstance.isValidNumber ? phoneInputInstance.isValidNumber() : phoneVal.length > 5;
             
             if(!fName || !lName || !email || !revenue || !phoneValid || !commitment) {
                 errorBox.innerText = "Bitte fülle alle Felder korrekt aus.";
@@ -460,51 +636,188 @@
                 return;
             }
 
-            // Categorization Logic (Max 48 points)
+            const totalScore = Object.values(areaScores).reduce((sum, area) => sum + area.points, 0);
+
             let categoryName = "";
             let categoryDesc = "";
             
-            if (totalScore <= 12) {
-                categoryName = "Der Brandlöscher";
-                categoryDesc = "Du bist kein CEO, du bist der teuerste Feuerwehrmann deines Unternehmens. Du reagierst nur, verbrennst Geld und bist das absolute Bottleneck. Jeder weitere Monat ohne System kostet dich massiv.";
-            } else if (totalScore <= 24) {
-                categoryName = "Der Mitarbeiter";
-                categoryDesc = "Du arbeitest IN deinem Unternehmen, nicht AN deinem Unternehmen. Du machst die Aufgaben deiner Angestellten und bremst so das Wachstum. Du hast dir einen Job kreiert, kein Business.";
-            } else if (totalScore <= 33) {
-                categoryName = "Der Kontrolleur";
-                categoryDesc = "Du bist ein Micromanager. Du vertraust deinem System nicht, weil du keins hast. Du bist nah dran, aber du steuerst nicht, du überwachst nur. A-Player werden bei dir nicht bleiben.";
-            } else if (totalScore <= 41) {
-                categoryName = "Der Manager";
-                categoryDesc = "Stabil, aber noch nicht am Ziel. Du hast Grundstrukturen, aber dir fehlt die letzte strategische Distanz und das tiefgehende Verständnis der echten Hebel, um entspannt zu skalieren.";
+            if (totalScore <= 15) {
+                categoryName = "Der System-Sklave";
+                categoryDesc = "Das Unternehmen führt dich. Ohne dich bricht das System zusammen. Du reagierst auf Probleme statt sie strategisch zu verhindern, verbrennst Kapital durch Blindflug und bist dein eigenes größtes Bottleneck.";
+            } else if (totalScore <= 28) {
+                categoryName = "Der Operator";
+                categoryDesc = "Du arbeitest extrem hart IN deinem Unternehmen, aber nicht AN deinem Unternehmen. Du löst operative Probleme mit Zeit statt mit Systemen. Du hast dir einen gut bezahlten Job kreiert, kein skalierbares Business.";
+            } else if (totalScore <= 39) {
+                categoryName = "Der Abteilungsleiter";
+                categoryDesc = "Du hast gute Ansätze und erste Systeme, steckst aber noch zu tief im Tagesgeschäft. Dir fehlt die finale strategische Distanz und das tiefe Verständnis der KPI-Mechanik, um dich komplett aus der Operation zu ziehen.";
             } else {
                 categoryName = "Der CEO";
-                categoryDesc = "Echte CEO-Mentalität. Du triffst Entscheidungen datenbasiert und steuerst das System von außen. Jetzt geht es darum, die Effizienz zu maximieren und den Output zu vervielfachen.";
+                categoryDesc = "Echte CEO-Mentalität. Du triffst Entscheidungen datenbasiert und steuerst das System von außen. Jetzt geht es darum, die bestehende Effizienz maximal zu hebeln und den Output zu vervielfachen.";
             }
 
-            renderFinalResult(fName, lName, email, categoryName, categoryDesc);
+            // --- EVENT TRACKING LOGIC ---
+            const consent = window.marketingConsent === true;
+            const eventId = generateEventId();
+            const eventTime = Math.floor(Date.now() / 1000);
+            const urlParams = getUrlParams();
+            const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
+            const fbp = consent ? (getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
+            
+            const formattedPhone = phoneInputInstance && phoneInputInstance.getNumber ? phoneInputInstance.getNumber() : phoneVal;
+
+            // Generate beautifully formatted HTML string block for Zapier/CRM
+            const detailedResultsHtml = `
+<div style="font-family: Arial, sans-serif; color: #333; line-height: 1.5; max-width: 600px;">
+    <h2 style="color: #e60000; text-transform: uppercase;">Detailauswertung: ${categoryName}</h2>
+    <p><strong>Gesamtpunktzahl:</strong> ${totalScore} / 48</p>
+
+    <h3 style="border-bottom: 2px solid #eee; padding-bottom: 5px;">Kategorie-Scores</h3>
+    <ul style="list-style-type: none; padding-left: 0;">
+        ${Object.values(areaScores).map(area => `
+        <li style="margin-bottom: 5px;"><strong>${area.label}:</strong> ${area.points} / ${area.max}</li>
+        `).join('')}
+    </ul>
+
+    <h3 style="border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 20px;">Ihre Antworten im Detail</h3>
+    ${userResponses.map((r, i) => `
+    <div style="margin-bottom: 20px; padding: 15px; background-color: #f9fafb; border-left: 4px solid #e60000;">
+        <div style="font-size: 12px; color: #6b7280; margin-bottom: 5px; text-transform: uppercase;">Frage ${i + 1} &bull; ${r.rubrik}</div>
+        <div style="font-weight: bold; margin-bottom: 10px; font-size: 16px;">${r.question}</div>
+        <div style="color: #111827;"><strong>Gewählte Antwort:</strong> ${r.answer} <span style="color: #e60000; font-weight: bold;">(${r.points} Pkt.)</span></div>
+    </div>
+    `).join('')}
+</div>`;
+
+            // 1. Meta Pixel Lead Event
+            if (consent && typeof fbq === 'function') {
+                fbq('track', 'Lead', {
+                    content_name: 'CEO Reality Quiz Completion',
+                    content_category: categoryName,
+                    value: totalScore
+                }, { eventID: eventId });
+            }
+
+            // 2. Umami Tracking Event
+            if (typeof umami !== 'undefined' && umami.track) {
+                umami.track('Lead', {
+                    category: categoryName,
+                    score: totalScore,
+                    revenue_bracket: revenue
+                });
+            }
+
+            // 3. Zapier Webhook
+            const payload = {
+                firstName: fName,
+                lastName: lName,
+                email: email,
+                phone: formattedPhone,
+                revenue: revenue,
+                score: totalScore,
+                category: categoryName,
+                event_name: 'Lead',
+                event_id: eventId,
+                event_time: eventTime,
+                event_source_url: window.location.href,
+                user_agent: navigator.userAgent,
+                marketing_consent: consent ? 'granted' : 'denied',
+                utm_source: urlParams['utm_source'] || '',
+                utm_medium: urlParams['utm_medium'] || '',
+                utm_campaign: urlParams['utm_campaign'] || '',
+                utm_term: urlParams['utm_term'] || '',
+                utm_content: urlParams['utm_content'] || '',
+                fbclid: fbclid,
+                fbc: fbc,
+                fbp: fbp,
+                // Webhook Payload Addition:
+                full_results_html: detailedResultsHtml
+            };
+
+            fetch('https://hooks.zapier.com/hooks/catch/24204039/uvx869x/', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            }).catch(error => console.error('Webhook Error:', error));
+            // --- END TRACKING ---
+
+            renderFinalResult(fName, lName, email, categoryName, categoryDesc, totalScore, formattedPhone);
         }
 
-        function renderFinalResult(fName, lName, email, categoryName, categoryDesc) {
-            DOM_HEADER.style.display = 'none'; // Hide header
+        function renderFinalResult(fName, lName, email, categoryName, categoryDesc, totalScore, formattedPhone) {
+            DOM_HEADER.style.display = 'none';
             
+            const areaBarsHTML = Object.values(areaScores).map(area => {
+                const status = getAreaStatus(area.points);
+                const percent = (area.points / area.max) * 100;
+                return `
+                    <div class="mb-4">
+                        <div class="flex justify-between items-end mb-1">
+                            <span class="font-bold text-gray-900 uppercase tracking-wide text-sm font-oswald">${area.label}</span>
+                            <span class="text-xs font-mono font-bold ${status.color}">${status.label} (${area.points}/${area.max})</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="${status.bg} h-2 rounded-full transition-all duration-1000" style="width: ${percent}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            let redFlagsHTML = "";
+            if (collectedRedFlags.length > 0) {
+                const listItems = collectedRedFlags.map(flag => `
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="x-octagon" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>
+                        <span class="text-sm text-gray-700 leading-snug">${flag}</span>
+                    </li>
+                `).join('');
+                
+                redFlagsHTML = `
+                    <div class="mt-8 bg-red-50 border border-brand-orange/20 rounded-xl p-5 sm:p-6">
+                        <h4 class="font-oswald text-lg font-bold uppercase text-brand-orange mb-4 flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-5 h-5"></i> Deine Kritischen Engpässe (Red Flags)
+                        </h4>
+                        <ul class="space-y-3">
+                            ${listItems}
+                        </ul>
+                    </div>
+                `;
+            } else {
+                redFlagsHTML = `
+                    <div class="mt-8 bg-green-50 border border-green-200 rounded-xl p-5 sm:p-6">
+                        <h4 class="font-oswald text-lg font-bold uppercase text-green-700 mb-2 flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-5 h-5"></i> Keine gravierenden Red Flags
+                        </h4>
+                        <p class="text-sm text-green-800">Du hast in den Kernfragen keine toxischen Verhaltensmuster gezeigt. Starkes Fundament.</p>
+                    </div>
+                `;
+            }
+
             DOM_CONTENT.innerHTML = `
                 <div class="fade-in text-center max-w-2xl mx-auto">
                     <span class="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-red-100 border border-red-200 rounded-full text-brand-orange font-mono text-xs font-bold uppercase tracking-widest">
                         <i data-lucide="crosshair" class="w-4 h-4"></i> Analyse Abgeschlossen
                     </span>
                     
-                    <h2 class="font-oswald text-4xl md:text-6xl font-bold uppercase text-gray-900 leading-tight mb-6">
-                        Dein Profil: <br>
+                    <h2 class="font-oswald text-4xl md:text-5xl font-bold uppercase text-gray-900 leading-tight mb-6">
+                        Reifegrad: <br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">${categoryName}</span>
                     </h2>
                     
                     <div class="result-card rounded-2xl p-6 sm:p-8 mb-10 shadow-lg text-left">
-                        <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-3">Die bittere Wahrheit:</h3>
-                        <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-4">
+                        <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Die Zusammenfassung:</h3>
+                        <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
                             ${categoryDesc}
                         </p>
-                        <div class="border-t border-red-100 pt-4 mt-4">
-                            <div class="text-[0.65rem] sm:text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Dein Score</div>
+                        
+                        <div class="border-t border-gray-200 pt-6">
+                            <h4 class="font-oswald text-lg font-bold uppercase text-gray-900 mb-4">Performance nach Bereichen</h4>
+                            ${areaBarsHTML}
+                        </div>
+
+                        ${redFlagsHTML}
+
+                        <div class="border-t border-red-100 pt-4 mt-6">
+                            <div class="text-[0.65rem] sm:text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Gesamt-Score</div>
                             <div class="font-mono text-lg text-brand-orange font-bold">${totalScore} / 48 Punkte</div>
                         </div>
                     </div>
@@ -520,15 +833,13 @@
             `;
             lucide.createIcons();
 
-            // Cal.com Init & Embed
             (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
             Cal("init", {origin:"https://cal.com"});
 
-            const phoneStr = phoneInputInstance ? phoneInputInstance.getNumber() : "";
             const prefillQuery = new URLSearchParams({
                 name: `${fName} ${lName}`,
                 email: email,
-                "responses[phone]": phoneStr
+                "responses[phone]": formattedPhone
             }).toString();
 
             Cal("inline", {
@@ -539,8 +850,17 @@
             Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#e60000"}},"hideEventTypeDetails":false,"layout":"month_view"});
         }
 
-        // --- INIT ---
-        document.addEventListener('DOMContentLoaded', () => {
+        // --- COOKIE INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const stored = getStoredConsent();
+            if (stored === 'accepted') {
+                window.marketingConsent = true;
+                loadMetaPixel();
+            } else if (stored === 'rejected') {
+                window.marketingConsent = false;
+            } else {
+                setTimeout(showCookieBanner, 400);
+            }
             renderQuestion();
         });
     </script>
