@@ -181,6 +181,11 @@
         window.marketingConsent = false;
         let pixelLoaded = false;
 
+        // Meta Lead state — fired after Q1, deduplicated server-side via cachedEventId
+        let metaLeadFired = false;
+        let q1Answered = false;
+        let cachedEventId = null;
+
         function getStoredConsent() {
             try {
                 const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
@@ -242,6 +247,8 @@
             window.marketingConsent = true; 
             loadMetaPixel(); 
             hideCookieBanner();
+            // If Q1 was already answered before consent was granted, fire Lead now.
+            fireMetaLead();
         }
 
         function rejectCookies() {
@@ -266,6 +273,28 @@
         function generateEventId() {
             if (window.crypto && typeof window.crypto.randomUUID === 'function') { return window.crypto.randomUUID(); }
             return 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
+        }
+
+        function getOrCreateEventId() {
+            if (!cachedEventId) cachedEventId = generateEventId();
+            return cachedEventId;
+        }
+
+        // Fires the Meta Lead pixel event. Idempotent.
+        // Requires: Q1 answered + marketing consent + fbq available.
+        // If consent is granted late (after Q1), this is re-called from acceptCookies().
+        function fireMetaLead() {
+            if (metaLeadFired) return;
+            if (!q1Answered) return;
+            if (window.marketingConsent !== true) return;
+            if (typeof fbq !== 'function') return;
+
+            const eventId = getOrCreateEventId();
+            fbq('track', 'Lead', {
+                content_name: 'CEO Reality Quiz Engagement',
+                content_category: 'Quiz Started'
+            }, { eventID: eventId });
+            metaLeadFired = true;
         }
 
         // --- QUIZ DATA ---
@@ -512,6 +541,23 @@
                 points: chosenAnswer.points
             });
 
+            // --- ANALYTICS: Umami event per quiz step (for funnel drop-off) ---
+            if (typeof umami !== 'undefined' && umami.track) {
+                umami.track('Form Step ' + (currentQuestionIndex + 1), {
+                    rubrik: q.rubrik,
+                    question: q.text,
+                    answer: chosenAnswer.text,
+                    points: chosenAnswer.points
+                });
+            }
+
+            // --- ANALYTICS: Fire Meta Lead pixel after the FIRST question is answered ---
+            if (currentQuestionIndex === 0) {
+                q1Answered = true;
+                fireMetaLead();
+            }
+            // --- END ANALYTICS ---
+
             const container = document.getElementById('answers-container');
             const buttons = container.querySelectorAll('.quiz-option');
             
@@ -675,7 +721,9 @@
 
             // --- EVENT TRACKING LOGIC ---
             const consent = window.marketingConsent === true;
-            const eventId = generateEventId();
+            // Reuse the same eventId that was (or will be) used for the Q1 browser Lead event.
+            // This lets the server-side webhook (Zapier -> Meta CAPI) deduplicate against the browser pixel.
+            const eventId = getOrCreateEventId();
             const eventTime = Math.floor(Date.now() / 1000);
             const urlParams = getUrlParams();
             const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
@@ -708,13 +756,10 @@
 </div>`;
 
             // 1. Meta Pixel Lead Event
-            if (consent && typeof fbq === 'function') {
-                fbq('track', 'Lead', {
-                    content_name: 'CEO Reality Quiz Completion',
-                    content_category: categoryName,
-                    value: totalScore
-                }, { eventID: eventId });
-            }
+            //    Already fired after Q1 (see handleAnswer / fireMetaLead).
+            //    The server-side webhook below sends the same eventId so Meta CAPI
+            //    enriches that single Lead with the full conversion data instead of
+            //    counting a second one.
 
             // 2. Umami Tracking Event
             if (typeof umami !== 'undefined' && umami.track) {
