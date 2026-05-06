@@ -622,24 +622,6 @@
                             <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Handynummer</label>
                             <input type="tel" id="phone" class="input-field" required>
                         </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Aktueller Monatsumsatz</label>
-                            <select id="revenue" class="input-field cursor-pointer" required>
-                                <option value="" disabled selected>Bitte wählen...</option>
-                                <option value="<30k">Unter 30.000 €</option>
-                                <option value="30k-100k">30.000 € bis 100.000 €</option>
-                                <option value="100k-300k">100.000 € bis 300.000 €</option>
-                                <option value="300k-1M">300.000 € bis 1 Mio. €</option>
-                                <option value="1M+">Über 1 Mio. €</option>
-                            </select>
-                        </div>
-
-                        <div class="bg-orange-50 border border-brand-orange/20 p-4 rounded-lg mt-4">
-                            <label class="flex items-start gap-3 cursor-pointer">
-                                <input type="checkbox" id="commitment" class="w-5 h-5 text-brand-orange mt-0.5 border-gray-300 rounded" required>
-                                <span class="text-gray-800 text-sm font-medium">Ich verstehe, dass CEO Reality ein hochpreisiges Mentoring ist und bin bereit zu investieren, falls ich mich bewerbe.</span>
-                            </label>
-                        </div>
 
                         <div id="form-error" class="hidden p-3 rounded bg-red-50 text-red-700 text-sm font-semibold"></div>
 
@@ -667,14 +649,12 @@
             const fName = document.getElementById('firstName').value.trim();
             const lName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('email').value.trim();
-            const revenue = document.getElementById('revenue').value;
-            const commitment = document.getElementById('commitment').checked;
             const phoneVal = document.getElementById('phone').value.trim();
             const errorBox = document.getElementById('form-error');
-            
+
             let phoneValid = phoneInputInstance && phoneInputInstance.isValidNumber ? phoneInputInstance.isValidNumber() : phoneVal.length > 5;
-            
-            if(!fName || !lName || !email || !revenue || !phoneValid || !commitment) {
+
+            if(!fName || !lName || !email || !phoneValid) {
                 errorBox.innerText = "Bitte fülle alle Felder korrekt aus.";
                 errorBox.classList.remove('hidden');
                 return;
@@ -745,8 +725,7 @@
             if (typeof umami !== 'undefined' && umami.track) {
                 umami.track('Lead', {
                     category: categoryName,
-                    score: totalScore,
-                    revenue_bracket: revenue
+                    score: totalScore
                 });
             }
 
@@ -756,7 +735,6 @@
                 lastName: lName,
                 email: email,
                 phone: formattedPhone,
-                revenue: revenue,
                 score: totalScore,
                 category: categoryName,
                 event_name: 'Lead',
