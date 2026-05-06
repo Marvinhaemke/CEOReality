@@ -31,21 +31,6 @@
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#e60000">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "CEO Reality",
-      "url": "https://ceo-reality.de",
-      "logo": "https://ceo-reality.de/logo.png",
-      "description": "Privates 1-auf-1 Mentoring-Programm für Unternehmer. 4 Phasen. 120 Tage.",
-      "founder": {
-        "@type": "Person",
-        "name": "Kevin Gwosdz"
-      }
-    }
-    </script>
-
     <!-- CSS / Fonts / Icons -->
     <link rel="stylesheet" href="/dist/tailwind.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -93,7 +78,6 @@
             left: 100%;
         }
 
-        /* Subtle text glow */
         .text-glow-orange {
             text-shadow: 0 4px 15px rgba(230,0,0,0.2);
         }
@@ -206,15 +190,6 @@
         .result-card { background: linear-gradient(180deg, #ffffff, #fff5f5); border: 1px solid rgba(230, 0, 0, 0.18); position: relative; overflow: hidden; }
         .result-card::after { content: ''; position: absolute; top: -20px; right: -20px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(230,0,0,0.1), transparent 70%); pointer-events: none; }
 
-        .detailed-analysis-card {
-            border-left: 4px solid #e60000;
-            background: #f9fafb; border-radius: 0 0.75rem 0.75rem 0;
-            padding: 1.5rem; margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            transition: transform 0.2s ease;
-        }
-        .detailed-analysis-card:hover { transform: translateX(4px); }
-
         /* intl-tel-input overrides */
         .iti { width: 100%; display: block; }
         .iti .input-field { padding-left: 52px !important; }
@@ -245,7 +220,7 @@
 
         <main class="pt-4 pb-24 lg:pb-32">
             
-            <section class="container mx-auto px-4 lg:px-8 max-w-7xl">
+            <section id="hero-section" class="container mx-auto px-4 lg:px-8 max-w-7xl">
                 <div class="text-center mb-8 lg:mb-10 reveal">
                     <h1 class="font-oswald text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
                         Die meisten CEOs <br>
@@ -283,6 +258,7 @@
                 </div>
             </section>
 
+            <!-- All informational sections below the quiz -->
             <section class="relative mt-24 lg:mt-36 py-16 lg:py-24 bg-gray-50 border-y border-gray-200 dot-grid-bg">
                 <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
                     <div class="text-center mb-14 lg:mb-20 reveal">
@@ -1679,12 +1655,19 @@
             // 2. Expand Layout
             document.getElementById('quiz-container-wrapper').classList.remove('max-w-3xl');
             document.getElementById('quiz-container-wrapper').classList.add('max-w-4xl');
-            document.getElementById('hero-section').style.display = 'none';
+            
+            // Hide the hero section for a cleaner reading experience
+            const heroSection = document.getElementById('hero-section');
+            if (heroSection) {
+                heroSection.style.display = 'none';
+            }
 
             // 3. Show Floating CTA
             const cta = document.getElementById('floating-cta');
-            cta.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
-            cta.classList.add('visible');
+            if (cta) {
+                cta.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+                cta.classList.add('visible');
+            }
 
             // 4. Build and inject detailed breakdown
             const detailedBreakdownHTML = userResponses.map((r, i) => `
@@ -1693,7 +1676,7 @@
                     <div class="text-brand-orange font-mono text-xs font-bold tracking-widest uppercase mb-3">Frage ${i+1} &bull; ${r.rubrik}</div>
                     <h4 class="text-xl md:text-2xl font-oswald font-bold text-gray-900 mb-6 leading-tight">${r.question}</h4>
                     
-                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-8 flex items-start gap-3">
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6 flex items-start gap-3">
                         <i data-lucide="check-circle" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
                         <div>
                             <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold block mb-1">Deine Antwort</span>
@@ -1701,11 +1684,11 @@
                         </div>
                     </div>
 
-                    <div class="text-gray-700 leading-relaxed">
-                        <h5 class="font-oswald uppercase text-sm font-bold text-gray-400 mb-4 border-b border-gray-100 pb-2 flex items-center gap-2">
-                            <i data-lucide="file-search" class="w-4 h-4"></i> Die CEO Reality Diagnose aus dem PDF
+                    <div class="text-gray-700 leading-relaxed bg-brand-orange/5 border border-brand-orange/10 rounded-xl p-6">
+                        <h5 class="font-oswald uppercase text-sm font-bold text-brand-orange mb-4 border-b border-brand-orange/10 pb-3 flex items-center gap-2">
+                            <i data-lucide="search" class="w-5 h-5"></i> Die CEO Reality Diagnose
                         </h5>
-                        <div class="space-y-4 text-sm md:text-base">
+                        <div class="space-y-3 text-sm md:text-base text-gray-800">
                             ${r.pdfFeedback}
                         </div>
                     </div>
@@ -1752,7 +1735,7 @@
             });
             Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#e60000"}},"hideEventTypeDetails":false,"layout":"month_view"});
             
-            // Scroll to the unlocked analysis
+            // Scroll to the unlocked analysis smoothly
             unlockedContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
