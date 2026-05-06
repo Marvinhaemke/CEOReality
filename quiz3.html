@@ -49,9 +49,7 @@
     <link rel="stylesheet" href="/dist/tailwind.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
-    
+
     <script defer src="https://umami-peach-xi.vercel.app/script.js" data-website-id="5d768786-ca16-4d87-a609-448f35305230"></script>
 
     <style>
@@ -249,19 +247,6 @@
             background-color: #ffffff;
         }
         
-        /* intl-tel-input overrides to fix styling integration */
-        .iti {
-            width: 100%;
-            display: block;
-        }
-        .iti .input-field {
-            padding-left: 52px !important; /* Prevents the flag from being covered by text */
-        }
-        .iti__flag {background-image: url("https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/img/flags.png");}
-        @media (min-resolution: 2x) {
-          .iti__flag {background-image: url("https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/img/flags@2x.png");}
-        }
-        
         .step-dot { transition: all 0.4s ease; }
         .step-dot.active {
             background-color: #e60000;
@@ -448,18 +433,10 @@
             <section class="container mx-auto px-4 lg:px-8 max-w-7xl">
                 <div class="text-center mb-8 lg:mb-10 reveal">
 
-                    <h1 class="font-oswald text-5xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
+                    <h1 class="font-oswald text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
                         Die meisten CEOs <br>
                         <span class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">führen blind.</span>
                     </h1>
-                    <p class="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
-                        Die meisten Geschäftsführer wissen nicht, ob sie ihr Unternehmen wirklich steuern. Sie hoffen es. Sie glauben es. Sie können es aber nicht beweisen.
-                        <span class="text-gray-900 font-semibold block mt-3">Dieser Test beweist es dir. In 12 Fragen. Brutal ehrlich.</span>
-                    </p>
-                </div>
-
-                <div class="text-center mb-10 max-w-3xl mx-auto reveal" style="transition-delay: 0.1s;">
-                    <p class="text-xs md:text-sm text-gray-500 uppercase tracking-widest font-semibold">12 Fragen &middot; ca. 4 Minuten &middot; Keine Theorie. Nur Realität.</p>
                 </div>
 
                 <div id="quiz" class="max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
@@ -1120,8 +1097,6 @@
         </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
-
     <script>
         lucide.createIcons();
 
@@ -1355,11 +1330,10 @@
 
         const DOM_CONTENT = document.getElementById('dynamic-content');
         const DOM_HEADER = document.getElementById('quiz-header');
-        let phoneInputInstance = null;
 
         function renderQuestion() {
             if (currentQuestionIndex >= questions.length) {
-                renderLeadForm();
+                showResult();
                 return;
             }
 
@@ -1483,92 +1457,13 @@
             renderQuestion();
         }
 
-        function renderLeadForm() {
-            document.getElementById('step-counter').innerText = "Auswertung";
-            document.getElementById('progress-line').style.width = `95%`;
-
-            DOM_CONTENT.innerHTML = `
-                <div class="quiz-fade-in">
-                    <h3 class="font-oswald text-2xl sm:text-3xl font-bold uppercase mb-2 text-gray-900 leading-tight">Die Analyse ist bereit.</h3>
-                    <p class="text-sm text-gray-500 mb-6">Wir haben deine Engpässe identifiziert. Wohin dürfen wir das Detail-Ergebnis schicken?</p>
-
-                    <form id="lead-form" class="space-y-4 mb-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Vorname</label>
-                                <input type="text" id="firstName" class="input-field" placeholder="Max" required>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Nachname</label>
-                                <input type="text" id="lastName" class="input-field" placeholder="Mustermann" required>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">E-Mail Adresse</label>
-                            <input type="email" id="email" class="input-field" placeholder="max@unternehmen.de" required>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Handynummer</label>
-                            <input type="tel" id="phone" class="input-field" required>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Aktueller Monatsumsatz</label>
-                            <select id="revenue" class="input-field cursor-pointer" required>
-                                <option value="" disabled selected>Bitte wählen...</option>
-                                <option value="<30k">Unter 30.000 €</option>
-                                <option value="30k-100k">30.000 € bis 100.000 €</option>
-                                <option value="100k-300k">100.000 € bis 300.000 €</option>
-                                <option value="300k-1M">300.000 € bis 1 Mio. €</option>
-                                <option value="1M+">Über 1 Mio. €</option>
-                            </select>
-                        </div>
-
-                        <div class="bg-orange-50 border border-brand-orange/20 p-4 rounded-lg mt-4">
-                            <label class="flex items-start gap-3 cursor-pointer">
-                                <input type="checkbox" id="commitment" class="w-5 h-5 text-brand-orange mt-0.5 border-gray-300 rounded" required>
-                                <span class="text-gray-800 text-sm font-medium">Ich verstehe, dass CEO Reality ein hochpreisiges Mentoring ist und bin bereit zu investieren, falls ich mich bewerbe.</span>
-                            </label>
-                        </div>
-
-                        <div id="form-error" class="hidden p-3 rounded bg-red-50 text-red-700 text-sm font-semibold"></div>
-
-                        <button type="button" onclick="calculateResult()" class="btn-glow w-full px-8 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-lg mt-6">
-                            Detail-Analyse enthüllen
-                        </button>
-                    </form>
-                </div>
-            `;
-
-            const phoneInputField = document.querySelector("#phone");
-            phoneInputInstance = window.intlTelInput(phoneInputField, {
-                initialCountry: "de", preferredCountries: ["de", "at", "ch"],
-                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js",
-            });
-        }
-
         function getAreaStatus(points) {
             if (points <= 5) return { label: "Kritischer Engpass", color: "text-brand-orange", bg: "bg-brand-orange" };
             if (points <= 9) return { label: "Instabil", color: "text-orange-500", bg: "bg-orange-500" };
             return { label: "Solide Systematik", color: "text-gray-900", bg: "bg-gray-900" };
         }
 
-        function calculateResult() {
-            const fName = document.getElementById('firstName').value.trim();
-            const lName = document.getElementById('lastName').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const revenue = document.getElementById('revenue').value;
-            const commitment = document.getElementById('commitment').checked;
-            const phoneVal = document.getElementById('phone').value.trim();
-            const errorBox = document.getElementById('form-error');
-
-            let phoneValid = phoneInputInstance && phoneInputInstance.isValidNumber ? phoneInputInstance.isValidNumber() : phoneVal.length > 5;
-
-            if(!fName || !lName || !email || !revenue || !phoneValid || !commitment) {
-                errorBox.innerText = "Bitte fülle alle Felder korrekt aus.";
-                errorBox.classList.remove('hidden');
-                return;
-            }
-
+        function showResult() {
             const totalScore = Object.values(areaScores).reduce((sum, area) => sum + area.points, 0);
 
             let categoryName = "";
@@ -1588,80 +1483,17 @@
                 categoryDesc = "Echte CEO-Mentalität. Du triffst Entscheidungen datenbasiert und steuerst das System von außen. Jetzt geht es darum, die bestehende Effizienz maximal zu hebeln und den Output zu vervielfachen.";
             }
 
-            const consent = window.marketingConsent === true;
-            const eventId = getOrCreateEventId();
-            const eventTime = Math.floor(Date.now() / 1000);
-            const urlParams = getUrlParams();
-            const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
-            const fbp = consent ? (getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '') : '';
-            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
-
-            const formattedPhone = phoneInputInstance && phoneInputInstance.getNumber ? phoneInputInstance.getNumber() : phoneVal;
-
-            const detailedResultsHtml = `
-<div style="font-family: Arial, sans-serif; color: #333; line-height: 1.5; max-width: 600px;">
-    <h2 style="color: #e60000; text-transform: uppercase;">Detailauswertung: ${categoryName}</h2>
-    <p><strong>Gesamtpunktzahl:</strong> ${totalScore} / 48</p>
-
-    <h3 style="border-bottom: 2px solid #eee; padding-bottom: 5px;">Kategorie-Scores</h3>
-    <ul style="list-style-type: none; padding-left: 0;">
-        ${Object.values(areaScores).map(area => `
-        <li style="margin-bottom: 5px;"><strong>${area.label}:</strong> ${area.points} / ${area.max}</li>
-        `).join('')}
-    </ul>
-
-    <h3 style="border-bottom: 2px solid #eee; padding-bottom: 5px; margin-top: 20px;">Ihre Antworten im Detail</h3>
-    ${userResponses.map((r, i) => `
-    <div style="margin-bottom: 20px; padding: 15px; background-color: #f9fafb; border-left: 4px solid #e60000;">
-        <div style="font-size: 12px; color: #6b7280; margin-bottom: 5px; text-transform: uppercase;">Frage ${i + 1} &bull; ${r.rubrik}</div>
-        <div style="font-weight: bold; margin-bottom: 10px; font-size: 16px;">${r.question}</div>
-        <div style="color: #111827;"><strong>Gewählte Antwort:</strong> ${r.answer} <span style="color: #e60000; font-weight: bold;">(${r.points} Pkt.)</span></div>
-    </div>
-    `).join('')}
-</div>`;
-
             if (typeof umami !== 'undefined' && umami.track) {
-                umami.track('Lead', {
+                umami.track('Quiz Completed', {
                     category: categoryName,
-                    score: totalScore,
-                    revenue_bracket: revenue
+                    score: totalScore
                 });
             }
 
-            const payload = {
-                firstName: fName,
-                lastName: lName,
-                email: email,
-                phone: formattedPhone,
-                revenue: revenue,
-                score: totalScore,
-                category: categoryName,
-                event_name: 'Lead',
-                event_id: eventId,
-                event_time: eventTime,
-                event_source_url: window.location.href,
-                user_agent: navigator.userAgent,
-                marketing_consent: consent ? 'granted' : 'denied',
-                utm_source: urlParams['utm_source'] || '',
-                utm_medium: urlParams['utm_medium'] || '',
-                utm_campaign: urlParams['utm_campaign'] || '',
-                utm_term: urlParams['utm_term'] || '',
-                utm_content: urlParams['utm_content'] || '',
-                fbclid: fbclid,
-                fbc: fbc,
-                fbp: fbp,
-                full_results_html: detailedResultsHtml
-            };
-
-            fetch('https://hooks.zapier.com/hooks/catch/24204039/uvx869x/', {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            }).catch(error => console.error('Webhook Error:', error));
-
-            renderFinalResult(fName, lName, email, categoryName, categoryDesc, totalScore, formattedPhone);
+            renderFinalResult(categoryName, categoryDesc, totalScore);
         }
 
-        function renderFinalResult(fName, lName, email, categoryName, categoryDesc, totalScore, formattedPhone) {
+        function renderFinalResult(categoryName, categoryDesc, totalScore) {
             DOM_HEADER.style.display = 'none';
 
             const areaBarsHTML = Object.values(areaScores).map(area => {
@@ -1750,15 +1582,9 @@
             `;
             lucide.createIcons();
 
-            const prefillQuery = new URLSearchParams({
-                name: `${fName} ${lName}`,
-                email: email,
-                "responses[phone]": formattedPhone
-            }).toString();
-
             Cal("inline", {
                 elementOrSelector: "#cal-embed-container",
-                calLink: "team/ceo-reality/realitycheck?" + prefillQuery,
+                calLink: "team/ceo-reality/realitycheck",
                 layout: "month_view"
             });
             Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#e60000"}},"hideEventTypeDetails":false,"layout":"month_view"});
