@@ -1487,18 +1487,20 @@
             let redFlagsHTML = "";
             if (collectedRedFlags.length > 0) {
                 const listItems = collectedRedFlags.map(flag => `
-                    <li class="bg-white p-4 pl-5 rounded-lg border border-gray-200 shadow-sm relative overflow-hidden group hover:border-brand-orange/50 transition-colors">
+                    <li class="bg-white p-3 md:p-4 pl-4 rounded-md border border-gray-100 shadow-sm relative overflow-hidden flex items-center">
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-brand-orange"></div>
-                        <span class="text-base font-semibold text-gray-800 leading-snug">${flag}</span>
+                        <span class="text-sm md:text-base font-semibold text-gray-800 leading-snug">${flag}</span>
                     </li>
                 `).join('');
                 
                 redFlagsHTML = `
-                    <div class="mt-10 bg-transparent">
-                        <h4 class="font-oswald text-2xl md:text-3xl font-bold uppercase text-gray-900 tracking-tight mb-2">Wunder Dich nicht</h4>
-                        <p class="text-xl md:text-2xl text-brand-orange font-oswald font-bold uppercase tracking-wide mb-6">
-                            Du verbrennst 25% - 40% deines Profits!
-                        </p>
+                    <div class="mt-10 border-2 border-brand-orange rounded-xl p-6 md:p-8 bg-transparent">
+                        <h4 class="font-oswald text-3xl md:text-4xl font-bold uppercase text-gray-900 tracking-tight mb-5">Wunder Dich nicht</h4>
+                        
+                        <div class="flex flex-wrap items-center gap-2 mb-8 text-lg md:text-xl font-semibold text-gray-900">
+                            <span>Du verbrennst</span>
+                            <span class="bg-brand-orange text-white px-3 py-1.5 rounded-md font-bold shadow-sm">25% - 40% deines Profits</span>
+                        </div>
 
                         <ul class="space-y-3">
                             ${listItems}
@@ -1528,13 +1530,13 @@
                     </h2>
                     
                     <div class="result-card rounded-2xl p-6 sm:p-8 mb-10 shadow-lg text-left">
-                        <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900 mb-4 border-b-2 border-brand-orange inline-block pb-1">Deine ehrliche Einordnung:</h3>
-                        <div class="text-gray-800 text-base md:text-lg leading-relaxed mb-6 space-y-4 font-medium">
-                            <p class="text-xl md:text-2xl font-bold font-oswald text-gray-900 uppercase">Wann haben wir aufgehört Kompetenz an erste Stelle zu setzen?</p>
-                            <p>Du hast <span class="font-bold text-gray-900">${totalScore} von 48</span> möglichen Punkten erreicht.</p>
+                        <h3 class="font-oswald text-xl md:text-2xl font-bold uppercase text-gray-900 mb-4 border-b-2 border-gray-900 inline-block pb-1">Deine ehrliche Einordnung:</h3>
+                        <div class="text-gray-800 text-base md:text-lg leading-relaxed mb-8 space-y-4 font-medium">
+                            <p class="text-xl md:text-2xl font-bold font-oswald text-black uppercase">Wann haben wir aufgehört Kompetenz an erste Stelle zu setzen?</p>
+                            <p>Du hast <span class="font-bold text-black">${totalScore} von 48</span> möglichen Punkten erreicht.</p>
                             <p>Das heißt: Du steuerst dein Unternehmen NUR zu <span class="font-bold text-brand-orange">${proPercent}%</span> professionell. Und <span class="font-bold text-brand-orange">${blindPercent}%</span> noch im Blindflug.</p>
-                            <p class="font-bold text-gray-900 text-xl md:text-2xl uppercase tracking-wide">Dir fehlt die Kompetenz.</p>
-                            <p class="bg-gray-100 p-4 border-l-4 border-brand-orange italic font-semibold text-gray-900">Diese Lücke entscheidet zwischen: "funktioniert" und "skaliert".</p>
+                            <p class="font-bold text-black text-xl md:text-2xl uppercase tracking-wide">Dir fehlt die Kompetenz.</p>
+                            <div class="bg-gray-100 p-4 border-l-4 border-brand-orange italic font-semibold text-gray-900 rounded-r-md mt-4">Diese Lücke entscheidet zwischen: "funktioniert" und "skaliert".</div>
                         </div>
                         
                         <div class="border-t border-gray-200 pt-6">
