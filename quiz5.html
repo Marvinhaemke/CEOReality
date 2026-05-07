@@ -6,12 +6,12 @@
     <title>CEO Reality Check | 12 Fragen, die zeigen ob du wirklich CEO bist.</title>
     <meta name="description" content="Der CEO Reality Check: 12 brutal ehrliche Fragen, die in unter 5 Minuten zeigen, ob du dein Unternehmen führst – oder ob es dich führt.">
 
-    <link rel="canonical" href="https://ceo-reality.de/quiz5">
+    <link rel="canonical" href="https://ceo-reality.de/quiz4">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="CEO Reality">
     <meta property="og:locale" content="de_DE">
-    <meta property="og:url" content="https://ceo-reality.de/quiz5">
+    <meta property="og:url" content="https://ceo-reality.de/quiz4">
     <meta property="og:title" content="CEO Reality Check | 12 Fragen, die zeigen ob du wirklich CEO bist.">
     <meta property="og:description" content="12 brutal ehrliche Fragen. In unter 5 Minuten weißt du, ob du dein Unternehmen wirklich führst.">
     <meta property="og:image" content="https://ceo-reality.de/og-image.jpg">
@@ -908,7 +908,7 @@
         window.marketingConsent = false;
         let pixelLoaded = false;
         let metaLeadFired = false;
-        let q1Answered = false;
+        let q4Answered = false;
         let cachedEventId = null;
 
         function getStoredConsent() {
@@ -981,7 +981,7 @@
         }
 
         function fireMetaLead() {
-            if (metaLeadFired || !q1Answered || window.marketingConsent !== true || typeof fbq !== 'function') return;
+            if (metaLeadFired || !q4Answered || window.marketingConsent !== true || typeof fbq !== 'function') return;
             fbq('track', 'Lead', { content_name: 'CEO Reality Quiz Engagement', content_category: 'Quiz Started' }, { eventID: getOrCreateEventId() });
             metaLeadFired = true;
         }
@@ -1358,8 +1358,8 @@
                 });
             }
 
-            if (currentQuestionIndex === 0) {
-                q1Answered = true;
+            if (currentQuestionIndex === 3) {
+                q4Answered = true;
                 fireMetaLead();
             }
 
