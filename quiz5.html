@@ -1658,8 +1658,12 @@
 
             const consent = window.marketingConsent === true;
             const eventId = getOrCreateEventId();
+            const eventTime = Math.floor(Date.now() / 1000);
             const urlParams = getUrlParams();
             const formattedPhone = phoneInputInstance && phoneInputInstance.getNumber ? phoneInputInstance.getNumber() : phoneVal;
+            const fbc = consent ? ((document.cookie.match(/(?:^|;\s*)_fbc=([^;]+)/) || [])[1] || urlParams['fbc'] || '') : '';
+            const fbp = consent ? ((document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/) || [])[1] || urlParams['fbp'] || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
 
             // Generate detailed HTML block containing PDF extractions for Zapier/CRM
             const detailedResultsHtml = `
@@ -1684,10 +1688,39 @@
                 umami.track('Lead', { category: categoryName, score: totalScore });
             }
 
+            // Meta Conversions API — same event_id as the engagement Pixel Lead for deduplication
+            if (consent) {
+                fetch('/api/meta-capi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        event_name: 'Lead',
+                        event_id: eventId,
+                        event_time: eventTime,
+                        event_source_url: window.location.href,
+                        action_source: 'website',
+                        firstName: fName,
+                        lastName: lName,
+                        email: email,
+                        phone: formattedPhone,
+                        country: 'DE',
+                        fbc: fbc,
+                        fbp: fbp,
+                        fbclid: fbclid,
+                        custom_data: {
+                            content_name: 'CEO Reality Quiz Completion',
+                            content_category: categoryName,
+                            value: totalScore
+                        }
+                    })
+                }).catch(error => console.error('CAPI Error:', error));
+            }
+
             const payload = {
                 firstName: fName, lastName: lName, email: email, phone: formattedPhone,
                 score: totalScore, category: categoryName, event_name: 'Lead', event_id: eventId,
-                event_time: Math.floor(Date.now() / 1000), event_source_url: window.location.href,
+                event_time: eventTime, event_source_url: window.location.href,
                 marketing_consent: consent ? 'granted' : 'denied',
                 full_results_html: detailedResultsHtml
             };

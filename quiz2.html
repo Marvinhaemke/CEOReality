@@ -646,6 +646,35 @@
                 }, { eventID: eventId });
             }
 
+            // 1b. Meta Conversions API — same event_id as Pixel for deduplication
+            if (consent) {
+                fetch('/api/meta-capi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        event_name: 'Lead',
+                        event_id: eventId,
+                        event_time: eventTime,
+                        event_source_url: window.location.href,
+                        action_source: 'website',
+                        firstName: fName,
+                        lastName: lName,
+                        email: email,
+                        phone: formattedPhone,
+                        country: 'DE',
+                        fbc: fbc,
+                        fbp: fbp,
+                        fbclid: fbclid,
+                        custom_data: {
+                            content_name: 'CEO Reality Quiz Completion',
+                            content_category: categoryName,
+                            value: totalScore
+                        }
+                    })
+                }).catch(error => console.error('CAPI Error:', error));
+            }
+
             // 2. Umami Tracking Event
             if (typeof umami !== 'undefined' && umami.track) {
                 umami.track('Lead', {
