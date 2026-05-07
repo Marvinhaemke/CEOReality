@@ -187,8 +187,7 @@
         .quiz-fade-in { opacity: 0; animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .result-card { background: linear-gradient(180deg, #ffffff, #fff5f5); border: 1px solid rgba(230, 0, 0, 0.18); position: relative; overflow: hidden; }
-        .result-card::after { content: ''; position: absolute; top: -20px; right: -20px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(230,0,0,0.1), transparent 70%); pointer-events: none; }
+        .result-card { background: #ffffff; border: 1px solid rgba(230, 0, 0, 0.18); position: relative; overflow: hidden; }
 
         /* intl-tel-input overrides */
         .iti { width: 100%; display: block; }
@@ -246,7 +245,7 @@
                             </div>
                         </div>
 
-                        <div class="p-6 sm:p-10 relative z-10 min-h-[450px] flex flex-col justify-center" id="dynamic-content">
+                        <div class="p-4 sm:p-8 md:p-10 relative z-10 min-h-[450px] flex flex-col justify-center" id="dynamic-content">
                             <!-- Rendered via JS -->
                         </div>
                     </div>
@@ -1494,10 +1493,10 @@
                 `).join('');
                 
                 redFlagsHTML = `
-                    <div class="mt-10 border-2 border-brand-orange rounded-xl p-6 md:p-8 bg-transparent">
-                        <h4 class="font-oswald text-3xl md:text-4xl font-bold uppercase text-gray-900 tracking-tight mb-5">Wunder Dich nicht</h4>
+                    <div class="mt-8 md:mt-10 border-2 border-t-[6px] border-brand-orange rounded-xl p-4 sm:p-6 md:p-8 bg-transparent">
+                        <h4 class="font-oswald text-3xl md:text-4xl font-bold uppercase text-gray-900 tracking-tight mb-4 md:mb-5">Wunder Dich nicht</h4>
                         
-                        <div class="flex flex-wrap items-center gap-2 mb-8 text-lg md:text-xl font-semibold text-gray-900">
+                        <div class="flex flex-wrap items-center gap-2 mb-6 md:mb-8 text-lg md:text-xl font-semibold text-gray-900">
                             <span>Du verbrennst</span>
                             <span class="bg-brand-orange text-white px-3 py-1.5 rounded-md font-bold shadow-sm">25% - 40% deines Profits</span>
                         </div>
@@ -1529,7 +1528,7 @@
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">${categoryName}</span>
                     </h2>
                     
-                    <div class="result-card rounded-2xl p-6 sm:p-8 mb-10 shadow-lg text-left">
+                    <div class="result-card rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-10 shadow-lg text-left">
                         <h3 class="font-oswald text-xl md:text-2xl font-bold uppercase text-gray-900 mb-4 border-b-2 border-gray-900 inline-block pb-1">Deine ehrliche Einordnung:</h3>
                         <div class="text-gray-800 text-base md:text-lg leading-relaxed mb-8 space-y-4 font-medium">
                             <p class="text-xl md:text-2xl font-bold font-oswald text-black uppercase">Wann haben wir aufgehört Kompetenz an erste Stelle zu setzen?</p>
@@ -1553,11 +1552,11 @@
                     </div>
 
                     <!-- LEAD FORM (Reframed for Consultation) -->
-                    <div id="lead-gate-container" class="mt-10">
-                        <div class="bg-gray-900 rounded-2xl p-6 md:p-8 lg:p-10 text-left border border-gray-800 shadow-2xl relative overflow-hidden">
+                    <div id="lead-gate-container" class="mt-8 md:mt-10">
+                        <div class="bg-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 lg:p-10 text-left border border-gray-800 shadow-2xl relative overflow-hidden">
                             <div class="absolute top-0 right-0 w-64 h-64 bg-brand-orange opacity-5 rounded-full blur-[80px] pointer-events-none"></div>
                             
-                            <div class="flex flex-col gap-10 relative z-10">
+                            <div class="flex flex-col gap-8 md:gap-10 relative z-10">
                                 <div class="w-full">
                                     <h3 class="font-oswald text-2xl md:text-3xl font-bold uppercase text-white leading-tight mb-4">
                                         Deine wahrscheinliche Zukunft <span class="text-brand-orange">wenn du nichts änderst:</span>
@@ -1592,7 +1591,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="w-full bg-white rounded-xl p-6 md:p-8 shadow-xl border border-gray-100">
+                                <div class="w-full bg-white rounded-xl p-4 sm:p-6 md:p-8 shadow-xl border border-gray-100">
                                     <h4 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-5">Wohin dürfen wir die Auswertung senden?</h4>
                                     <form id="lead-form" class="space-y-4">
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1619,7 +1618,7 @@
                                         </div>
 
                                         <button type="button" onclick="unlockDetailedAnalysis('${categoryName}', ${totalScore})" class="btn-glow w-full px-6 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-base md:text-lg mt-4 flex justify-center items-center gap-2 shadow-[0_10px_25px_rgba(230,0,0,0.3)] hover:shadow-[0_15px_35px_rgba(230,0,0,0.4)] cursor-pointer transition-all">
-                                            Vollständige Diagnose anfordern
+                                            Stell dich der vollständigen Diagnose
                                             <i data-lucide="arrow-right" class="w-5 h-5"></i>
                                         </button>
                                         <p class="text-[0.65rem] text-center text-gray-500 mt-3 font-medium">Deine Daten sind sicher. Kein Spam, nur knallharte Fakten.</p>
@@ -1721,21 +1720,21 @@
 
             // 4. Build and inject detailed breakdown
             const detailedBreakdownHTML = userResponses.map((r, i) => `
-                <div class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 mb-8 shadow-sm relative overflow-hidden group hover:border-brand-orange/30 transition-colors text-left">
+                <div class="bg-white border border-gray-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 mb-6 md:mb-8 shadow-sm relative overflow-hidden group hover:border-brand-orange/30 transition-colors text-left">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-orange"></div>
                     <div class="text-brand-orange font-mono text-xs font-bold tracking-widest uppercase mb-3">Frage ${i+1} &bull; ${r.rubrik}</div>
-                    <h4 class="text-xl md:text-2xl font-oswald font-bold text-gray-900 mb-6 leading-tight">${r.question}</h4>
+                    <h4 class="text-xl md:text-2xl font-oswald font-bold text-gray-900 mb-4 md:mb-6 leading-tight">${r.question}</h4>
                     
-                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6 flex items-start gap-3">
+                    <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 sm:p-5 mb-4 md:mb-6 flex items-start gap-3">
                         <i data-lucide="check-circle" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
                         <div>
                             <span class="text-xs text-gray-500 uppercase tracking-wider font-semibold block mb-1">Deine Antwort</span>
-                            <span class="font-semibold text-gray-900 text-lg">${r.answer}</span>
+                            <span class="font-semibold text-gray-900 text-base sm:text-lg">${r.answer}</span>
                         </div>
                     </div>
 
-                    <div class="text-gray-700 leading-relaxed bg-brand-orange/5 border border-brand-orange/10 rounded-xl p-6">
-                        <h5 class="font-oswald uppercase text-sm font-bold text-brand-orange mb-4 border-b border-brand-orange/10 pb-3 flex items-center gap-2">
+                    <div class="text-gray-700 leading-relaxed bg-brand-orange/5 border border-brand-orange/10 rounded-xl p-4 sm:p-6">
+                        <h5 class="font-oswald uppercase text-sm font-bold text-brand-orange mb-3 md:mb-4 border-b border-brand-orange/10 pb-3 flex items-center gap-2">
                             <i data-lucide="search" class="w-5 h-5"></i> Die CEO Reality Diagnose
                         </h5>
                         <div class="space-y-3 text-sm md:text-base text-gray-800">
