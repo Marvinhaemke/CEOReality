@@ -1419,6 +1419,9 @@
             document.getElementById('quiz-footer-note').style.display = 'none';
 
             const totalScore = Object.values(areaScores).reduce((sum, area) => sum + area.points, 0);
+            const proPercent = Math.round((totalScore / 48) * 100);
+            const blindPercent = 100 - proPercent;
+            
             let categoryName = "";
             let categoryDesc = "";
             
@@ -1474,7 +1477,7 @@
                         
                         <div class="bg-white border-l-4 border-brand-orange rounded p-5 mb-6 shadow-sm">
                             <p class="text-base md:text-lg text-gray-800 font-semibold leading-relaxed">
-                                Deine Antworten decken toxische Verhaltensmuster auf. Genau diese ungelösten Engpässe kosten dich aktuell jeden Monat schätzungsweise <span class="inline-block bg-brand-orange text-white px-2 py-1 rounded font-bold transform -rotate-1 shadow-md mx-1">15% - 25% deines Profits</span>. Du verbrennst aktiv Kapital.
+                                Deine Antworten decken toxische Verhaltensmuster auf. Genau diese ungelösten Engpässe kosten dich aktuell jeden Monat schätzungsweise <span class="inline-block bg-brand-orange text-white px-3 py-1.5 rounded font-bold shadow-md mx-1 text-xl">25% - 40% deines Profits</span>. Du verbrennst aktiv Kapital.
                             </p>
                         </div>
 
@@ -1506,10 +1509,14 @@
                     </h2>
                     
                     <div class="result-card rounded-2xl p-6 sm:p-8 mb-10 shadow-lg text-left">
-                        <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Die Zusammenfassung:</h3>
-                        <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
-                            ${categoryDesc}
-                        </p>
+                        <h3 class="font-oswald text-2xl font-bold uppercase text-gray-900 mb-4 border-b-2 border-brand-orange inline-block pb-1">Deine ehrliche Einordnung:</h3>
+                        <div class="text-gray-800 text-base md:text-lg leading-relaxed mb-6 space-y-4 font-medium">
+                            <p class="text-xl md:text-2xl font-bold font-oswald text-brand-orange uppercase">Wann haben wir aufgehört Kompetenz an erste Stelle zu setzen?</p>
+                            <p>Du hast <span class="font-bold text-gray-900">${totalScore} von 48</span> möglichen Punkten erreicht.</p>
+                            <p>Das heißt: Du steuerst dein Unternehmen NUR zu <span class="font-bold text-brand-orange">${proPercent}%</span> professionell. Und <span class="font-bold text-brand-orange">${blindPercent}%</span> noch im Blindflug.</p>
+                            <p class="font-bold text-brand-orange text-xl md:text-2xl uppercase tracking-wide">Dir fehlt die Kompetenz.</p>
+                            <p class="bg-gray-100 p-4 border-l-4 border-brand-orange italic font-semibold text-gray-900">Diese Lücke entscheidet zwischen: "funktioniert" und "skaliert".</p>
+                        </div>
                         
                         <div class="border-t border-gray-200 pt-6">
                             <h4 class="font-oswald text-lg font-bold uppercase text-gray-900 mb-4">Performance nach Bereichen</h4>
@@ -1530,29 +1537,36 @@
                             <div class="absolute top-0 right-0 w-64 h-64 bg-brand-orange opacity-5 rounded-full blur-[80px] pointer-events-none"></div>
                             
                             <div class="flex flex-col md:flex-row gap-8 relative z-10">
-                                <div class="md:w-5/12">
-                                    <span class="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-gray-300 border border-white/20 rounded-full text-xs font-mono font-bold uppercase tracking-widest mb-4">
-                                        <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Nächster Schritt
-                                    </span>
-                                    <h3 class="font-oswald text-3xl md:text-4xl font-bold uppercase text-white leading-tight mb-4">
-                                        Du kennst das Symptom.<br>
-                                        <span class="text-brand-orange">Hol dir die Diagnose.</span>
+                                <div class="md:w-5/12 pr-4">
+                                    <h3 class="font-oswald text-2xl md:text-3xl font-bold uppercase text-white leading-tight mb-4">
+                                        Deine wahrscheinliche Zukunft <span class="text-brand-orange">wenn du nichts änderst:</span>
                                     </h3>
-                                    <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
-                                        Der Score oben zeigt nur, <i>dass</i> dein System blutet. Deine individuelle Detail-Auswertung zeigt dir <i>warum</i> und vor allem <i>wie</i> du es stoppst.
+                                    <div class="space-y-2 text-gray-300 font-medium mb-4 text-base">
+                                        <p class="uppercase font-bold tracking-wider text-gray-400 text-sm mb-3">In 12 Monaten:</p>
+                                        <ul class="space-y-3">
+                                            <li class="flex items-center gap-3"><i data-lucide="x" class="w-5 h-5 text-brand-orange"></i> Selber Umsatz.</li>
+                                            <li class="flex items-center gap-3"><i data-lucide="x" class="w-5 h-5 text-brand-orange"></i> Selbe Marketing Probleme</li>
+                                            <li class="flex items-center gap-3"><i data-lucide="x" class="w-5 h-5 text-brand-orange"></i> Gleiches Ergebnis wie oben</li>
+                                        </ul>
+                                    </div>
+                                    <p class="font-oswald font-bold text-xl md:text-2xl text-brand-orange uppercase tracking-wide mt-6 mb-2">
+                                        Das alles nur weil dir die Kompetenz fehlt.
                                     </p>
-                                    <ul class="space-y-3 text-sm text-gray-300">
-                                        <li class="flex items-start gap-2">
-                                            <i data-lucide="check" class="w-4 h-4 text-brand-orange mt-0.5"></i>
-                                            Tiefe Analyse jeder deiner Antworten
+                                    <p class="text-gray-400 italic mb-8 border-b border-gray-800 pb-8 text-sm">12 Monate, die du nie wieder zurückbekommst.</p>
+
+                                    <h4 class="font-oswald text-lg md:text-xl font-bold uppercase text-white mb-5">Was dich in der Detail-Analyse erwartet:</h4>
+                                    <ul class="space-y-4 text-sm md:text-base text-gray-300">
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Frage-für-Frage Auswertung deiner 12 Antworten</span>
                                         </li>
-                                        <li class="flex items-start gap-2">
-                                            <i data-lucide="check" class="w-4 h-4 text-brand-orange mt-0.5"></i>
-                                            Klartext-Feedback zu deinen Red Flags
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Konkrete Diagnose pro Engpass</span>
                                         </li>
-                                        <li class="flex items-start gap-2">
-                                            <i data-lucide="check" class="w-4 h-4 text-brand-orange mt-0.5"></i>
-                                            Konkrete Hebel für dein Umsatz-Level
+                                        <li class="flex items-start gap-3">
+                                            <i data-lucide="check" class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0"></i>
+                                            <span>Die Chance auf Lösung deiner Probleme</span>
                                         </li>
                                     </ul>
                                 </div>
