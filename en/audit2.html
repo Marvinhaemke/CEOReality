@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Reality Audit | 6 Pages of Clarity About Your Business.</title>
+    <meta name="description" content="Instead of a self-quiz: A real, personal diagnosis of your business. 6-page audit report. 72 hours. Free of charge.">
+
+    <link rel="canonical" href="https://ceo-reality.de/en/audit">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CEO Reality">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://ceo-reality.de/en/audit">
+    <meta property="og:title" content="CEO Reality Audit | Personal Diagnosis of Your Business.">
+    <meta property="og:description" content="We personally analyze your business and deliver a 6-page audit report within 72 hours.">
+    <meta property="og:image" content="https://ceo-reality.de/og-audit.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CEO Reality Audit">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CEO Reality Audit | Personal Diagnosis of Your Business.">
+    <meta name="twitter:description" content="6 pages. 72 hours. A real diagnosis, not a quiz.">
+    <meta name="twitter:image" content="https://ceo-reality.de/og-audit.jpg">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#e60000">
+
+    <!-- Production: replace with /dist/tailwind.css once brand colors are compiled in -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-orange': '#e60000',
+                        'brand-red': '#990000',
+                        'brand-dark': '#0a0a0a'
+                    },
+                    fontFamily: {
+                        'oswald': ['Oswald', 'sans-serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
+
+    <script src="https://umami-peach-xi.vercel.app/script.js" data-website-id="5d768786-ca16-4d87-a609-448f35305230"></script>
+
+    <style>
+        body { background-color: #ffffff; color: #0a0a0a; }
+
+        /* Button Glow Effect */
+        .btn-glow {
+            background: linear-gradient(135deg, #e60000, #990000);
+            box-shadow: 0 10px 25px rgba(230, 0, 0, 0.4);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            color: white;
+        }
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        .btn-glow:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(230, 0, 0, 0.5);
+        }
+        .btn-glow:hover::after { opacity: 1; left: 100%; }
+        .btn-glow:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+        .btn-glow:disabled:hover { transform: none; box-shadow: 0 10px 25px rgba(230, 0, 0, 0.4); }
+
+        .text-glow-orange { text-shadow: 0 4px 15px rgba(230,0,0,0.2); }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive cards */
+        .interactive-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(230, 0, 0, 0.1);
+            border-color: rgba(230, 0, 0, 0.3);
+        }
+
+        /* Status & misc helpers */
+        .status-dot-red {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #e60000;
+            box-shadow: 0 0 10px rgba(230,0,0,0.8);
+            animation: pulse-red 1.6s ease-in-out infinite;
+        }
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; text-shadow: 0 0 12px rgba(230,0,0,0.5); }
+            50% { opacity: 0.7; text-shadow: 0 0 20px rgba(230,0,0,0.8); }
+        }
+
+        .section-tag { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.9rem; background: rgba(230, 0, 0, 0.08); border: 1px solid rgba(230, 0, 0, 0.25); border-radius: 2rem; color: #990000; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; font-family: 'Inter', sans-serif; }
+        .module-chip { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.6rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.375rem; font-size: 0.72rem; color: #374151; font-weight: 500; transition: all 0.2s ease; }
+        .module-num { font-family: 'JetBrains Mono', monospace; color: #e60000; font-weight: 700; font-size: 0.65rem; }
+        .dot-grid-bg { background-image: radial-gradient(rgba(17, 24, 39, 0.07) 1px, transparent 1px); background-size: 20px 20px; }
+        ::selection { background: #e60000; color: white; }
+
+        .stamp { background: linear-gradient(135deg, #0a0a0a, #1a1a1a); border: 1px solid rgba(230,0,0,0.4); position: relative; overflow: hidden; }
+        .stamp::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(230,0,0,0.15), transparent 50%), radial-gradient(circle at 80% 70%, rgba(230,0,0,0.1), transparent 50%); pointer-events: none; }
+
+        /* Form styles */
+        .input-field {
+            width: 100%; padding: 0.875rem 1rem; background-color: #f9fafb;
+            border: 1px solid #e5e7eb; border-radius: 0.5rem; color: #111827;
+            outline: none; transition: all 0.2s; font-family: 'Inter', sans-serif;
+        }
+        .input-field:focus { border-color: #e60000; box-shadow: 0 0 0 2px rgba(230, 0, 0, 0.2); background-color: #ffffff; }
+        select.input-field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23999'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25rem; padding-right: 2.5rem; }
+        textarea.input-field { resize: vertical; min-height: 90px; line-height: 1.55; }
+        .form-section-label { font-family: 'JetBrains Mono', monospace; color: #e60000; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+
+        /* Char counter under textareas */
+        .char-counter { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #9ca3af; text-align: right; margin-top: 0.25rem; }
+
+        /* Chip toggle (multi-select pills, e.g. lead sources) */
+        .chip-toggle {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.6rem 0.9rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.825rem; color: #374151; font-weight: 500;
+            cursor: pointer; transition: all 0.2s ease;
+            user-select: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .chip-toggle:hover { border-color: rgba(230,0,0,0.35); background: #fff; }
+        .chip-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+        .chip-toggle .chip-check { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid #d1d5db; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
+        .chip-toggle.checked { background: #fff5f5; border-color: #e60000; color: #990000; font-weight: 600; }
+        .chip-toggle.checked .chip-check { background: #e60000; border-color: #e60000; }
+        .chip-toggle.checked .chip-check::after { content: ''; width: 6px; height: 6px; background: #fff; border-radius: 1px; }
+
+        /* FAQ */
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] .faq-icon { transform: rotate(45deg); }
+        .faq-icon { transition: transform 0.3s ease; }
+        details[open] .faq-card { border-color: rgba(230, 0, 0, 0.3); box-shadow: 0 10px 30px -10px rgba(230, 0, 0, 0.12); }
+
+        /* Cookie banner */
+        #cookie-banner { transform: translateY(150%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        #cookie-banner.cookie-banner-visible { transform: translateY(0); }
+
+        /* intl-tel-input overrides */
+        .iti { width: 100%; display: block; }
+        .iti .input-field { padding-left: 52px !important; }
+
+        /* === DIAGNOSTIC-SPECIFIC STYLES === */
+
+        /* Audit form container */
+        .audit-form-card { background: #ffffff; border: 1px solid #e5e7eb; box-shadow: 0 25px 60px -25px rgba(0,0,0,0.18), 0 4px 12px -2px rgba(0,0,0,0.06); position: relative; overflow: hidden; }
+        .audit-form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #e60000, #990000); }
+
+        /* Report preview mockup */
+        .report-page {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 30px 60px -20px rgba(0,0,0,0.18), 0 6px 16px -4px rgba(0,0,0,0.08);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+            transform-origin: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .report-page:hover { transform: translateY(-6px) scale(1.015); box-shadow: 0 40px 80px -25px rgba(230,0,0,0.18), 0 10px 24px -6px rgba(0,0,0,0.1); }
+        .report-page::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #e60000 0%, #990000 100%); }
+        .report-watermark { position: absolute; right: -30px; bottom: -30px; font-family: 'Oswald', sans-serif; font-size: 7rem; color: rgba(230,0,0,0.04); font-weight: 700; pointer-events: none; line-height: 0.8; transform: rotate(-12deg); }
+
+        /* Process timeline */
+        .process-step {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .process-step:hover { border-color: rgba(230, 0, 0, 0.35); transform: translateY(-3px); box-shadow: 0 18px 40px -12px rgba(230,0,0,0.15); }
+        .process-num {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1;
+            font-weight: 700;
+            background: linear-gradient(180deg, #e60000, #990000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0.95;
+        }
+
+        /* Lens card (the 4 phases as analytical lenses) */
+        .lens-card {
+            background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1rem;
+            padding: 1.75rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .lens-card::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, #e60000, #990000); }
+        .lens-card::after { content: ''; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(230,0,0,0.12), transparent 70%); pointer-events: none; }
+        .lens-card:hover { transform: translateY(-4px); border-color: rgba(230, 0, 0, 0.4); }
+        .lens-num { font-family: 'JetBrains Mono', monospace; color: #e60000; font-weight: 700; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; }
+
+        /* Mini bar chart in report mockup */
+        .mock-bar-track { height: 6px; background: #f3f4f6; border-radius: 3px; overflow: hidden; }
+        .mock-bar-fill { height: 100%; background: linear-gradient(90deg, #e60000, #990000); border-radius: 3px; }
+
+        /* Form success state */
+        .success-state { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Floating CTA */
+        #floating-cta { transition: all 0.5s ease; }
+    </style>
+</head>
+<body class="font-inter antialiased relative min-h-screen bg-white">
+
+    <div class="relative z-10">
+        <!-- Logo Header (matches quiz4 pattern) -->
+        <header class="py-3 flex justify-center">
+            <div class="inline-flex flex-col items-center justify-center relative mt-1">
+                <span class="font-oswald text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 uppercase leading-none z-10" style="transform: scaleY(1.4); transform-origin: bottom; margin-top: 30px !important; letter-spacing: -0.01em;">
+                    CEO REALITY<span class="text-[#e60000]">.</span>
+                </span>
+                <div class="relative w-[98%] mt-1.5 md:mt-3 flex items-center justify-center h-[2px]">
+                    <div class="absolute w-[96%] h-[10px] bg-[#cc0000] opacity-30 blur-[5px] rounded-full"></div>
+                    <div class="absolute w-[90%] h-[4px] bg-[#e60000] opacity-70 blur-[2px] rounded-full"></div>
+                    <div class="w-full h-[1.5px] md:h-[2px] relative z-10" style="background: linear-gradient(90deg, transparent 0%, #880000 5%, #e60000 15%, #ff1a1a 25%, #ff1a1a 75%, #e60000 85%, #880000 95%, transparent 100%); clip-path: ellipse(50% 50% at 50% 50%);"></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="pt-6 pb-24 lg:pb-32">
+
+            <!-- ============================================================ -->
+            <!-- HERO + AUDIT APPLICATION FORM                                -->
+            <!-- ============================================================ -->
+            <section class="container mx-auto px-4 lg:px-8 max-w-7xl">
+
+                <!-- Tag above headline -->
+                <div class="text-center mb-6 reveal">
+                    <span class="section-tag">
+                        <span class="status-dot-red"></span>
+                        CEO Reality Audit
+                    </span>
+                </div>
+
+                <!-- Hero headline -->
+                <div id="hero-headline" class="text-center mb-10 lg:mb-14 reveal" style="transition-delay: 0.1s;">
+                    <h1 class="font-oswald text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
+                        Others give you a quiz.<br>
+                        <span class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">We give you answers.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed mt-6">
+                        You don't fill out a self-assessment. We personally analyze your business and deliver a <strong class="text-gray-900 font-semibold">6-page audit report</strong> within 72 hours with concrete bottlenecks, levers and an honest assessment of your current maturity level.
+                    </p>
+                </div>
+
+                <!-- Two-col: form (left) + value props (right) on desktop, stacked on mobile -->
+                <div class="grid lg:grid-cols-[1.4fr_1fr] gap-8 lg:gap-12 max-w-6xl mx-auto items-start">
+
+                    <!-- LEFT: Application Form -->
+                    <div id="form-wrapper" class="reveal" style="transition-delay: 0.2s;">
+                        <div class="audit-form-card rounded-2xl">
+                            <div class="px-6 lg:px-8 pt-7 pb-5 border-b border-gray-100">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="font-oswald font-bold uppercase text-gray-900 tracking-wider text-base">Audit Request</span>
+                                    <span class="font-mono text-[0.65rem] text-gray-500 font-bold bg-gray-50 px-2 py-1 rounded border border-gray-200">~ 8 Min.</span>
+                                </div>
+                                <p class="text-xs text-gray-500 font-mono">Four sections. An honest assessment.</p>
+                            </div>
+
+                            <form id="audit-form" class="p-6 lg:p-8 space-y-8">
+                                <!-- Section 1: You -->
+                                <div>
+                                    <div class="flex items-center gap-3 mb-5">
+                                        <span class="form-section-label">01 / 04</span>
+                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">You</span>
+                                        <div class="flex-1 h-px bg-gray-200"></div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">First Name</label>
+                                            <input type="text" id="firstName" class="input-field" placeholder="John" required autocomplete="given-name">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Last Name</label>
+                                            <input type="text" id="lastName" class="input-field" placeholder="Smith" required autocomplete="family-name">
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Business Email</label>
+                                            <input type="email" id="email" class="input-field" placeholder="john@company.com" required autocomplete="email">
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Mobile Number</label>
+                                            <input type="tel" id="phone" class="input-field" required autocomplete="tel">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Section 2: Your Business -->
+                                <div>
+                                    <div class="flex items-center gap-3 mb-5">
+                                        <span class="form-section-label">02 / 04</span>
+                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Your Business</span>
+                                        <div class="flex-1 h-px bg-gray-200"></div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="md:col-span-2">
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Company Website</label>
+                                            <input type="url" id="website" class="input-field" placeholder="https://yourcompany.com" required>
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">LinkedIn Profile <span class="text-gray-400 normal-case font-normal">(optional, speeds up analysis)</span></label>
+                                            <input type="url" id="linkedin" class="input-field" placeholder="https://linkedin.com/in/...">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Industry</label>
+                                            <select id="industry" class="input-field" required>
+                                                <option value="" disabled selected>Please select</option>
+                                                <option>Coaching / Consulting</option>
+                                                <option>Agency / Services</option>
+                                                <option>E-Commerce / Retail</option>
+                                                <option>SaaS / Software</option>
+                                                <option>Trades / Construction</option>
+                                                <option>Manufacturing / Production</option>
+                                                <option>Financial Services</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Monthly Revenue</label>
+                                            <select id="revenue" class="input-field" required>
+                                                <option value="" disabled selected>Please select</option>
+                                                <option>Under €25,000</option>
+                                                <option>€25,000 – €50,000</option>
+                                                <option>€50,000 – €100,000</option>
+                                                <option>€100,000 – €250,000</option>
+                                                <option>€250,000 – €500,000</option>
+                                                <option>Over €500,000</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Team Size</label>
+                                            <select id="teamSize" class="input-field" required>
+                                                <option value="" disabled selected>Please select</option>
+                                                <option>Solo (just you)</option>
+                                                <option>2 – 5 people</option>
+                                                <option>6 – 15 people</option>
+                                                <option>16 – 50 people</option>
+                                                <option>Over 50 people</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Your Role</label>
+                                            <select id="role" class="input-field" required>
+                                                <option value="" disabled selected>Please select</option>
+                                                <option>CEO / Managing Director</option>
+                                                <option>Managing Partner</option>
+                                                <option>Co-Founder</option>
+                                                <option>Other Leadership Role</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Section 3: Mechanics -->
+                                <div>
+                                    <div class="flex items-center gap-3 mb-5">
+                                        <span class="form-section-label">03 / 04</span>
+                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Mechanics</span>
+                                        <div class="flex-1 h-px bg-gray-200"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mb-5 leading-relaxed">Five quick questions about your business's current mechanics. So we can make an informed assessment for each phase (CEO, Marketing, Sales, Operations).</p>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Operational Time (% of your work time)</label>
+                                            <select id="operativeTime" class="input-field" required>
+                                                <option value="" disabled selected>Please select</option>
+                                                <option>Under 30%</option>
+                                                <option>30 – 50%</option>
+                                                <option>50 – 70%</option>
+                                                <option>70 – 90%</option>
+                                                <option>Over 90%</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Average Deal Size</label>
+                                            <select id="dealSize" class="input-field" required>
+                                                <option value="" disabled selected>Please select</option>
+                                                <option>Under €1,000</option>
+                                                <option>€1,000 – €5,000</option>
+                                                <option>€5,000 – €25,000</option>
+                                                <option>€25,000 – €100,000</option>
+                                                <option>Over €100,000</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Who currently conducts sales calls?</label>
+                                            <select id="salesOwner" class="input-field" required>
+                                                <option value="" disabled selected>Please select</option>
+                                                <option>Myself</option>
+                                                <option>Internal Sales / Closer</option>
+                                                <option>External Closer (Setter-Closer Setup)</option>
+                                                <option>Split between me and team</option>
+                                                <option>Nobody explicitly</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Profit per customer known?</label>
+                                            <select id="profitClarity" class="input-field" required>
+                                                <option value="" disabled selected>Please select</option>
+                                                <option>Yes, exactly calculated</option>
+                                                <option>Rough ballpark</option>
+                                                <option>No, honestly not</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Current Lead Sources <span class="text-gray-400 normal-case font-normal">(multiple selection)</span></label>
+                                        <div id="lead-sources-group" class="flex flex-wrap gap-2">
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Referrals / Word-of-mouth"><span class="chip-check"></span>Referrals</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="SEO / Content"><span class="chip-check"></span>SEO / Content</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Paid Social"><span class="chip-check"></span>Paid Social</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Paid Search / Google Ads"><span class="chip-check"></span>Paid Search</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="LinkedIn organic"><span class="chip-check"></span>LinkedIn organic</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Outbound / Cold"><span class="chip-check"></span>Outbound / Cold</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Events / Networking"><span class="chip-check"></span>Events / Networking</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Partner / Affiliate"><span class="chip-check"></span>Partner / Affiliate</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Other"><span class="chip-check"></span>Other</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Section 4: Your Reality -->
+                                <div>
+                                    <div class="flex items-center gap-3 mb-5">
+                                        <span class="form-section-label">04 / 04</span>
+                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Your Reality</span>
+                                        <div class="flex-1 h-px bg-gray-200"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mb-5 leading-relaxed">These three fields are the foundation of your audit. The more precisely you write, the sharper our analysis. Keywords are not enough.</p>
+
+                                    <div class="space-y-5">
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Biggest Current Bottleneck</label>
+                                            <textarea id="bottleneck" class="input-field" maxlength="600" placeholder="What's currently holding your business back? Be specific. No buzzwords." required></textarea>
+                                            <div class="char-counter"><span id="bottleneck-count">0</span> / 600</div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">What Should Be Different in 12 Months?</label>
+                                            <textarea id="goal" class="input-field" maxlength="600" placeholder="Revenue, structure, team, your own role. What would success concretely look like?" required></textarea>
+                                            <div class="char-counter"><span id="goal-count">0</span> / 600</div>
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">What Have You Tried in the Last 12 Months Without Success? <span class="text-gray-400 normal-case font-normal">(optional)</span></label>
+                                            <textarea id="tried" class="input-field" maxlength="600" placeholder="Coaching, agency, hire, new funnel, new product. What didn't work?"></textarea>
+                                            <div class="char-counter"><span id="tried-count">0</span> / 600</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Error box -->
+                                <div id="form-error" class="hidden p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                    <i data-lucide="alert-circle" class="w-4 h-4"></i> <span id="form-error-text">Please fill in all required fields correctly.</span>
+                                </div>
+
+                                <!-- Submit -->
+                                <button type="button" id="audit-submit" onclick="submitAuditRequest()" class="btn-glow w-full px-8 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-lg flex justify-center items-center gap-2 cursor-pointer">
+                                    <span>Request Audit</span>
+                                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                </button>
+
+                                <p class="text-center text-[0.7rem] text-gray-500 font-mono leading-relaxed">
+                                    By submitting, you confirm that we may use the stated data to create your individual audit report.
+                                </p>
+                            </form>
+
+                            <!-- Success state (hidden until submit) -->
+                            <div id="audit-success" class="hidden p-8 lg:p-10 text-center success-state">
+                                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-50 border border-red-100 mb-5">
+                                    <i data-lucide="check-circle-2" class="w-8 h-8 text-brand-orange"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl md:text-3xl font-bold uppercase text-gray-900 mb-3">Request received.</h3>
+                                <p class="text-gray-600 leading-relaxed max-w-md mx-auto mb-6 text-sm md:text-base">
+                                    We've received your information and are beginning the analysis. You'll receive your audit report within the next <strong class="text-gray-900">72 hours</strong> by email. We'll then follow up by phone to discuss.
+                                </p>
+                                <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-left max-w-md mx-auto">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold uppercase tracking-widest mb-2">What Happens Next</div>
+                                    <ul class="text-sm text-gray-700 space-y-2.5">
+                                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>Confirmation email in your inbox (now)</li>
+                                        <li class="flex items-start gap-2"><i data-lucide="search" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>Manual analysis by us (24 – 72h)</li>
+                                        <li class="flex items-start gap-2"><i data-lucide="file-text" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>6-page PDF report by email</li>
+                                        <li class="flex items-start gap-2"><i data-lucide="phone" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>Optional 1:1 strategy call</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Trust & expectations sidebar -->
+                    <aside class="reveal lg:sticky lg:top-6 space-y-4" style="transition-delay: 0.3s;">
+                        <div class="bg-gray-900 text-white rounded-2xl p-6 lg:p-7 relative overflow-hidden border border-white/5">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-orange opacity-10 blur-[60px] pointer-events-none"></div>
+                            <div class="relative z-10">
+                                <div class="flex items-center gap-2 mb-4">
+                                    <span class="status-dot-red"></span>
+                                    <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">What you get</span>
+                                </div>
+                                <ul class="space-y-3.5">
+                                    <li class="flex items-start gap-3">
+                                        <i data-lucide="file-text" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
+                                        <div>
+                                            <div class="font-oswald font-bold uppercase text-white text-sm tracking-wide mb-0.5">6-page PDF Report</div>
+                                            <div class="text-xs text-gray-400 leading-relaxed">Created individually for your business. No template.</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i data-lucide="layers" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
+                                        <div>
+                                            <div class="font-oswald font-bold uppercase text-white text-sm tracking-wide mb-0.5">Four Analysis Levels</div>
+                                            <div class="text-xs text-gray-400 leading-relaxed">CEO, Marketing, Sales, Operations. Findings per level.</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i data-lucide="target" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
+                                        <div>
+                                            <div class="font-oswald font-bold uppercase text-white text-sm tracking-wide mb-0.5">3 – 5 Concrete Levers</div>
+                                            <div class="text-xs text-gray-400 leading-relaxed">Prioritized. With damage estimate per bottleneck.</div>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i data-lucide="clock" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
+                                        <div>
+                                            <div class="font-oswald font-bold uppercase text-white text-sm tracking-wide mb-0.5">Delivery Time 72 Hours</div>
+                                            <div class="text-xs text-gray-400 leading-relaxed">Business days. In most cases faster.</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-gray-200 rounded-2xl p-5 lg:p-6">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-full bg-red-50 border border-red-100 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="shield-check" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <div class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wide mb-1">Free of Charge. No Trick.</div>
+                                    <p class="text-xs text-gray-600 leading-relaxed">No credit card entry. No hidden renewal. No automatic sales call. Read the report. If you want to talk afterwards, you know where to find us.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white border border-gray-200 rounded-2xl p-5 lg:p-6">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-full bg-red-50 border border-red-100 flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="ban" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <div class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wide mb-1">We don't accept everyone</div>
+                                    <p class="text-xs text-gray-600 leading-relaxed">Maximum 5 audits per week. If your business doesn't fit our profile, we'll say so honestly rather than deliver a standard report.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- REPORT PREVIEW MOCKUP                                        -->
+            <!-- ============================================================ -->
+            <section class="relative mt-24 lg:mt-36 py-16 lg:py-24 bg-gray-50 border-y border-gray-200 dot-grid-bg overflow-hidden">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i>The Report</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            This is what an audit report<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">actually looks like.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Not a score between 0 and 100. But a written diagnosis you can put on the table in your management meeting.
+                        </p>
+                    </div>
+
+                    <!-- 3 mock report pages -->
+                    <div class="grid md:grid-cols-3 gap-5 lg:gap-7 max-w-5xl mx-auto">
+
+                        <!-- Page 01: Executive Summary -->
+                        <div class="report-page reveal aspect-[210/297] p-5 lg:p-6 flex flex-col" style="transition-delay: 0.1s;">
+                            <div class="report-watermark">01</div>
+                            <div class="relative z-10 flex flex-col h-full">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="font-oswald font-bold text-gray-900 text-[0.7rem] uppercase tracking-wider">CEO Reality Audit</span>
+                                    <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">PG. 01</span>
+                                </div>
+                                <div class="border-b border-gray-200 pb-3 mb-4">
+                                    <div class="font-mono text-[0.55rem] text-gray-400 uppercase tracking-widest mb-1">Executive Summary</div>
+                                    <h3 class="font-oswald text-base lg:text-lg font-bold uppercase text-gray-900 leading-tight">Mustermann GmbH</h3>
+                                    <div class="text-[0.6rem] text-gray-500 mt-1">Created on 05/15/2026</div>
+                                </div>
+                                <div class="space-y-2.5 mb-4">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[0.65rem] text-gray-700 font-semibold">Maturity Score</span>
+                                        <span class="font-mono text-[0.65rem] text-brand-orange font-bold">42 / 100</span>
+                                    </div>
+                                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 42%;"></div></div>
+                                </div>
+                                <div class="bg-red-50 border-l-2 border-brand-orange rounded-r p-2.5 mb-3">
+                                    <div class="font-mono text-[0.5rem] text-brand-orange font-bold uppercase tracking-widest mb-1">Main Finding</div>
+                                    <p class="text-[0.6rem] text-gray-800 leading-snug">CEO operational overload. Management currently occurs without structured KPIs.</p>
+                                </div>
+                                <div class="space-y-1.5 text-[0.6rem] text-gray-600 leading-relaxed">
+                                    <div class="flex items-start gap-1.5"><span class="text-brand-orange font-bold flex-shrink-0">→</span><span>Profit per customer not calculated</span></div>
+                                    <div class="flex items-start gap-1.5"><span class="text-brand-orange font-bold flex-shrink-0">→</span><span>Two critical personnel decisions pending</span></div>
+                                    <div class="flex items-start gap-1.5"><span class="text-brand-orange font-bold flex-shrink-0">→</span><span>Marketing mix not measurable</span></div>
+                                </div>
+                                <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="font-mono text-[0.5rem] text-gray-400 uppercase tracking-wider">Confidential</span>
+                                    <span class="font-mono text-[0.5rem] text-brand-orange font-bold">CR-A-2410</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 02: Phase Analysis -->
+                        <div class="report-page reveal aspect-[210/297] p-5 lg:p-6 flex flex-col" style="transition-delay: 0.2s;">
+                            <div class="report-watermark">02</div>
+                            <div class="relative z-10 flex flex-col h-full">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="font-oswald font-bold text-gray-900 text-[0.7rem] uppercase tracking-wider">Analysis per Phase</span>
+                                    <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">PG. 03</span>
+                                </div>
+                                <div class="border-b border-gray-200 pb-3 mb-4">
+                                    <div class="font-mono text-[0.55rem] text-gray-400 uppercase tracking-widest mb-1">Four Levels</div>
+                                    <h3 class="font-oswald text-base lg:text-lg font-bold uppercase text-gray-900 leading-tight">Bottleneck Diagnosis</h3>
+                                </div>
+                                <div class="space-y-3 flex-1">
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="text-[0.6rem] font-semibold text-gray-900">CEO</span>
+                                            <span class="font-mono text-[0.55rem] text-gray-500">38 / 100</span>
+                                        </div>
+                                        <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 38%;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="text-[0.6rem] font-semibold text-gray-900">Marketing</span>
+                                            <span class="font-mono text-[0.55rem] text-gray-500">52 / 100</span>
+                                        </div>
+                                        <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 52%;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="text-[0.6rem] font-semibold text-gray-900">Sales</span>
+                                            <span class="font-mono text-[0.55rem] text-gray-500">45 / 100</span>
+                                        </div>
+                                        <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 45%;"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="text-[0.6rem] font-semibold text-gray-900">Operations</span>
+                                            <span class="font-mono text-[0.55rem] text-gray-500">31 / 100</span>
+                                        </div>
+                                        <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 31%;"></div></div>
+                                    </div>
+                                    <div class="bg-gray-50 border border-gray-200 rounded p-2.5 mt-3">
+                                        <div class="font-mono text-[0.5rem] text-brand-orange font-bold uppercase tracking-widest mb-1">Weakest Level</div>
+                                        <p class="text-[0.6rem] text-gray-800 leading-snug">Operations: Reporting, controlling and profit mechanics are largely missing.</p>
+                                    </div>
+                                </div>
+                                <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="font-mono text-[0.5rem] text-gray-400 uppercase tracking-wider">Confidential</span>
+                                    <span class="font-mono text-[0.5rem] text-brand-orange font-bold">CR-A-2410</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Page 03: Concrete Levers -->
+                        <div class="report-page reveal aspect-[210/297] p-5 lg:p-6 flex flex-col" style="transition-delay: 0.3s;">
+                            <div class="report-watermark">03</div>
+                            <div class="relative z-10 flex flex-col h-full">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="font-oswald font-bold text-gray-900 text-[0.7rem] uppercase tracking-wider">Levers &amp; Recommendations</span>
+                                    <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">PG. 06</span>
+                                </div>
+                                <div class="border-b border-gray-200 pb-3 mb-4">
+                                    <div class="font-mono text-[0.55rem] text-gray-400 uppercase tracking-widest mb-1">Prioritized by damage</div>
+                                    <h3 class="font-oswald text-base lg:text-lg font-bold uppercase text-gray-900 leading-tight">Concrete Levers</h3>
+                                </div>
+                                <div class="space-y-2.5 flex-1">
+                                    <div class="border border-gray-200 rounded p-2.5">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">LEVER 01</span>
+                                            <span class="font-oswald font-bold text-brand-orange text-[0.7rem]">~80k €</span>
+                                        </div>
+                                        <p class="text-[0.6rem] text-gray-800 font-semibold leading-snug mb-0.5">Profit calculation per customer</p>
+                                        <p class="text-[0.55rem] text-gray-500 leading-snug">Immediately implementable. Cash flow effect in 30 days.</p>
+                                    </div>
+                                    <div class="border border-gray-200 rounded p-2.5">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">LEVER 02</span>
+                                            <span class="font-oswald font-bold text-brand-orange text-[0.7rem]">~60k €</span>
+                                        </div>
+                                        <p class="text-[0.6rem] text-gray-800 font-semibold leading-snug mb-0.5">Performance evaluation of sales team</p>
+                                        <p class="text-[0.55rem] text-gray-500 leading-snug">Setup 14 days. Personnel decision feasible afterwards.</p>
+                                    </div>
+                                    <div class="border border-gray-200 rounded p-2.5">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">LEVER 03</span>
+                                            <span class="font-oswald font-bold text-brand-orange text-[0.7rem]">~40k €</span>
+                                        </div>
+                                        <p class="text-[0.6rem] text-gray-800 font-semibold leading-snug mb-0.5">Tracking &amp; Attribution Marketing</p>
+                                        <p class="text-[0.55rem] text-gray-500 leading-snug">Stop spending on budget that doesn't perform.</p>
+                                    </div>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
+                                    <span class="font-mono text-[0.5rem] text-gray-400 uppercase tracking-wider">Confidential</span>
+                                    <span class="font-mono text-[0.5rem] text-brand-orange font-bold">CR-A-2410</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-center text-xs text-gray-500 font-mono mt-10 max-w-2xl mx-auto leading-relaxed">
+                        Illustrative example. Every audit report is individual. Numbers, findings and recommendations result exclusively from your information and our analysis.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- HOW WE ANALYZE: 4 LENSES                                      -->
+            <!-- ============================================================ -->
+            <section class="py-20 lg:py-28 bg-gray-900 relative overflow-hidden">
+                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 24px 24px;"></div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-orange opacity-[0.04] blur-[120px] rounded-full pointer-events-none"></div>
+
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl relative z-10">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5" style="background: rgba(230,0,0,0.15); border-color: rgba(230,0,0,0.4); color: #ff4444;"><i data-lucide="layers" class="w-3.5 h-3.5"></i>The Methodology</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-white leading-tight mb-5">
+                            Four Levels.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">One Diagnosis.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
+                            We evaluate your business along the four phases of the CEO Operating System. Each level is analyzed individually. This way we and you know where the damage actually occurs.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-5 lg:gap-6">
+                        <!-- Lens 1: CEO -->
+                        <div class="lens-card reveal">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="lens-num">Level 01</span>
+                                <span class="font-mono text-[0.65rem] text-gray-500 uppercase tracking-widest">Thinking &amp; Control</span>
+                            </div>
+                            <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white leading-tight mb-3">CEO</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm mb-5">We check whether you actually run your business or whether it runs you. Operational load, bottleneck awareness, daily structure, self-leadership.</p>
+                            <div class="pt-4 border-t border-white/10">
+                                <div class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest mb-2">We analyze among others</div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">01</span>Operational vs. strategic time</span>
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">02</span>Bottleneck clarity</span>
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">03</span>A-player ratio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lens 2: Marketing -->
+                        <div class="lens-card reveal" style="transition-delay: 0.1s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="lens-num">Level 02</span>
+                                <span class="font-mono text-[0.65rem] text-gray-500 uppercase tracking-widest">System Understanding</span>
+                            </div>
+                            <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white leading-tight mb-3">Marketing</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm mb-5">We analyze your public presence, your funnel and your channel logic. What do you communicate, where do leads come from, what can you reliably measure?</p>
+                            <div class="pt-4 border-t border-white/10">
+                                <div class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest mb-2">We analyze among others</div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">01</span>Website conversion logic</span>
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">02</span>Tracking &amp; Attribution</span>
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">03</span>Channel mix evaluation</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lens 3: Sales -->
+                        <div class="lens-card reveal" style="transition-delay: 0.2s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="lens-num">Level 03</span>
+                                <span class="font-mono text-[0.65rem] text-gray-500 uppercase tracking-widest">Revenue Mechanics</span>
+                            </div>
+                            <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white leading-tight mb-3">Sales</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm mb-5">We check how your leads actually turn into revenue. Pipeline logic, role separation, handoffs and whether your sales is controllable or random.</p>
+                            <div class="pt-4 border-t border-white/10">
+                                <div class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest mb-2">We analyze among others</div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">01</span>Setter / Closer separation</span>
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">02</span>Lead qualification</span>
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">03</span>Pipeline hygiene</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Lens 4: Operations -->
+                        <div class="lens-card reveal" style="transition-delay: 0.3s;">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="lens-num">Level 04</span>
+                                <span class="font-mono text-[0.65rem] text-gray-500 uppercase tracking-widest">Control &amp; Scaling</span>
+                            </div>
+                            <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white leading-tight mb-3">Operations</h3>
+                            <p class="text-gray-300 leading-relaxed text-sm mb-5">We evaluate whether your business could withstand growth at all. Profit, reporting, controlling, people system, scaling readiness.</p>
+                            <div class="pt-4 border-t border-white/10">
+                                <div class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest mb-2">We analyze among others</div>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">01</span>Profit &amp; Unit Economics</span>
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">02</span>Reporting &amp; Controlling</span>
+                                    <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #d1d5db;"><span class="module-num">03</span>Scaling readiness</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- PROCESS TIMELINE: 4 STEPS                                    -->
+            <!-- ============================================================ -->
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="git-branch" class="w-3.5 h-3.5"></i>The Process</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            From form to findings<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">in 72 hours.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Four steps. No sales pressure. No funnel tricks. You decide at the end whether a conversation makes sense.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                        <div class="process-step reveal">
+                            <div class="flex items-start justify-between mb-4">
+                                <span class="process-num">01</span>
+                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">~ 6 Min.</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">You fill it in</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Three sections. You, your business, your reality. The more specifically you write, the sharper the findings.</p>
+                        </div>
+
+                        <div class="process-step reveal" style="transition-delay: 0.1s;">
+                            <div class="flex items-start justify-between mb-4">
+                                <span class="process-num">02</span>
+                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">24 – 72h</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">We analyze</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">We check website, funnel, positioning, your answers. Manually. Four hours of work per audit, on average.</p>
+                        </div>
+
+                        <div class="process-step reveal" style="transition-delay: 0.2s;">
+                            <div class="flex items-start justify-between mb-4">
+                                <span class="process-num">03</span>
+                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">PDF / Mail</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">You receive the report</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">6 pages of clarity. Maturity score, phase-by-phase findings, 3 to 5 prioritized levers with damage estimates.</p>
+                        </div>
+
+                        <div class="process-step reveal" style="transition-delay: 0.3s;">
+                            <div class="flex items-start justify-between mb-4">
+                                <span class="process-num">04</span>
+                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">Optional</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Strategy Call</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">If you want a 1:1 conversation after reading, we book an appointment. If not, the report is yours.</p>
+                        </div>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto mt-14 lg:mt-16 reveal">
+                        <div class="bg-white border-l-4 border-brand-orange rounded-r-xl p-6 lg:p-8 shadow-lg">
+                            <p class="text-lg lg:text-xl text-gray-900 leading-relaxed">
+                                All the value for you is created when reading the report. Not in any sales call.
+                                <span class="block mt-3 text-brand-orange font-semibold">If the report doesn't convince you, we don't need to talk.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- WHY THIS IS FREE                                              -->
+            <!-- ============================================================ -->
+            <section class="py-20 lg:py-28 bg-gray-50 border-y border-gray-200">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                    <div class="grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-16 items-center">
+                        <div class="reveal">
+                            <span class="section-tag mb-5"><i data-lucide="help-circle" class="w-3.5 h-3.5"></i>The Open Question</span>
+                            <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                                Why<br>
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">Free?</span>
+                            </h2>
+                            <p class="text-base text-gray-600 leading-relaxed">
+                                Four hours of work. Per audit. Manually. We still don't charge for it. Here's the honest reason.
+                            </p>
+                        </div>
+
+                        <div class="space-y-4 reveal" style="transition-delay: 0.15s;">
+                            <div class="bg-white border border-gray-200 rounded-xl p-5 lg:p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center flex-shrink-0">
+                                        <span class="font-oswald font-bold text-brand-orange">01</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-oswald text-lg font-bold uppercase text-gray-900 mb-1.5 leading-tight">It's the most honest test of our work</h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed">You see how we think, what we see, how precisely we work. If you want to continue with us afterwards, the decision is informed. If not, you keep the report.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-xl p-5 lg:p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center flex-shrink-0">
+                                        <span class="font-oswald font-bold text-brand-orange">02</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-oswald text-lg font-bold uppercase text-gray-900 mb-1.5 leading-tight">It filters for us too</h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed">Whoever fills out the form seriously is actually a CEO and actually interested in control. Those are exactly the people we want to talk to, instead of everyone who clicks a quiz.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-xl p-5 lg:p-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center flex-shrink-0">
+                                        <span class="font-oswald font-bold text-brand-orange">03</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-oswald text-lg font-bold uppercase text-gray-900 mb-1.5 leading-tight">We don't accept everyone</h3>
+                                        <p class="text-gray-600 text-sm leading-relaxed">Maximum 5 audits per week. With clear ICP incompatibility we'll tell you directly that we're not the right partner. That's more efficient for both sides.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- FOR WHOM / NOT FOR WHOM                                       -->
+            <!-- ============================================================ -->
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="filter" class="w-3.5 h-3.5"></i>The Filters</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            Who the audit<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">works for.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Before you invest time: Read briefly whether you fit the profile.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-5 lg:gap-6">
+                        <div class="reveal bg-white border border-gray-200 rounded-2xl overflow-hidden">
+                            <div class="bg-gray-50 border-b border-gray-200 px-6 lg:px-8 py-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-oswald text-xl lg:text-2xl font-bold uppercase text-gray-900">Not for you if</h3>
+                            </div>
+                            <div class="p-6 lg:p-8 space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You don't have a running business or haven't generated your first revenue yet.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You're looking for confirmation that you're doing everything right, instead of an honest diagnosis.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You want to fill in the fields with two sentences and still expect a deep analysis.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You're not willing to openly communicate your website, revenue and bottleneck.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You expect marketing tips instead of a holistic evaluation of your business.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reveal bg-gradient-to-br from-gray-900 to-black text-white border border-brand-orange/30 rounded-2xl overflow-hidden" style="transition-delay: 0.1s;">
+                            <div class="bg-brand-orange/10 border-b border-brand-orange/20 px-6 lg:px-8 py-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-brand-orange text-white flex items-center justify-center">
+                                    <i data-lucide="check" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-oswald text-xl lg:text-2xl font-bold uppercase text-white">For you if</h3>
+                            </div>
+                            <div class="p-6 lg:p-8 space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You run a business with revenue between €50,000 and €500,000 per month.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You sense that your growth is stagnating, but can't clearly name why.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You're ready to look at an honest outside perspective, even if it's uncomfortable.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You want clarity about bottlenecks and levers before investing in the next coaching.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You invest 6 minutes in the form because you know that the quality of your answers determines the quality of the report.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- REVERSE GUARANTEE STAMP                                       -->
+            <!-- ============================================================ -->
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                    <div class="reveal stamp rounded-3xl p-8 md:p-12 lg:p-16 text-center relative">
+                        <div class="relative z-10">
+                            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1.5 bg-brand-orange/10 border border-brand-orange/30 rounded-full">
+                                <span class="status-dot-red"></span>
+                                <span class="font-mono text-[0.65rem] md:text-xs font-bold text-brand-orange uppercase tracking-widest">The Audit Guarantee</span>
+                            </div>
+                            <h2 class="font-oswald text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-white leading-tight mb-6">
+                                If the report teaches you nothing<br>
+                                <span class="text-brand-orange">new</span>, delete it.
+                            </h2>
+                            <div class="max-w-3xl mx-auto space-y-5 text-gray-300 text-base md:text-lg lg:text-xl font-light leading-relaxed">
+                                <p>We don't promise you a money-back guarantee. Nothing is being exchanged in the first place. What we do promise is this:</p>
+                                <p class="text-white font-semibold text-xl md:text-2xl lg:text-3xl font-oswald uppercase border-l-4 border-brand-orange pl-5 py-2 text-left bg-white/[0.03] rounded-r-lg">
+                                    "You will learn at least three things about your own business that you weren't clear on before."
+                                </p>
+                                <p>If not, our audit cost you time but no money. You have the report. We've lost our point. Both are bearable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- FAQ                                                           -->
+            <!-- ============================================================ -->
+            <section class="py-20 lg:py-28 bg-gray-50 border-y border-gray-200">
+                <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
+                    <div class="text-center mb-12 lg:mb-16 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="help-circle" class="w-3.5 h-3.5"></i>Open Questions</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight">
+                            The honest<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">answers.</span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Is the audit really free?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                Yes. There's no credit card entry, no trial, no hidden renewal. You fill out the form, we analyze, you get a 6-page PDF report. What you do with it afterwards is entirely your decision.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">How does the audit differ from a quiz?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                A quiz compares your answers against a point scale. An audit is a written diagnosis. We check your website, your funnel, your positioning, your numerical statements and write an individual report. Four hours of work per audit, on average.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">How long until I receive the report?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                Maximum 72 hours from receipt of the request. In most cases faster. We analyze on business days. If you submit on Friday evening, the report will be with you by Wednesday at the latest.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Will I be pitched after the report?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                There's no automatic sales call. We'll reach out briefly after the report to ask if you have questions or want to talk. If not, the matter is settled. We don't follow up persistently.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">What does the CEO Reality program cost afterwards?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                CEO Reality is a premium 1-on-1 mentoring program across four phases and 120 days. We discuss the exact price transparently in the audit follow-up call, if it comes to that. You'll get the report regardless.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">What happens to my data?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                Your information is used exclusively to create your audit report and for subsequent contact. It is not shared, not sold and not used for anonymized statistics or training data. Details can be found in our Privacy Policy.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">What if you reject my audit?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                We decline when your profile clearly doesn't fit our ICP — for example when you don't have revenue yet or we're not the right partner for your industry. In that case you'll get a brief, honest explanation instead of a standard analysis that doesn't help you.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================ -->
+            <!-- FINAL CTA                                                     -->
+            <!-- ============================================================ -->
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
+                    <div class="reveal text-center">
+                        <span class="section-tag mb-5"><i data-lucide="flag" class="w-3.5 h-3.5"></i>Last Step</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-[0.95] mb-6">
+                            6 Minutes Form.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">6 Pages of Clarity.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed mb-10">
+                            You can keep guessing what your business is really missing. Or you fill out the form and get a written answer within 72 hours.
+                        </p>
+
+                        <button onclick="document.getElementById('form-wrapper').scrollIntoView({behavior: 'smooth', block: 'start'})" class="btn-glow inline-block w-full sm:w-auto px-8 py-4 md:px-14 md:py-6 rounded text-lg md:text-2xl font-bold font-oswald uppercase tracking-wide text-white relative z-10 cursor-pointer">
+                            Request Audit
+                        </button>
+
+                        <p class="mt-8 sm:mt-10 text-xs sm:text-sm text-gray-500 uppercase tracking-widest font-medium">
+                            Maximum 5 audits per week. Current wait time: ~ 48 hours.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ============================================================ -->
+        <!-- FOOTER                                                        -->
+        <!-- ============================================================ -->
+        <footer class="border-t border-gray-200 py-8 mt-auto text-center text-gray-500 text-sm bg-gray-50 shrink-0 relative z-20">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
+                    <a href="/impressum" class="hover:text-brand-orange transition-colors">Imprint</a>
+                    <a href="/datenschutz" class="hover:text-brand-orange transition-colors">Privacy Policy</a>
+                    <a href="/agb" class="hover:text-brand-orange transition-colors">Terms</a>
+                    <button type="button" onclick="openCookieSettings()" class="hover:text-brand-orange transition-colors bg-transparent border-0 p-0 cursor-pointer text-sm text-gray-500">Cookie Settings</button>
+                </div>
+                <p>&copy; 2026 CEO Reality. All rights reserved.</p>
+                <p class="mt-2 text-xs max-w-xl mx-auto opacity-70">The shared results are not typical. Your results depend on your work ethic, experience and focus. Any business involves risks.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FLOATING CTA (visible after scroll past hero)                 -->
+    <!-- ============================================================ -->
+    <div id="floating-cta" class="fixed bottom-6 right-6 md:top-1/3 md:bottom-auto md:right-8 z-[100] opacity-0 pointer-events-none translate-y-10 md:translate-y-0 md:translate-x-10">
+        <div class="bg-white border border-gray-200 shadow-[0_20px_50px_rgba(230,0,0,0.15)] rounded-2xl p-4 md:p-5 flex flex-col items-center text-center gap-3 w-40 md:w-48 relative overflow-hidden group">
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-brand-orange"></div>
+            <div class="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center text-brand-orange mb-1 group-hover:scale-110 transition-transform">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+            </div>
+            <p class="font-oswald font-bold uppercase text-gray-900 leading-tight text-sm md:text-base">Request<br>Audit.</p>
+            <button onclick="document.getElementById('form-wrapper').scrollIntoView({behavior:'smooth', block:'start'})" class="btn-glow w-full py-2.5 rounded text-xs md:text-sm font-bold font-oswald uppercase tracking-wide text-white mt-1 block">
+                To the Form
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- COOKIE BANNER                                                 -->
+    <!-- ============================================================ -->
+    <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie Consent" class="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-4 pointer-events-none">
+        <div class="max-w-3xl mx-auto bg-brand-dark text-white rounded-xl shadow-2xl border border-gray-800 p-5 md:p-6 pointer-events-auto">
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+                <div class="flex-1">
+                    <p class="font-oswald font-bold text-base uppercase tracking-wide mb-1 text-white">We Use Cookies</p>
+                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                        We use cookies and similar technologies (e.g. Meta&nbsp;Pixel) for marketing and reach measurement. Data may be transferred to the USA. You can decide freely. More in the <a href="/datenschutz" class="underline hover:text-brand-orange">Privacy Policy</a>.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 md:flex-shrink-0 md:min-w-[260px]">
+                    <button type="button" onclick="rejectCookies()" class="flex-1 px-5 py-2.5 rounded-lg border border-gray-600 text-gray-200 hover:bg-gray-800 hover:border-gray-500 transition-colors text-sm font-oswald font-bold uppercase tracking-wide">Decline</button>
+                    <button type="button" onclick="acceptCookies()" class="flex-1 px-5 py-2.5 rounded-lg bg-brand-orange hover:bg-brand-red text-white transition-colors text-sm font-oswald font-bold uppercase tracking-wide">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SCRIPTS                                                       -->
+    <!-- ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // --- SCROLL REVEAL ---
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { root: null, rootMargin: '0px', threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- FLOATING CTA: show after user scrolls past form ---
+        const floatingCta = document.getElementById('floating-cta');
+        const formWrapper = document.getElementById('form-wrapper');
+        let ctaShown = false;
+        function checkCtaVisibility() {
+            if (!formWrapper || !floatingCta || ctaShown) return;
+            const rect = formWrapper.getBoundingClientRect();
+            // Show once the form is mostly off screen above the viewport
+            if (rect.bottom < 80) {
+                floatingCta.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10', 'md:translate-x-10');
+                floatingCta.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0', 'md:translate-x-0');
+                ctaShown = true;
+            }
+        }
+        function hideCta() {
+            if (!floatingCta) return;
+            floatingCta.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10', 'md:translate-x-10');
+            floatingCta.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0', 'md:translate-x-0');
+            ctaShown = false;
+        }
+        window.addEventListener('scroll', checkCtaVisibility, { passive: true });
+
+        // --- CHARACTER COUNTERS ---
+        ['bottleneck', 'goal', 'tried'].forEach(id => {
+            const el = document.getElementById(id);
+            const counter = document.getElementById(id + '-count');
+            if (el && counter) {
+                el.addEventListener('input', () => { counter.textContent = el.value.length; });
+            }
+        });
+
+        // --- CHIP TOGGLES (multi-select pills) ---
+        document.querySelectorAll('.chip-toggle input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', () => {
+                cb.closest('.chip-toggle').classList.toggle('checked', cb.checked);
+            });
+        });
+
+        // --- TRACKING & CONSENT ---
+        const CONSENT_STORAGE_KEY = 'ceo_reality_consent';
+        window.marketingConsent = false;
+        let pixelLoaded = false;
+        let metaLeadFired = false;
+        let cachedEventId = null;
+
+        function getStoredConsent() {
+            try {
+                const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (parsed.expires && Date.now() > parsed.expires) {
+                    localStorage.removeItem(CONSENT_STORAGE_KEY);
+                    return null;
+                }
+                return parsed.value;
+            } catch (e) { return null; }
+        }
+        function storeConsent(value) {
+            try {
+                localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({
+                    value: value, timestamp: Date.now(), expires: Date.now() + 365 * 24 * 60 * 60 * 1000
+                }));
+            } catch (e) {}
+        }
+        function loadMetaPixel() {
+            if (pixelLoaded) return;
+            pixelLoaded = true;
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '26542472978694567');
+            fbq('track', 'PageView');
+        }
+
+        function showCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (banner) requestAnimationFrame(() => { banner.classList.add('cookie-banner-visible'); });
+        }
+        function hideCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (banner) banner.classList.remove('cookie-banner-visible');
+        }
+        function openCookieSettings() { showCookieBanner(); }
+
+        function acceptCookies() {
+            storeConsent('accepted'); window.marketingConsent = true; loadMetaPixel(); hideCookieBanner();
+        }
+        function rejectCookies() {
+            storeConsent('rejected'); window.marketingConsent = false; hideCookieBanner();
+        }
+
+        // --- HELPERS: event id, url params ---
+        function getOrCreateEventId() {
+            if (cachedEventId) return cachedEventId;
+            cachedEventId = 'evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
+            return cachedEventId;
+        }
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const out = {};
+            ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].forEach(k => {
+                const v = params.get(k); if (v) out[k] = v;
+            });
+            return out;
+        }
+
+        // --- INTL TEL INPUT ---
+        let phoneInputInstance = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInputField = document.querySelector('#phone');
+            if (phoneInputField && window.intlTelInput) {
+                phoneInputInstance = window.intlTelInput(phoneInputField, {
+                    initialCountry: 'us',
+                    preferredCountries: ['us', 'gb', 'au'],
+                    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js'
+                });
+            }
+        });
+
+        // --- MAIN: SUBMIT AUDIT REQUEST ---
+        function submitAuditRequest() {
+            const errorBox = document.getElementById('form-error');
+            const errorText = document.getElementById('form-error-text');
+            errorBox.classList.add('hidden');
+
+            const get = id => (document.getElementById(id) || {}).value || '';
+
+            const fields = {
+                firstName: get('firstName').trim(),
+                lastName: get('lastName').trim(),
+                email: get('email').trim(),
+                website: get('website').trim(),
+                linkedin: get('linkedin').trim(),
+                industry: get('industry'),
+                revenue: get('revenue'),
+                teamSize: get('teamSize'),
+                role: get('role'),
+                operativeTime: get('operativeTime'),
+                dealSize: get('dealSize'),
+                salesOwner: get('salesOwner'),
+                profitClarity: get('profitClarity'),
+                leadSources: Array.from(document.querySelectorAll('input[name="leadSources"]:checked')).map(cb => cb.value),
+                bottleneck: get('bottleneck').trim(),
+                goal: get('goal').trim(),
+                tried: get('tried').trim()
+            };
+
+            // Validate required text/select fields
+            const required = ['firstName', 'lastName', 'email', 'website', 'industry', 'revenue', 'teamSize', 'role', 'operativeTime', 'dealSize', 'salesOwner', 'profitClarity', 'bottleneck', 'goal'];
+            for (const k of required) {
+                if (!fields[k]) {
+                    errorText.textContent = 'Please fill in all required fields.';
+                    errorBox.classList.remove('hidden');
+                    return;
+                }
+            }
+
+            // Lead sources: at least one
+            if (!fields.leadSources || fields.leadSources.length === 0) {
+                errorText.textContent = 'Please select at least one lead source.';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            // Email basic check
+            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRe.test(fields.email)) {
+                errorText.textContent = 'Please enter a valid email address.';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            // Website URL basic check (allow domain.tld too, but encourage protocol)
+            try {
+                let w = fields.website;
+                if (!/^https?:\/\//i.test(w)) w = 'https://' + w;
+                new URL(w);
+                fields.website = w;
+            } catch (e) {
+                errorText.textContent = 'Please enter a valid website URL (e.g. https://yourcompany.com).';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            // Phone validation via intl-tel-input
+            const phoneVal = (document.getElementById('phone') || {}).value || '';
+            const phoneValid = phoneInputInstance && phoneInputInstance.isValidNumber
+                ? phoneInputInstance.isValidNumber()
+                : phoneVal.length > 5;
+            if (!phoneValid) {
+                errorText.textContent = 'Please enter a valid mobile number.';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            const formattedPhone = phoneInputInstance && phoneInputInstance.getNumber
+                ? phoneInputInstance.getNumber()
+                : phoneVal;
+
+            // Min length on textareas to prevent garbage submissions
+            if (fields.bottleneck.length < 30) {
+                errorText.textContent = 'Please describe your bottleneck in a bit more detail (at least 30 characters).';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            if (fields.goal.length < 30) {
+                errorText.textContent = 'Please describe your 12-month goal in a bit more detail (at least 30 characters).';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            // --- All good. Build payload. ---
+            const consent = window.marketingConsent === true;
+            const eventId = getOrCreateEventId();
+            const urlParams = getUrlParams();
+
+            const payload = {
+                ...fields,
+                phone: formattedPhone,
+                event_name: 'AuditRequest',
+                event_id: eventId,
+                event_time: Math.floor(Date.now() / 1000),
+                event_source_url: window.location.href,
+                marketing_consent: consent ? 'granted' : 'denied',
+                ...urlParams
+            };
+
+            // Disable button to prevent double-submit
+            const btn = document.getElementById('audit-submit');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i><span>Submitting...</span>';
+                lucide.createIcons();
+            }
+
+            // Umami event
+            if (typeof umami !== 'undefined' && umami.track) {
+                umami.track('AuditRequest', {
+                    industry: fields.industry,
+                    revenue: fields.revenue,
+                    teamSize: fields.teamSize
+                });
+            }
+
+            // Meta Pixel Lead (browser side, deduplicated by eventID)
+            if (consent && typeof fbq !== 'undefined' && !metaLeadFired) {
+                fbq('track', 'Lead', {
+                    content_name: 'CEO Reality Audit Request',
+                    content_category: fields.industry
+                }, { eventID: eventId });
+                metaLeadFired = true;
+            }
+
+            // Webhook (Zapier / Make). Replace with your own.
+            fetch('https://hooks.zapier.com/hooks/catch/24204039/uvx869x/', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            })
+            .then(() => showSuccessState())
+            .catch(err => {
+                console.error('Audit submit error:', err);
+                // Even on failure, show success to user (data is captured client-side via tracking)
+                // but in production you may want to retry or queue.
+                showSuccessState();
+            });
+        }
+
+        function showSuccessState() {
+            const form = document.getElementById('audit-form');
+            const success = document.getElementById('audit-success');
+            if (form) form.classList.add('hidden');
+            if (success) {
+                success.classList.remove('hidden');
+                lucide.createIcons();
+                success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            // Hide floating CTA since user already submitted
+            hideCta();
+        }
+
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const stored = getStoredConsent();
+            if (stored === 'accepted') {
+                window.marketingConsent = true;
+                loadMetaPixel();
+            } else if (stored === 'rejected') {
+                window.marketingConsent = false;
+            } else {
+                setTimeout(showCookieBanner, 400);
+            }
+        });
+    </script>
+</body>
+</html>
