@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Reality | Most CEOs lead blindly.</title>
+    <meta name="description" content="CEO Reality is a private 1-on-1 mentoring program for entrepreneurs. 4 phases. 120 days. Complete control over your business.">
+
+    <link rel="canonical" href="https://ceo-reality.de/en/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CEO Reality">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://ceo-reality.de/en/">
+    <meta property="og:title" content="CEO Reality | Most CEOs lead blindly.">
+    <meta property="og:description" content="Private 1-on-1 mentoring program for entrepreneurs. 4 phases. 120 days. Complete control over your business.">
+    <meta property="og:image" content="https://ceo-reality.de/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="CEO Reality – Private 1-on-1 Mentoring for Entrepreneurs">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CEO Reality | Most CEOs lead blindly.">
+    <meta name="twitter:description" content="Private 1-on-1 mentoring program for entrepreneurs. 4 phases. 120 days.">
+    <meta name="twitter:image" content="https://ceo-reality.de/og-image.jpg">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#e60000">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "CEO Reality",
+      "url": "https://ceo-reality.de",
+      "logo": "https://ceo-reality.de/logo.png",
+      "description": "Private 1-on-1 mentoring program for entrepreneurs. 4 phases. 120 days.",
+      "founder": {
+        "@type": "Person",
+        "name": "Kevin Gwosdz"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="/dist/tailwind.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/css/intlTelInput.css">
+
+    <script defer src="https://umami-peach-xi.vercel.app/script.js" data-website-id="5d768786-ca16-4d87-a609-448f35305230"></script>
+
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #0a0a0a;
+        }
+
+        /* Button Glow Effect */
+        .btn-glow {
+            background: linear-gradient(135deg, #e60000, #990000);
+            box-shadow: 0 10px 25px rgba(230, 0, 0, 0.4);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(230, 0, 0, 0.5);
+        }
+
+        .btn-glow:hover::after {
+            opacity: 1;
+            left: 100%;
+        }
+
+        /* Subtle text glow */
+        .text-glow-orange {
+            text-shadow: 0 4px 15px rgba(230,0,0,0.2);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive card */
+        .interactive-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(230, 0, 0, 0.1);
+            border-color: rgba(230, 0, 0, 0.3);
+        }
+
+        /* Phase card */
+        .phase-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+        .phase-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #e60000, #990000);
+        }
+        .phase-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -15px rgba(230, 0, 0, 0.15);
+            border-color: rgba(230, 0, 0, 0.3);
+        }
+
+        /* Cockpit dashboard */
+        .cockpit-frame {
+            background: linear-gradient(180deg, #0a0a0a 0%, #111827 100%);
+            border: 1px solid rgba(230, 0, 0, 0.3);
+            box-shadow:
+                0 25px 50px -12px rgba(0,0,0,0.25),
+                0 0 80px rgba(230, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .metric-panel {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(230,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .metric-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(230,0,0,0.05), transparent 60%);
+            pointer-events: none;
+        }
+        .metric-value-missing {
+            color: #e60000;
+            text-shadow: 0 0 12px rgba(230,0,0,0.5);
+            animation: pulse-red 2.4s ease-in-out infinite;
+        }
+        @keyframes pulse-red {
+            0%, 100% { opacity: 1; text-shadow: 0 0 12px rgba(230,0,0,0.5); }
+            50% { opacity: 0.7; text-shadow: 0 0 20px rgba(230,0,0,0.8); }
+        }
+        .status-dot-red {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #e60000;
+            box-shadow: 0 0 10px rgba(230,0,0,0.8);
+            animation: pulse-red 1.6s ease-in-out infinite;
+        }
+
+        /* Loss examples */
+        .loss-card {
+            background: linear-gradient(180deg, #ffffff, #fff5f5);
+            border: 1px solid rgba(230, 0, 0, 0.18);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .loss-card::after {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 120px; height: 120px;
+            background: radial-gradient(circle, rgba(230,0,0,0.1), transparent 70%);
+            pointer-events: none;
+        }
+        .loss-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(230, 0, 0, 0.4);
+            box-shadow: 0 20px 40px -10px rgba(230, 0, 0, 0.15);
+        }
+
+        /* Big stat */
+        .big-stat-card {
+            background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
+            border: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+        .big-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #e60000, #990000);
+        }
+        .big-stat-card::after {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 160px; height: 160px;
+            background: radial-gradient(circle, rgba(230,0,0,0.15), transparent 70%);
+            pointer-events: none;
+        }
+        .big-stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(230, 0, 0, 0.4);
+        }
+
+        /* Form styles */
+        .input-field {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            color: #111827;
+            outline: none;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .input-field:focus {
+            border-color: #e60000;
+            box-shadow: 0 0 0 2px rgba(230, 0, 0, 0.2);
+            background-color: #ffffff;
+        }
+
+        /* intl-tel-input overrides to fix styling integration */
+        .iti {
+            width: 100%;
+            display: block;
+        }
+        .iti .input-field {
+            padding-left: 52px !important; /* Prevents the flag from being covered by text */
+        }
+        .iti__flag {background-image: url("https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/img/flags.png");}
+        @media (min-resolution: 2x) {
+          .iti__flag {background-image: url("https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/img/flags@2x.png");}
+        }
+
+        .step-dot { transition: all 0.4s ease; }
+        .step-dot.active {
+            background-color: #e60000;
+            color: white;
+            box-shadow: 0 0 15px rgba(230, 0, 0, 0.4);
+            border-color: #e60000;
+        }
+        .step-dot.completed {
+            background-color: #111827;
+            color: white;
+            border-color: #111827;
+        }
+        .step-dot.inactive {
+            background-color: #f3f4f6;
+            color: #9ca3af;
+            border-color: #e5e7eb;
+        }
+        .form-step {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* FAQ */
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] .faq-icon { transform: rotate(45deg); }
+        .faq-icon { transition: transform 0.3s ease; }
+        details[open] .faq-card {
+            border-color: rgba(230, 0, 0, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(230, 0, 0, 0.12);
+        }
+
+        /* Phase connector line (desktop) */
+        .phase-flow-line {
+            position: absolute;
+            top: 50%;
+            left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e60000 15%, #e60000 85%, transparent);
+            z-index: 0;
+            opacity: 0.25;
+        }
+
+        /* Grid dot background */
+        .dot-grid-bg {
+            background-image: radial-gradient(rgba(17, 24, 39, 0.07) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Section label tag */
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            background: rgba(230, 0, 0, 0.08);
+            border: 1px solid rgba(230, 0, 0, 0.25);
+            border-radius: 2rem;
+            color: #990000;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Module chip */
+        .module-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.6rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            font-size: 0.72rem;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        .module-chip:hover {
+            background: #fff5f5;
+            border-color: rgba(230,0,0,0.25);
+            color: #990000;
+        }
+        .module-num {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e60000;
+            font-weight: 700;
+            font-size: 0.65rem;
+        }
+
+        /* Selection */
+        ::selection { background: #e60000; color: white; }
+
+        /* Anti-guarantee stamp */
+        .stamp {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            border: 1px solid rgba(230,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .stamp::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(230,0,0,0.15), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(230,0,0,0.1), transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Cookie Consent Banner */
+        #cookie-banner {
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #cookie-banner.cookie-banner-visible {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-inter antialiased relative min-h-screen bg-white">
+
+    <div class="relative z-10">
+        <header class="py-3 flex justify-center">
+            <div class="inline-flex flex-col items-center justify-center relative mt-1">
+                <span class="font-oswald text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 uppercase leading-none z-10" style="transform: scaleY(1.4); transform-origin: bottom; margin-top: 30px !important; letter-spacing: -0.01em;">
+                    CEO REALITY<span class="text-[#e60000]">.</span>
+                </span>
+                <div class="relative w-[98%] mt-1.5 md:mt-3 flex items-center justify-center h-[2px]">
+                    <div class="absolute w-[96%] h-[10px] bg-[#cc0000] opacity-30 blur-[5px] rounded-full"></div>
+                    <div class="absolute w-[90%] h-[4px] bg-[#e60000] opacity-70 blur-[2px] rounded-full"></div>
+                    <div class="w-full h-[1.5px] md:h-[2px] relative z-10" style="
+                        background: linear-gradient(90deg,
+                            transparent 0%, #880000 5%, #e60000 15%,
+                            #ff1a1a 25%, #ff1a1a 75%, #e60000 85%,
+                            #880000 95%, transparent 100%);
+                        clip-path: ellipse(50% 50% at 50% 50%);
+                    "></div>
+                </div>
+            </div>
+        </header>
+
+        <main class="pt-4 pb-24 lg:pb-32">
+
+            <section class="container mx-auto px-4 lg:px-8 max-w-7xl">
+                <div class="text-center mb-8 lg:mb-12 reveal">
+
+                    <h1 class="font-oswald text-5xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold mb-6 uppercase tracking-tight text-gray-900 leading-[0.95]">
+                        Most CEOs <br>
+                        <span class="inline-block text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red text-glow-orange">lead blindly.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                        They know their revenue. But they don't know how much they actually earn. Who their best customers are. Which employee creates value.
+                        <span class="text-gray-900 font-semibold block mt-3">They're running a business they don't actually understand.</span>
+                    </p>
+                </div>
+
+                <div class="text-center mb-4 max-w-3xl mx-auto reveal" style="transition-delay: 0.2s;">
+                    <p class="text-xs md:text-sm text-gray-500 mb-3 uppercase tracking-widest font-semibold">For qualified executives only</p>
+                    <a href="#bewerbung" class="btn-glow inline-block w-full sm:w-auto px-8 py-4 md:px-14 md:py-6 rounded text-lg md:text-2xl font-bold font-oswald uppercase tracking-wide text-white">
+                        Reality Check &amp; Apply Now
+                    </a>
+                    <p class="mt-4 text-xs md:text-sm text-gray-500 flex items-center justify-center gap-2">
+                        <i data-lucide="shield-alert" class="w-4 h-4 text-brand-orange"></i>
+                        Strictly limited: 10 CEOs per quarter.
+                    </p>
+                </div>
+            </section>
+
+            <section class="relative mt-24 lg:mt-36 py-16 lg:py-24 bg-gray-50 border-y border-gray-200 dot-grid-bg">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i>The Diagnosis</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            You don't have a sales problem.<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">You have a competency problem.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Whether €50,000 or €500,000 in monthly revenue. The pattern is always the same.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-5 lg:gap-6 max-w-5xl mx-auto">
+                        <div class="interactive-card rounded-xl p-6 lg:p-8 reveal">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="calculator" class="w-6 h-6 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">No Profit Calculation</h3>
+                                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">You know your revenue to the cent. But nobody in the business can tell you what a single customer is really worth. Or what they actually cost you.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="interactive-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.1s;">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="users" class="w-6 h-6 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Wrong People in Wrong Positions</h3>
+                                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">You keep employees who aren't A-players. Not because you want to, but because you can't evaluate whether they're truly competent. Mediocrity gets tolerated.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="interactive-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.2s;">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="target" class="w-6 h-6 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Marketing Runs, But Nobody Knows Why</h3>
+                                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">You pay agencies, ads, funnels. Leads come in. But where exactly they come from, what works and what just looks expensive — nobody can reliably say.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="interactive-card rounded-xl p-6 lg:p-8 reveal" style="transition-delay: 0.3s;">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="alarm-clock" class="w-6 h-6 text-brand-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2">Gut-Based Decisions</h3>
+                                    <p class="text-gray-600 leading-relaxed text-sm lg:text-base">Terminations happen too late. Hires happen too fast. Prices raised without knowing what it does to margins. Every decision is a gamble.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto mt-12 lg:mt-16 reveal">
+                        <div class="bg-white border-l-4 border-brand-orange rounded-r-xl p-6 lg:p-8 shadow-lg">
+                            <p class="text-lg lg:text-2xl font-semibold text-gray-900 leading-relaxed">
+                                Most CEOs believe their problem lies somewhere in sales. That's not the problem.
+                                <span class="block mt-3 text-brand-orange">They don't understand how their own business is supposed to work.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="trending-down" class="w-3.5 h-3.5"></i>The Cost Side</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            Every month without clarity<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">costs you money.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            Four typical scenarios from businesses between €50,000 and €500,000 in monthly revenue.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+                        <div class="loss-card rounded-xl p-6 reveal">
+                            <div class="flex items-center justify-between mb-5">
+                                <div class="w-11 h-11 rounded-lg bg-white border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="user-minus" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">Scenario 01</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Wrong Hire</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">The Head of Sales who impressed in the interview delivers no measurable results after six months. You don't know if he's destroying the team or saving it.</p>
+                            <div class="pt-4 border-t border-red-100">
+                                <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Typical Damage</div>
+                                <div class="font-oswald text-2xl font-bold text-brand-orange">60,000 € +</div>
+                                <div class="text-xs text-gray-500">Salary × lost months</div>
+                            </div>
+                        </div>
+                        <div class="loss-card rounded-xl p-6 reveal" style="transition-delay: 0.1s;">
+                            <div class="flex items-center justify-between mb-5">
+                                <div class="w-11 h-11 rounded-lg bg-white border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="hourglass" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">Scenario 02</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Termination Too Late</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">An employee is dragging the team down. You've noticed for months. But without clear performance criteria, you'll postpone the decision again.</p>
+                            <div class="pt-4 border-t border-red-100">
+                                <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Typical Damage</div>
+                                <div class="font-oswald text-2xl font-bold text-brand-orange">40,000 € +</div>
+                                <div class="text-xs text-gray-500">Opportunity costs / quarter</div>
+                            </div>
+                        </div>
+                        <div class="loss-card rounded-xl p-6 reveal" style="transition-delay: 0.2s;">
+                            <div class="flex items-center justify-between mb-5">
+                                <div class="w-11 h-11 rounded-lg bg-white border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="tag" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">Scenario 03</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Wrong Pricing Decision</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">You sell an offer at the market's average price, without knowing what margin actually remains. Your prices appear out of nowhere.</p>
+                            <div class="pt-4 border-t border-red-100">
+                                <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Typical Damage</div>
+                                <div class="font-oswald text-2xl font-bold text-brand-orange">15 - 30%</div>
+                                <div class="text-xs text-gray-500">Margin loss per sale</div>
+                            </div>
+                        </div>
+                        <div class="loss-card rounded-xl p-6 reveal" style="transition-delay: 0.3s;">
+                            <div class="flex items-center justify-between mb-5">
+                                <div class="w-11 h-11 rounded-lg bg-white border border-red-100 flex items-center justify-center">
+                                    <i data-lucide="megaphone" class="w-5 h-5 text-brand-orange"></i>
+                                </div>
+                                <span class="font-mono text-[0.65rem] font-bold text-brand-orange uppercase tracking-widest">Scenario 04</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Opaque Agency</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">You pay five figures monthly for Paid Ads. The numbers in the reports look good. But you can't evaluate whether the agency is actually delivering or taking you for a ride.</p>
+                            <div class="pt-4 border-t border-red-100">
+                                <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Typical Damage</div>
+                                <div class="font-oswald text-2xl font-bold text-brand-orange">30 - 50%</div>
+                                <div class="text-xs text-gray-500">of media budget burned</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="relative py-20 lg:py-28 bg-gradient-to-b from-brand-dark to-gray-900 text-white overflow-hidden">
+                <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-orange opacity-10 blur-[120px] rounded-full pointer-events-none"></div>
+                <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+                <div class="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5" style="background: rgba(230,0,0,0.15); border-color: rgba(230,0,0,0.4); color: #ff6666;">
+                            <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>The System
+                        </span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-7xl font-bold uppercase leading-tight mb-5 text-white">
+                            The CEO<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff4d4d]">Operating System.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
+                            4 phases. 1 system. Complete business control.
+                            <span class="block mt-2 text-gray-400 text-base">Not a course. Not coaching. A complete operating system for your role as CEO.</span>
+                        </p>
+                    </div>
+
+                    <div class="relative max-w-6xl mx-auto reveal">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 lg:gap-5 mb-12 relative">
+                            <div class="phase-flow-line hidden md:block"></div>
+
+                            <div class="relative z-10 bg-gray-900 border border-gray-800 rounded-xl p-5 lg:p-6 hover:border-brand-orange/40 transition-all duration-300 group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold tracking-widest">PHASE / 01</div>
+                                    <i data-lucide="crown" class="w-5 h-5 text-brand-orange group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white mb-2 leading-tight">CEO</h3>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider mb-4 font-semibold">Thinking &amp; Control</div>
+                                <p class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-brand-orange/40 pl-3">
+                                    How does a CEO think and act?
+                                </p>
+                            </div>
+                            <div class="relative z-10 bg-gray-900 border border-gray-800 rounded-xl p-5 lg:p-6 hover:border-brand-orange/40 transition-all duration-300 group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold tracking-widest">PHASE / 02</div>
+                                    <i data-lucide="radar" class="w-5 h-5 text-brand-orange group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white mb-2 leading-tight">Marketing</h3>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider mb-4 font-semibold">System Understanding</div>
+                                <p class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-brand-orange/40 pl-3">
+                                    Where do leads come from, and why?
+                                </p>
+                            </div>
+                            <div class="relative z-10 bg-gray-900 border border-gray-800 rounded-xl p-5 lg:p-6 hover:border-brand-orange/40 transition-all duration-300 group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold tracking-widest">PHASE / 03</div>
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-brand-orange group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white mb-2 leading-tight">Sales</h3>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider mb-4 font-semibold">Revenue Mechanics</div>
+                                <p class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-brand-orange/40 pl-3">
+                                    How does a lead become revenue?
+                                </p>
+                            </div>
+                            <div class="relative z-10 bg-gray-900 border border-gray-800 rounded-xl p-5 lg:p-6 hover:border-brand-orange/40 transition-all duration-300 group">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="font-mono text-[0.65rem] text-brand-orange font-bold tracking-widest">PHASE / 04</div>
+                                    <i data-lucide="gauge" class="w-5 h-5 text-brand-orange group-hover:scale-110 transition-transform"></i>
+                                </div>
+                                <h3 class="font-oswald text-2xl lg:text-3xl font-bold uppercase text-white mb-2 leading-tight">Operations</h3>
+                                <div class="text-xs text-gray-400 uppercase tracking-wider mb-4 font-semibold">Control &amp; Scaling</div>
+                                <p class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-brand-orange/40 pl-3">
+                                    Can the system withstand growth?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="max-w-6xl mx-auto mt-16 lg:mt-20 space-y-6 lg:space-y-8">
+                        <div class="reveal bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-10 backdrop-blur-sm">
+                            <div class="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="font-mono text-[0.7rem] text-brand-orange font-bold tracking-widest bg-brand-orange/10 border border-brand-orange/30 rounded px-2.5 py-1">PHASE 01</div>
+                                        <span class="font-mono text-[0.7rem] text-gray-500 uppercase">~30 days</span>
+                                    </div>
+                                    <h3 class="font-oswald text-3xl lg:text-4xl font-bold uppercase text-white leading-tight mb-3">CEO</h3>
+                                    <div class="text-brand-orange uppercase tracking-wider font-semibold text-sm mb-4">Thinking &amp; Control</div>
+                                    <p class="text-gray-300 leading-relaxed mb-5">The CEO exits the operational role and starts managing the business structurally. Identity, focus, bottleneck thinking.</p>
+                                    <div class="pt-5 border-t border-white/10">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Result</div>
+                                        <p class="text-white font-semibold">Clarity, focus and first real control.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-4">Modules in this phase</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">01</span>Pre-Frame: Identity &amp; Self-Leadership</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">02</span>Financial Target</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">03</span>Big Domino: Focus &amp; Daily Structure</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">04</span>Data Collection: Current State</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">05</span>Bottleneck Thinking</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">06</span>Leadership Over Control</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">07</span>HR: A-Players &amp; Team Structure</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">08</span>Offer: Value Creation &amp; Business Model</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reveal bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-10 backdrop-blur-sm">
+                            <div class="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="font-mono text-[0.7rem] text-brand-orange font-bold tracking-widest bg-brand-orange/10 border border-brand-orange/30 rounded px-2.5 py-1">PHASE 02</div>
+                                        <span class="font-mono text-[0.7rem] text-gray-500 uppercase">~30 days</span>
+                                    </div>
+                                    <h3 class="font-oswald text-3xl lg:text-4xl font-bold uppercase text-white leading-tight mb-3">Marketing</h3>
+                                    <div class="text-brand-orange uppercase tracking-wider font-semibold text-sm mb-4">System Understanding</div>
+                                    <p class="text-gray-300 leading-relaxed mb-5">The CEO understands marketing as a system and can evaluate channels, data and performance with confidence. No more gut-based decisions.</p>
+                                    <div class="pt-5 border-t border-white/10">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Result</div>
+                                        <p class="text-white font-semibold">Marketing becomes measurable instead of emotional.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-4">Modules in this phase</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">01</span>Foundation &amp; Reality Gap</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">02</span>Marketing System &amp; Mechanics</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">03</span>Tracking &amp; Attribution</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">04</span>Paid Ads &amp; Media Buying</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">05</span>Funnel &amp; Conversion</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">06</span>Data Flows &amp; System Architecture</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">07</span>Channel Strategy: Organic vs. Paid</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">08</span>Marketing Team &amp; Structure</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">09</span>KPI &amp; CEO-Dashboard</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">10</span>Automation &amp; Scaling</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">11</span>System Stability</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">12</span>AI &amp; Development</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reveal bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-10 backdrop-blur-sm">
+                            <div class="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="font-mono text-[0.7rem] text-brand-orange font-bold tracking-widest bg-brand-orange/10 border border-brand-orange/30 rounded px-2.5 py-1">PHASE 03</div>
+                                        <span class="font-mono text-[0.7rem] text-gray-500 uppercase">~30 days</span>
+                                    </div>
+                                    <h3 class="font-oswald text-3xl lg:text-4xl font-bold uppercase text-white leading-tight mb-3">Sales</h3>
+                                    <div class="text-brand-orange uppercase tracking-wider font-semibold text-sm mb-4">Revenue Mechanics</div>
+                                    <p class="text-gray-300 leading-relaxed mb-5">The CEO understands how leads become revenue and can drive sales systems, teams and performance deliberately — without micromanagement.</p>
+                                    <div class="pt-5 border-t border-white/10">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Result</div>
+                                        <p class="text-white font-semibold">Sales becomes controllable instead of random.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-4">Modules in this phase</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">01</span>Sales System: Lead to Revenue</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">02</span>Lead Quality &amp; Qualification</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">03</span>Sales Pipeline &amp; Handoffs</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">04</span>Roles: Setter, Closer, Head of Sales</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">05</span>Sales Environment &amp; Culture</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">06</span>Performance Evaluation</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">07</span>Sales Leadership Without Micromanagement</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">08</span>Marketing and Sales: Handoffs</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">09</span>Sales Scaling &amp; Bottlenecks</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">10</span>Incentive-Based Pricing</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">11</span>Sales Structure &amp; Pitch Logic</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reveal bg-white/[0.03] border border-white/10 rounded-2xl p-6 lg:p-10 backdrop-blur-sm">
+                            <div class="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-12">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="font-mono text-[0.7rem] text-brand-orange font-bold tracking-widest bg-brand-orange/10 border border-brand-orange/30 rounded px-2.5 py-1">PHASE 04</div>
+                                        <span class="font-mono text-[0.7rem] text-gray-500 uppercase">~30 days</span>
+                                    </div>
+                                    <h3 class="font-oswald text-3xl lg:text-4xl font-bold uppercase text-white leading-tight mb-3">Operations</h3>
+                                    <div class="text-brand-orange uppercase tracking-wider font-semibold text-sm mb-4">Control &amp; Scaling</div>
+                                    <p class="text-gray-300 leading-relaxed mb-5">The CEO manages the business based on data, structures and clear decision logic — and builds a scalable system.</p>
+                                    <div class="pt-5 border-t border-white/10">
+                                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-2">Result</div>
+                                        <p class="text-white font-semibold">The business becomes controllable, scalable and stable.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-4">Modules in this phase</div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">01</span>Profit &amp; Unit Economics</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">02</span>Taxes &amp; Business Structure</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">03</span>Reporting-System</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">04</span>Controlling-System</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">05</span>Meeting System &amp; Alignment</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">06</span>People System: Hiring, Firing, Performance</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">07</span>Fulfillment-System</span>
+                                        <span class="module-chip" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: #e5e7eb;"><span class="module-num">08</span>Scaling System</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto mt-16 lg:mt-20 reveal">
+                        <div class="bg-gradient-to-br from-brand-orange/10 to-transparent border border-brand-orange/30 rounded-2xl p-6 lg:p-10 text-center">
+                            <div class="font-mono text-xs text-brand-orange font-bold tracking-widest mb-4 uppercase">In 120 Days</div>
+                            <p class="font-oswald text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-white leading-tight">
+                                You no longer make decisions based on gut feeling.<br>
+                                <span class="text-brand-orange">You control instead of reacting.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="award" class="w-3.5 h-3.5"></i>Where This Method Comes From</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            The system wasn't developed<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">in a classroom.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            It's the result of over €200,000 in mentoring investment and years of work with a top 0.0001% entrepreneur.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-16 lg:mb-20">
+                        <div class="big-stat-card rounded-xl p-5 lg:p-7 reveal">
+                            <div class="font-mono text-[0.65rem] text-gray-400 uppercase tracking-widest mb-3">Mentoring Investment</div>
+                            <div class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none mb-2">200K €</div>
+                            <div class="text-xs lg:text-sm text-gray-400">into an underground mentor</div>
+                        </div>
+                        <div class="big-stat-card rounded-xl p-5 lg:p-7 reveal" style="transition-delay: 0.1s;">
+                            <div class="font-mono text-[0.65rem] text-gray-400 uppercase tracking-widest mb-3">In 6 months</div>
+                            <div class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none mb-2">2.8M €</div>
+                            <div class="text-xs lg:text-sm text-gray-400">generated in high-ticket closing</div>
+                        </div>
+                        <div class="big-stat-card rounded-xl p-5 lg:p-7 reveal" style="transition-delay: 0.2s;">
+                            <div class="font-mono text-[0.65rem] text-gray-400 uppercase tracking-widest mb-3">As CEO</div>
+                            <div class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none mb-2">9M €</div>
+                            <div class="text-xs lg:text-sm text-gray-400">annual revenue scaled (record)</div>
+                        </div>
+                        <div class="big-stat-card rounded-xl p-5 lg:p-7 reveal" style="transition-delay: 0.3s;">
+                            <div class="font-mono text-[0.65rem] text-gray-400 uppercase tracking-widest mb-3">Own business</div>
+                            <div class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-none mb-2">12M €</div>
+                            <div class="text-xs lg:text-sm text-gray-400">revenue after mentoring</div>
+                        </div>
+                    </div>
+
+                    <div class="max-w-4xl mx-auto reveal">
+                        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6 lg:p-10 relative overflow-hidden">
+                            <i data-lucide="quote" class="absolute top-6 right-6 w-12 h-12 text-brand-orange/10"></i>
+                            <div class="space-y-5 text-gray-700 leading-relaxed text-base lg:text-lg relative">
+                                <p>2021, my first company. Clueless. Lost. I paid for courses and consulting and still couldn't make it work. Money burned. Time wasted.</p>
+                                <p>Then came the encounter that changed everything: A man who belongs to the top 0.0001% of entrepreneurs worldwide. I worked 16 hours a day, 8 of them cold calling, just to prove to him that I was worth learning from.</p>
+                                <p class="text-gray-900 font-semibold">Over the years I invested more than €200,000 to learn from him. Three months after starting, I had doubled my revenue. One year later: over €12 million in revenue.</p>
+                                <p>This exact knowledge, structured into 4 phases, is CEO Reality today.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 lg:py-28 bg-gray-50 border-y border-gray-200">
+                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
+                    <div class="text-center mb-14 lg:mb-20 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="filter" class="w-3.5 h-3.5"></i>Reality Check</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
+                            This program is<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">not for 99%.</span>
+                        </h2>
+                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+                            To maximize the success rate of the remaining 1%, we filter hard.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+                        <div class="reveal bg-white border border-gray-200 rounded-2xl overflow-hidden">
+                            <div class="bg-gray-100 px-6 lg:px-8 py-4 border-b border-gray-200 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-gray-300 text-gray-700 flex items-center justify-center">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-oswald text-xl lg:text-2xl font-bold uppercase text-gray-700">Not for you if</h3>
+                            </div>
+                            <div class="p-6 lg:p-8 space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You're just starting out and don't have a viable customer base yet.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You need someone to convince you about the program before you apply.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You're looking for a cheap online course or group coaching.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You want results without fundamentally changing your own mindset.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="minus" class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-700 text-sm lg:text-base">You need a money-back guarantee to make a decision.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="reveal bg-gradient-to-br from-gray-900 to-black text-white border border-brand-orange/30 rounded-2xl overflow-hidden" style="transition-delay: 0.1s;">
+                            <div class="bg-brand-orange/10 border-b border-brand-orange/20 px-6 lg:px-8 py-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-brand-orange text-white flex items-center justify-center">
+                                    <i data-lucide="check" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="font-oswald text-xl lg:text-2xl font-bold uppercase text-white">For you if</h3>
+                            </div>
+                            <div class="p-6 lg:p-8 space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You run an existing business with revenue between €50,000 and €500,000 per month.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You want to stop running your business on gut feeling.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You're ready to invest significant time, energy and capital into your own growth.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You accept that control starts with data, not opinions.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="check" class="w-5 h-5 text-brand-orange flex-shrink-0 mt-0.5"></i>
+                                    <p class="text-gray-200 text-sm lg:text-base">You want to work 1-on-1 with someone who has already walked the path themselves.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 lg:py-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                    <div class="reveal stamp rounded-3xl p-8 md:p-12 lg:p-16 text-center relative">
+                        <div class="relative z-10">
+                            <div class="inline-flex items-center gap-2 mb-6 px-3 py-1.5 bg-brand-orange/10 border border-brand-orange/30 rounded-full">
+                                <span class="status-dot-red"></span>
+                                <span class="font-mono text-[0.65rem] md:text-xs font-bold text-brand-orange uppercase tracking-widest">The Reverse Guarantee</span>
+                            </div>
+                            <h2 class="font-oswald text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-white leading-tight mb-6">
+                                I give you <span class="text-brand-orange">no</span> money-back guarantee.
+                            </h2>
+                            <div class="max-w-3xl mx-auto space-y-5 text-gray-300 text-base md:text-lg lg:text-xl font-light leading-relaxed">
+                                <p>Instead, I give you a different one. One you'll believe the moment you truly understand your numbers for the first time.</p>
+                                <p class="text-white font-semibold text-xl md:text-2xl lg:text-3xl font-oswald uppercase border-l-4 border-brand-orange pl-5 py-2 text-left bg-white/[0.03] rounded-r-lg">
+                                    "I guarantee you'll earn significantly less money if you don't become part of CEO Reality."
+                                </p>
+                                <p>Every month without clarity. Every wrong hire. Every termination too late. Every wrong pricing decision. All of that costs you money every month, whether you're part of the program or not.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-20 lg:py-28 bg-gray-50 border-y border-gray-200">
+                <div class="container mx-auto px-4 lg:px-8 max-w-4xl">
+                    <div class="text-center mb-12 lg:mb-16 reveal">
+                        <span class="section-tag mb-5"><i data-lucide="help-circle" class="w-3.5 h-3.5"></i>Open Questions</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight">
+                            The honest<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">answers.</span>
+                        </h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">What does the program cost?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                CEO Reality is a premium 1-on-1 mentoring program. When you hear the price, you'll pause for a second. That's intentional. Anyone who needs to be convinced the investment is worth it isn't the right candidate. We discuss the exact price transparently in the reality check call.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">How long does the program last?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                120 days. Not a year. Not six months. In four phases (CEO, Marketing, Sales, Operations) we go completely through your business, building control logic, reporting and decision mechanics.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">Is there a refund?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                No. At no point. For any reason. Anyone who needs a refund clause to make a decision doesn't make decisions in business either. That's the filter.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">What sets you apart from regular coaching?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                CEO Reality is not a course and not conventional coaching. It's a private 1-on-1 program with a complete operating system. You don't learn how to do marketing, you learn how to evaluate marketing. Not how to sell, but how to manage sales as a system. We work directly on your business, not theory.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">How many participants are there?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                10 CEOs per quarter. No more. This limit exists not for marketing reasons, but because 1-on-1 work at this level cannot be scaled without sacrificing quality.
+                            </div>
+                        </details>
+
+                        <details class="reveal">
+                            <summary class="faq-card bg-white border border-gray-200 rounded-xl p-5 lg:p-6 flex items-center justify-between gap-4 transition-all hover:border-brand-orange/30">
+                                <span class="font-oswald text-lg lg:text-xl font-bold uppercase text-gray-900">What happens after applying?</span>
+                                <i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-orange flex-shrink-0"></i>
+                            </summary>
+                            <div class="p-5 lg:p-6 text-gray-600 leading-relaxed">
+                                You fill out the application form and directly book a time for a free reality check call. In this call we determine whether your business and situation fit CEO Reality, and you'll learn all the details about the program, scope and investment.
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pt-20 lg:pt-28">
+                <div class="container mx-auto px-4 lg:px-8 max-w-5xl">
+                    <div id="bewerbung" class="text-center bg-white px-4 py-10 sm:p-8 md:p-12 lg:p-16 border border-gray-200 shadow-2xl rounded-3xl reveal relative overflow-hidden">
+                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-brand-orange opacity-5 blur-[100px] pointer-events-none"></div>
+
+                        <span class="section-tag mb-5"><i data-lucide="calendar-check" class="w-3.5 h-3.5"></i>Start Application</span>
+                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold mb-5 sm:mb-6 uppercase relative z-10 text-gray-900">Choose Wisely.</h2>
+                        <p class="text-gray-600 text-base sm:text-lg mb-8 font-light max-w-3xl mx-auto leading-relaxed relative z-10">
+                            Staying at your current level isn't just bad for your business. It's irresponsible.
+                            Your business needs leadership. Your team needs a CEO who knows what they're doing.
+                        </p>
+
+                        <div class="max-w-2xl mx-auto bg-white border border-gray-200 shadow-xl rounded-2xl relative z-10 text-left overflow-hidden mt-8 sm:mt-10">
+
+                            <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:py-5 border-b border-gray-200 relative">
+
+    <div class="absolute top-1/2 left-8 right-8 sm:left-[2.75rem] sm:right-[2.75rem] h-1 -translate-y-1/2 z-0">
+        <div class="absolute inset-0 bg-gray-200 rounded-full"></div>
+        <div id="progress-line" class="absolute top-0 left-0 h-full bg-brand-orange transition-all duration-500 rounded-full" style="width: 0%;"></div>
+    </div>
+
+    <div class="flex justify-between relative z-10">
+        <div id="dot-1" class="step-dot active w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">1</div>
+        <div id="dot-2" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">2</div>
+        <div id="dot-3" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2">3</div>
+        <div id="dot-4" class="step-dot inactive w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm border-2"><i data-lucide="calendar" class="w-3 h-3 sm:w-4 sm:h-4"></i></div>
+    </div>
+</div>
+
+                            <div class="p-5 sm:p-6 md:p-8">
+                                <form id="application-form" onsubmit="return false;">
+
+                                    <div id="step-1" class="form-step block">
+                                        <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">1. Personal Information</h3>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Please enter your contact details so we can reach you.</p>
+
+                                        <div class="space-y-4">
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div>
+                                                    <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">First Name</label>
+                                                    <input type="text" id="firstName" class="input-field" placeholder="John" required>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Last Name</label>
+                                                    <input type="text" id="lastName" class="input-field" placeholder="Smith" required>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Email Address</label>
+                                                <input type="email" id="email" class="input-field" placeholder="john@company.com" required>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Mobile Number</label>
+                                                <input type="tel" id="phone" class="input-field" required>
+                                            </div>
+                                        </div>
+
+                                        <div id="step-1-error" class="hidden mt-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm"></div>
+
+                                        <div class="mt-8 flex justify-end">
+                                            <button type="button" onclick="validateAndAdvanceStep1()" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                                Continue to Step 2
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div id="step-2" class="form-step hidden">
+                                        <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">2. Business Status</h3>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Where does your business stand currently?</p>
+
+                                        <div class="space-y-4">
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Your Company Name</label>
+                                                <input type="text" id="company" class="input-field" placeholder="Inc.">
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Current Monthly Revenue</label>
+                                                <select id="revenue" class="input-field cursor-pointer">
+                                                    <option value="" disabled selected>Please select...</option>
+                                                    <option value="under50k">Under €50,000</option>
+                                                    <option value="50k-100k">€50,000 - €100,000</option>
+                                                    <option value="100k-500k">€100,000 - €500,000</option>
+                                                    <option value="over500k">Over €500,000</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Your Biggest Current Challenge</label>
+                                                <textarea id="challenge" class="input-field min-h-[100px] resize-y" placeholder="Briefly describe your biggest bottleneck..."></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-8 flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+                                            <button type="button" onclick="goToStep(1)" class="w-full sm:w-auto text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                                Back
+                                            </button>
+                                            <button type="button" onclick="advanceToStep3()" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                                Continue to Step 3
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div id="step-3" class="form-step hidden">
+                                        <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900">3. Reality Check</h3>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-5 sm:mb-6">Please confirm the following requirements.</p>
+
+                                        <div class="space-y-4">
+                                            <div class="bg-orange-50/50 border border-brand-orange/20 p-4 rounded-lg">
+                                                <p class="text-gray-800 text-xs sm:text-sm font-medium mb-4">CEO Reality is an intensive and premium 1-on-1 mentoring program. Are you ready to invest significant time, energy and capital into the growth of your business?</p>
+
+                                                <div class="space-y-2">
+                                                    <label class="flex items-start sm:items-center gap-3 cursor-pointer p-2 hover:bg-white rounded transition-colors border border-transparent hover:border-gray-200">
+                                                        <input type="radio" name="commitment" value="Yes" class="w-5 h-5 text-brand-orange focus:ring-brand-orange border-gray-300 mt-0.5 sm:mt-0">
+                                                        <span class="text-gray-900 font-medium text-xs sm:text-sm">Yes, I am 100% ready.</span>
+                                                    </label>
+                                                    <label class="flex items-start sm:items-center gap-3 cursor-pointer p-2 hover:bg-white rounded transition-colors border border-transparent hover:border-gray-200">
+                                                        <input type="radio" name="commitment" value="No" class="w-5 h-5 text-gray-400 focus:ring-gray-400 border-gray-300 mt-0.5 sm:mt-0">
+                                                        <span class="text-gray-500 font-medium text-xs sm:text-sm">No, not the right time right now.</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-8 flex flex-col-reverse sm:flex-row justify-between items-center gap-4">
+                                            <button type="button" onclick="goToStep(2)" class="w-full sm:w-auto text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                                Back
+                                            </button>
+                                            <button type="button" onclick="submitAndGoToStep4()" class="btn-glow w-full sm:w-auto px-6 py-3 sm:px-8 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-sm sm:text-base">
+                                                Select Appointment
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div id="step-4" class="form-step hidden">
+                                        <h3 class="font-oswald text-xl sm:text-2xl font-bold uppercase mb-1 sm:mb-2 text-gray-900 text-center">4. Secure Application Call</h3>
+                                        <p class="text-xs sm:text-sm text-gray-500 mb-2 text-center">Select a suitable time now for your free Reality Check.</p>
+
+                                        <div id="cal-embed-container" style="width:100%;height:600px;overflow:scroll;border-radius:12px;" class="mt-4 border border-gray-100 bg-white"></div>
+
+                                        <div class="mt-4 flex justify-center">
+                                            <button type="button" onclick="goToStep(3)" class="text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors px-4 py-2">
+                                                Back to Form
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+
+                        <p class="mt-8 sm:mt-10 text-xs sm:text-sm text-gray-500 uppercase tracking-widest relative z-10 font-medium">
+                            Only 10 spots per quarter. This program is not for 99% of applicants.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="border-t border-gray-200 py-8 mt-12 text-center text-gray-500 text-sm bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-4">
+                    <a href="/impressum" class="hover:text-brand-orange transition-colors">Imprint</a>
+                    <a href="/datenschutz" class="hover:text-brand-orange transition-colors">Privacy Policy</a>
+                    <a href="/agb" class="hover:text-brand-orange transition-colors">Terms</a>
+                    <button type="button" onclick="openCookieSettings()" class="hover:text-brand-orange transition-colors bg-transparent border-0 p-0 cursor-pointer text-sm text-gray-500 font-inherit">Cookie Settings</button>
+                </div>
+                <p>&copy; 2026 CEO Reality. All rights reserved.</p>
+                <p class="mt-2 text-xs max-w-xl mx-auto opacity-70">Results shared are not typical. Your results depend on your work ethic, experience and focus. All business involves risk.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/intlTelInput.min.js"></script>
+
+    <script>
+        lucide.createIcons();
+
+        // Phone Input Instance variable
+        let phoneInputInstance;
+
+        // Load Cal.com API script
+        (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = cal.ns[namespace] || api) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+        Cal("init", {origin:"https://cal.com"});
+
+        // Multi-Step Form Logic
+        function goToStep(stepNumber) {
+            document.querySelectorAll('.form-step').forEach(step => {
+                step.classList.add('hidden');
+                step.classList.remove('block');
+            });
+
+            document.getElementById(`step-${stepNumber}`).classList.remove('hidden');
+            document.getElementById(`step-${stepNumber}`).classList.add('block');
+
+            const progress = ((stepNumber - 1) / 3) * 100;
+            document.getElementById('progress-line').style.width = `${progress}%`;
+
+            for(let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                dot.classList.remove('active', 'inactive', 'completed');
+
+                if (i < stepNumber) {
+                    dot.classList.add('completed');
+                    if(i !== 4) dot.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                } else if (i === stepNumber) {
+                    dot.classList.add('active');
+                    if(i !== 4) dot.innerHTML = i;
+                } else {
+                    dot.classList.add('inactive');
+                    if(i !== 4) dot.innerHTML = i;
+                }
+            }
+
+            // Umami Analytics Tracking - Track Step Views
+            if (typeof umami !== 'undefined') {
+                umami.track('Viewed Form Step ' + stepNumber);
+            }
+        }
+
+        // Analytics Tracking Functions
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            if (match) return match[2];
+            return null;
+        }
+
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const result = {};
+            for (const [key, value] of params.entries()) {
+                result[key] = value;
+            }
+            return result;
+        }
+
+        // Generate a UUID for event deduplication (Pixel browser event <-> CAPI server event)
+        function generateEventId() {
+            if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+                return window.crypto.randomUUID();
+            }
+            return 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
+        }
+
+        // Anti-double-fire flag for the Step 1 Lead event
+        let step1Submitted = false;
+
+        // Validate Step 1, fire Pixel Lead event + send contact data to Zapier, then advance.
+        function validateAndAdvanceStep1() {
+            const errorBox = document.getElementById('step-1-error');
+            errorBox.classList.add('hidden');
+            errorBox.textContent = '';
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phoneRaw = document.getElementById('phone').value.trim();
+
+            const errors = [];
+            if (!firstName) errors.push('Please enter your first name.');
+            if (!lastName) errors.push('Please enter your last name.');
+
+            // Native email validation via type=email + a simple regex backup
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                errors.push('Please enter a valid email address.');
+            }
+
+            // Phone validation via intl-tel-input (utils script is loaded)
+            let phoneValid = false;
+            let phoneFormatted = phoneRaw;
+            if (phoneInputInstance && typeof phoneInputInstance.isValidNumber === 'function') {
+                phoneValid = phoneInputInstance.isValidNumber();
+                if (phoneValid) {
+                    phoneFormatted = phoneInputInstance.getNumber() || phoneRaw;
+                }
+            } else {
+                // Fallback if utils didn't load: just require non-empty
+                phoneValid = phoneRaw.length > 0;
+            }
+            if (!phoneValid) errors.push('Please enter a valid phone number.');
+
+            if (errors.length > 0) {
+                errorBox.innerHTML = errors.map(e => '&bull; ' + e).join('<br>');
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            // Umami Event - Step 1 Completed
+            if (typeof umami !== 'undefined') {
+                umami.track('Step 1 Complete (Personal Data)');
+            }
+
+            // Anti-double-fire: if user goes back to Step 1 and clicks "Continue" again,
+            // don't re-fire the Lead event or re-send the webhook.
+            if (step1Submitted) {
+                goToStep(2);
+                return;
+            }
+            step1Submitted = true;
+
+            // Marketing tracking only with consent (Art. 6(1)(a) GDPR + § 25 TDDDG).
+            // The webhook itself still fires with contact data — that's pre-contractual (Art. 6(1)(b)).
+            const consent = window.marketingConsent === true;
+            const urlParams = getUrlParams();
+            const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
+            const fbp = consent ? (getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
+
+            // Shared event ID for browser-pixel <-> server-CAPI deduplication
+            const eventId = generateEventId();
+            const eventTime = Math.floor(Date.now() / 1000);
+
+            // Fire Meta Pixel Lead event only with consent
+            if (consent && typeof fbq === 'function') {
+                fbq('track', 'Lead', {
+                    content_name: 'CEO Reality Application - Step 1'
+                }, { eventID: eventId });
+            }
+
+            // Send same Lead event server-side via Meta CAPI, sharing event_id
+            // with the Pixel so Meta deduplicates the two on the same eventId.
+            if (consent) {
+                fetch('/api/meta-capi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        event_name: 'Lead',
+                        event_id: eventId,
+                        event_time: eventTime,
+                        event_source_url: window.location.href,
+                        action_source: 'website',
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        phone: phoneFormatted,
+                        country: 'DE',
+                        fbc: fbc,
+                        fbp: fbp,
+                        fbclid: fbclid,
+                        custom_data: {
+                            content_name: 'CEO Reality Application - Step 1'
+                        }
+                    })
+                }).catch(error => console.error('Step 1 CAPI Error:', error));
+            }
+
+            // Send contact data to Zapier (for CRM)
+            const payload = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                phone: phoneFormatted,
+                step: 1,
+                event_name: 'Lead',
+                event_id: eventId,
+                event_time: eventTime,
+                event_source_url: window.location.href,
+                user_agent: navigator.userAgent,
+                marketing_consent: consent ? 'granted' : 'denied',
+                utm_source: urlParams['utm_source'] || '',
+                utm_medium: urlParams['utm_medium'] || '',
+                utm_campaign: urlParams['utm_campaign'] || '',
+                utm_term: urlParams['utm_term'] || '',
+                utm_content: urlParams['utm_content'] || '',
+                fbclid: fbclid,
+                fbc: fbc,
+                fbp: fbp
+            };
+
+            fetch('https://hooks.zapier.com/hooks/catch/24204039/uv3ic6d/', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            }).catch(error => console.error('Step 1 Webhook Error:', error));
+
+            // Advance UI to Step 2
+            goToStep(2);
+        }
+
+        // Dedicated wrapper function to trigger completion of step 2 before navigating
+        function advanceToStep3() {
+            // Umami Event - Step 2 Completed
+            if (typeof umami !== 'undefined') {
+                const revenue = document.getElementById('revenue').value;
+                umami.track('Step 2 Complete (Business Status)', { revenue: revenue });
+            }
+            goToStep(3);
+        }
+
+        // Submit to Webhook and transition to Step 4
+        function submitAndGoToStep4() {
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            // Get formatted phone number from intl-tel-input
+            const phone = phoneInputInstance.getNumber() || document.getElementById('phone').value;
+            const company = document.getElementById('company').value;
+            const revenue = document.getElementById('revenue').value;
+            const challenge = document.getElementById('challenge').value;
+
+            let commitment = '';
+            const commitmentRadios = document.getElementsByName('commitment');
+            for (let radio of commitmentRadios) {
+                if (radio.checked) {
+                    commitment = radio.nextElementSibling.innerText.trim();
+                    break;
+                }
+            }
+
+            // Umami Event - Step 3 Completed / Application Finalized
+            if (typeof umami !== 'undefined') {
+                umami.track('Application Submitted (Step 3 Complete)', {
+                    revenue: revenue,
+                    commitment: commitment
+                });
+            }
+
+            // Get tracking variables — only with marketing consent
+            const consent = window.marketingConsent === true;
+            const urlParams = getUrlParams();
+            const fbc = consent ? (getCookie('_fbc') || urlParams['fbc'] || '') : '';
+            const fbp = consent ? (getCookie('_fbp') || urlParams['fbp'] || urlParams['fbd'] || getCookie('_fbd') || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
+
+            // Shared event ID for browser-pixel <-> server-CAPI deduplication
+            const submitEventId = generateEventId();
+            const submitEventTime = Math.floor(Date.now() / 1000);
+
+            // Fire Meta Pixel SubmitApplication event (consent-gated)
+            if (consent && typeof fbq === 'function') {
+                fbq('track', 'SubmitApplication', {
+                    content_name: 'CEO Reality Application - Step 3'
+                }, { eventID: submitEventId });
+            }
+
+            // Send same SubmitApplication event server-side via Meta CAPI,
+            // sharing event_id with the Pixel for deduplication.
+            if (consent) {
+                fetch('/api/meta-capi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        event_name: 'SubmitApplication',
+                        event_id: submitEventId,
+                        event_time: submitEventTime,
+                        event_source_url: window.location.href,
+                        action_source: 'website',
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        phone: phone,
+                        country: 'DE',
+                        fbc: fbc,
+                        fbp: fbp,
+                        fbclid: fbclid,
+                        custom_data: {
+                            content_name: 'CEO Reality Application - Step 3',
+                            revenue: revenue,
+                            commitment: commitment
+                        }
+                    })
+                }).catch(error => console.error('Step 3 CAPI Error:', error));
+            }
+
+            // Construct payload
+            const payload = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                phone: phone, // Contains formatted number e.g., +49151...
+                company: company,
+                revenue: revenue,
+                challenge: challenge,
+                commitment: commitment,
+                marketing_consent: consent ? 'granted' : 'denied',
+                utm_source: urlParams['utm_source'] || '',
+                utm_medium: urlParams['utm_medium'] || '',
+                utm_campaign: urlParams['utm_campaign'] || '',
+                utm_term: urlParams['utm_term'] || '',
+                utm_content: urlParams['utm_content'] || '',
+                fbclid: fbclid,
+                fbc: fbc,
+                fbd: fbp
+            };
+
+            // Post to Zapier
+            fetch('https://hooks.zapier.com/hooks/catch/24204039/uj8wd2h/', {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            }).catch(error => console.error('Webhook Error:', error));
+
+            // Proceed to UI Step 4
+            goToStep(4);
+
+            // Construct Cal.com query parameters for prefilling
+            const prefillQuery = new URLSearchParams({
+                name: `${firstName} ${lastName}`.trim(),
+                email: email,
+                // CORRECTED: 'value' is the type, 'optionValue' is the actual phone number
+                location: JSON.stringify({ value: "phone", optionValue: phone }),
+                // Extra fallbacks just to be safe
+                "responses[phone]": phone,
+                phone: phone,
+                "custom[company]": company
+            }).toString();
+
+            // Clear any potential existing embed before re-triggering
+            document.getElementById('cal-embed-container').innerHTML = '';
+
+            // Render Cal.com Embed with prefilled data
+            Cal("inline", {
+                elementOrSelector: "#cal-embed-container",
+                calLink: "team/ceo-reality/realitycheck?" + prefillQuery,
+                layout: "month_view"
+            });
+            Cal("ui", {"theme":"light","styles":{"branding":{"brandColor":"#e60000"}},"hideEventTypeDetails":false,"layout":"month_view"});
+        }
+
+        // DOM Content Loaded Execution
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Reveal Interactivity
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Initialize intl-tel-input
+            const phoneInputField = document.querySelector("#phone");
+            phoneInputInstance = window.intlTelInput(phoneInputField, {
+                initialCountry: "us", // Default to United States
+                preferredCountries: ["us", "gb", "au"], // Prioritize English-speaking countries
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js",
+            });
+        });
+    </script>
+
+    <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie Consent" class="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-4 pointer-events-none">
+        <div class="max-w-3xl mx-auto bg-brand-dark text-white rounded-xl shadow-2xl border border-gray-800 p-5 md:p-6 pointer-events-auto">
+            <div class="flex flex-col md:flex-row md:items-center gap-4">
+                <div class="flex-1">
+                    <p class="font-oswald font-bold text-base uppercase tracking-wide mb-1 text-white">We Use Cookies</p>
+                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                        We use cookies and similar technologies (e.g.&nbsp;Meta&nbsp;Pixel) for marketing and reach measurement. Data may be transferred to the USA. You can decide freely. Your choice can be changed at any time via &ldquo;Cookie Settings&rdquo; in the footer. More in our <a href="#" class="underline hover:text-brand-orange">Privacy Policy</a>.
+                    </p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 md:flex-shrink-0 md:min-w-[260px]">
+                    <button type="button" onclick="rejectCookies()" class="flex-1 px-5 py-2.5 rounded-lg border border-gray-600 text-gray-200 hover:bg-gray-800 hover:border-gray-500 transition-colors text-sm font-oswald font-bold uppercase tracking-wide">
+                        Decline
+                    </button>
+                    <button type="button" onclick="acceptCookies()" class="flex-1 px-5 py-2.5 rounded-lg bg-brand-orange hover:bg-brand-red text-white transition-colors text-sm font-oswald font-bold uppercase tracking-wide">
+                        Accept
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Cookie Consent Management =====
+        const CONSENT_STORAGE_KEY = 'ceo_reality_consent';
+        const CONSENT_EXPIRY_DAYS = 365;
+
+        window.marketingConsent = false;
+        let pixelLoaded = false;
+
+        function getStoredConsent() {
+            try {
+                const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (parsed.expires && Date.now() > parsed.expires) {
+                    localStorage.removeItem(CONSENT_STORAGE_KEY);
+                    return null;
+                }
+                return parsed.value; // 'accepted' | 'rejected'
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function storeConsent(value) {
+            try {
+                localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({
+                    value: value,
+                    timestamp: Date.now(),
+                    expires: Date.now() + CONSENT_EXPIRY_DAYS * 24 * 60 * 60 * 1000
+                }));
+            } catch (e) {
+                console.warn('Could not store consent:', e);
+            }
+        }
+
+        // Load Meta Pixel only after consent
+        function loadMetaPixel() {
+            if (pixelLoaded) return;
+            pixelLoaded = true;
+
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '26542472978694567');
+            fbq('track', 'PageView');
+        }
+
+        function showCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (!banner) return;
+            requestAnimationFrame(() => {
+                banner.classList.add('cookie-banner-visible');
+            });
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById('cookie-banner');
+            if (!banner) return;
+            banner.classList.remove('cookie-banner-visible');
+        }
+
+        function acceptCookies() {
+            storeConsent('accepted');
+            window.marketingConsent = true;
+            loadMetaPixel();
+            hideCookieBanner();
+        }
+
+        function rejectCookies() {
+            storeConsent('rejected');
+            window.marketingConsent = false;
+            hideCookieBanner();
+        }
+
+        function openCookieSettings() {
+            showCookieBanner();
+        }
+
+        // Initialize consent state on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const stored = getStoredConsent();
+            if (stored === 'accepted') {
+                window.marketingConsent = true;
+                loadMetaPixel();
+            } else if (stored === 'rejected') {
+                window.marketingConsent = false;
+            } else {
+                // No decision yet → show banner shortly after load
+                setTimeout(showCookieBanner, 400);
+            }
+        });
+    </script>
+</body>
+</html>
