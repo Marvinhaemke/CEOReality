@@ -150,6 +150,25 @@
         /* Char counter under textareas */
         .char-counter { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #9ca3af; text-align: right; margin-top: 0.25rem; }
 
+        /* Chip toggle (multi-select pills, e.g. lead sources) */
+        .chip-toggle {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.6rem 0.9rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.825rem; color: #374151; font-weight: 500;
+            cursor: pointer; transition: all 0.2s ease;
+            user-select: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .chip-toggle:hover { border-color: rgba(230,0,0,0.35); background: #fff; }
+        .chip-toggle input { position: absolute; opacity: 0; pointer-events: none; }
+        .chip-toggle .chip-check { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid #d1d5db; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s ease; flex-shrink: 0; }
+        .chip-toggle.checked { background: #fff5f5; border-color: #e60000; color: #990000; font-weight: 600; }
+        .chip-toggle.checked .chip-check { background: #e60000; border-color: #e60000; }
+        .chip-toggle.checked .chip-check::after { content: ''; width: 6px; height: 6px; background: #fff; border-radius: 1px; }
+
         /* FAQ */
         details > summary { list-style: none; cursor: pointer; }
         details > summary::-webkit-details-marker { display: none; }
@@ -231,6 +250,10 @@
         .success-state { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Multi-step form transitions */
+        .audit-step { animation: stepFadeIn 0.35s ease-out; }
+        @keyframes stepFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         /* Floating CTA */
         #floating-cta { transition: all 0.5s ease; }
     </style>
@@ -259,13 +282,7 @@
             <!-- ============================================================ -->
             <section class="container mx-auto px-4 lg:px-8 max-w-7xl">
 
-                <!-- Tag above headline -->
-                <div class="text-center mb-6 reveal">
-                    <span class="section-tag">
-                        <span class="status-dot-red"></span>
-                        CEO Reality Audit
-                    </span>
-                </div>
+              
 
                 <!-- Hero headline -->
                 <div id="hero-headline" class="text-center mb-10 lg:mb-14 reveal" style="transition-delay: 0.1s;">
@@ -284,60 +301,36 @@
                     <!-- LEFT: Application Form -->
                     <div id="form-wrapper" class="reveal" style="transition-delay: 0.2s;">
                         <div class="audit-form-card rounded-2xl">
-                            <div class="px-6 lg:px-8 pt-7 pb-5 border-b border-gray-100">
+                            <div id="audit-form-header" class="px-6 lg:px-8 pt-7 pb-5 border-b border-gray-100">
                                 <div class="flex items-center justify-between mb-1">
                                     <span class="font-oswald font-bold uppercase text-gray-900 tracking-wider text-base">Audit-Anfrage</span>
-                                    <span class="font-mono text-[0.65rem] text-gray-500 font-bold bg-gray-50 px-2 py-1 rounded border border-gray-200">~ 6 Min.</span>
+                                    <span class="font-mono text-[0.65rem] text-gray-500 font-bold bg-gray-50 px-2 py-1 rounded border border-gray-200" id="step-indicator">Schritt 1 / 4</span>
                                 </div>
-                                <p class="text-xs text-gray-500 font-mono">Drei Abschnitte. Eine ehrliche Einschätzung.</p>
+                                <p class="text-sm text-gray-500 font-mono mb-3">Vier Schritte. Eine ehrliche Einschätzung.</p>
+                                <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                    <div id="step-progress" class="h-full bg-gradient-to-r from-brand-orange to-brand-red transition-all duration-300" style="width: 25%;"></div>
+                                </div>
                             </div>
 
-                            <form id="audit-form" class="p-6 lg:p-8 space-y-8">
-                                <!-- Section 1: Du -->
-                                <div>
+                            <form id="audit-form" class="p-6 lg:p-8" novalidate>
+                                <!-- Step 1: Dein Unternehmen -->
+                                <div class="audit-step" data-step="1">
                                     <div class="flex items-center gap-3 mb-5">
-                                        <span class="form-section-label">01 / 03</span>
-                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Du</span>
-                                        <div class="flex-1 h-px bg-gray-200"></div>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Vorname</label>
-                                            <input type="text" id="firstName" class="input-field" placeholder="Max" required autocomplete="given-name">
-                                        </div>
-                                        <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Nachname</label>
-                                            <input type="text" id="lastName" class="input-field" placeholder="Mustermann" required autocomplete="family-name">
-                                        </div>
-                                        <div class="md:col-span-2">
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Geschäftliche E-Mail</label>
-                                            <input type="email" id="email" class="input-field" placeholder="max@unternehmen.de" required autocomplete="email">
-                                        </div>
-                                        <div class="md:col-span-2">
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Handynummer</label>
-                                            <input type="tel" id="phone" class="input-field" required autocomplete="tel">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Section 2: Dein Unternehmen -->
-                                <div>
-                                    <div class="flex items-center gap-3 mb-5">
-                                        <span class="form-section-label">02 / 03</span>
+                                        <span class="form-section-label">01 / 04</span>
                                         <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Dein Unternehmen</span>
                                         <div class="flex-1 h-px bg-gray-200"></div>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div class="md:col-span-2">
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Unternehmenswebsite</label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Unternehmenswebsite</label>
                                             <input type="url" id="website" class="input-field" placeholder="https://deinefirma.de" required>
                                         </div>
                                         <div class="md:col-span-2">
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">LinkedIn-Profil <span class="text-gray-400 normal-case font-normal">(optional, beschleunigt die Analyse)</span></label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">LinkedIn-Profil <span class="text-gray-400 normal-case font-normal">(optional, beschleunigt die Analyse)</span></label>
                                             <input type="url" id="linkedin" class="input-field" placeholder="https://linkedin.com/in/...">
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Branche</label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Branche</label>
                                             <select id="industry" class="input-field" required>
                                                 <option value="" disabled selected>Bitte auswählen</option>
                                                 <option>Coaching / Beratung</option>
@@ -351,7 +344,7 @@
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Monatsumsatz</label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Monatsumsatz</label>
                                             <select id="revenue" class="input-field" required>
                                                 <option value="" disabled selected>Bitte auswählen</option>
                                                 <option>Unter 25.000 €</option>
@@ -363,7 +356,7 @@
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Teamgröße</label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Teamgröße</label>
                                             <select id="teamSize" class="input-field" required>
                                                 <option value="" disabled selected>Bitte auswählen</option>
                                                 <option>Solo (nur du)</option>
@@ -374,7 +367,7 @@
                                             </select>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Deine Rolle</label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Deine Rolle</label>
                                             <select id="role" class="input-field" required>
                                                 <option value="" disabled selected>Bitte auswählen</option>
                                                 <option>CEO / Geschäftsführer</option>
@@ -384,50 +377,193 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div id="step-error-1" class="audit-step-error hidden mt-5 p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> <span>Bitte fülle alle Pflichtfelder aus.</span>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                                        <button type="button" onclick="nextStep()" class="btn-glow w-full px-8 py-3.5 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer">
+                                            <span>Weiter</span>
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <!-- Section 3: Deine Realität -->
-                                <div>
+                                <!-- Step 2: Mechanik -->
+                                <div class="audit-step hidden" data-step="2">
                                     <div class="flex items-center gap-3 mb-5">
-                                        <span class="form-section-label">03 / 03</span>
+                                        <span class="form-section-label">02 / 04</span>
+                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Mechanik</span>
+                                        <div class="flex-1 h-px bg-gray-200"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-5 leading-relaxed">Fünf schnelle Fragen zur aktuellen Mechanik deines Unternehmens. Damit wir je Phase (CEO, Marketing, Sales, Operations) eine fundierte Aussage treffen können.</p>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Operative Zeit (in % deiner Arbeitszeit)</label>
+                                            <select id="operativeTime" class="input-field" required>
+                                                <option value="" disabled selected>Bitte auswählen</option>
+                                                <option>Unter 30 %</option>
+                                                <option>30 – 50 %</option>
+                                                <option>50 – 70 %</option>
+                                                <option>70 – 90 %</option>
+                                                <option>Über 90 %</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Durchschnittlicher Auftragswert</label>
+                                            <select id="dealSize" class="input-field" required>
+                                                <option value="" disabled selected>Bitte auswählen</option>
+                                                <option>Unter 1.000 €</option>
+                                                <option>1.000 – 5.000 €</option>
+                                                <option>5.000 – 25.000 €</option>
+                                                <option>25.000 – 100.000 €</option>
+                                                <option>Über 100.000 €</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Wer führt aktuell Verkaufsgespräche?</label>
+                                            <select id="salesOwner" class="input-field" required>
+                                                <option value="" disabled selected>Bitte auswählen</option>
+                                                <option>Ich selbst</option>
+                                                <option>Interner Sales / Closer</option>
+                                                <option>Externer Closer (Setter-Closer-Setup)</option>
+                                                <option>Geteilt zwischen mir und Team</option>
+                                                <option>Niemand explizit</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Profit pro Kunde bekannt?</label>
+                                            <select id="profitClarity" class="input-field" required>
+                                                <option value="" disabled selected>Bitte auswählen</option>
+                                                <option>Ja, exakt kalkuliert</option>
+                                                <option>Ungefähre Größenordnung</option>
+                                                <option>Nein, ehrlich gesagt nicht</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-2">Aktuelle Lead-Quellen <span class="text-gray-400 normal-case font-normal">(Mehrfachauswahl)</span></label>
+                                        <div id="lead-sources-group" class="flex flex-wrap gap-2">
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Empfehlungen / Mund-zu-Mund"><span class="chip-check"></span>Empfehlungen</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Youtube"><span class="chip-check"></span>Youtube</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Paid Ads"><span class="chip-check"></span>Paid Ads</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Paid Search / Google Ads"><span class="chip-check"></span>Paid Search</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="LinkedIn organic"><span class="chip-check"></span>LinkedIn organic</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Outbound / Cold"><span class="chip-check"></span>Outbound / Cold</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Events / Networking"><span class="chip-check"></span>Events / Networking</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Partner / Affiliate"><span class="chip-check"></span>Partner / Affiliate</label>
+                                            <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Sonstige"><span class="chip-check"></span>Sonstige</label>
+                                        </div>
+                                    </div>
+
+                                    <div id="step-error-2" class="audit-step-error hidden mt-5 p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> <span>Bitte fülle alle Pflichtfelder aus.</span>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                                        <button type="button" onclick="prevStep()" class="w-full sm:w-auto px-6 py-3.5 rounded-lg font-oswald uppercase font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer transition-colors">
+                                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                            <span>Zurück</span>
+                                        </button>
+                                        <button type="button" onclick="nextStep()" class="btn-glow flex-1 px-8 py-3.5 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer">
+                                            <span>Weiter</span>
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Deine Realität -->
+                                <div class="audit-step hidden" data-step="3">
+                                    <div class="flex items-center gap-3 mb-5">
+                                        <span class="form-section-label">03 / 04</span>
                                         <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Deine Realität</span>
                                         <div class="flex-1 h-px bg-gray-200"></div>
                                     </div>
-                                    <p class="text-xs text-gray-500 mb-5 leading-relaxed">Diese drei Felder sind die Grundlage deines Audits. Je präziser du formulierst, desto schärfer wird unsere Analyse. Stichworte reichen nicht.</p>
+                                    <p class="text-sm text-gray-600 mb-5 leading-relaxed">Diese drei Felder sind die Grundlage deines Audits. Je präziser du formulierst, desto schärfer wird unsere Analyse. Stichworte reichen nicht.</p>
 
                                     <div class="space-y-5">
                                         <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Größter aktueller Engpass</label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Größter aktueller Engpass</label>
                                             <textarea id="bottleneck" class="input-field" maxlength="600" placeholder="Was hält dein Unternehmen aktuell zurück? Konkret. Keine Schlagworte." required></textarea>
                                             <div class="char-counter"><span id="bottleneck-count">0</span> / 600</div>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Was sollte in 12 Monaten anders sein?</label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Was sollte in 12 Monaten anders sein?</label>
                                             <textarea id="goal" class="input-field" maxlength="600" placeholder="Umsatz, Struktur, Team, deine eigene Rolle. Was würde Erfolg konkret bedeuten?" required></textarea>
                                             <div class="char-counter"><span id="goal-count">0</span> / 600</div>
                                         </div>
                                         <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Was hast du in den letzten 12 Monaten ohne Erfolg versucht? <span class="text-gray-400 normal-case font-normal">(optional)</span></label>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Was hast du in den letzten 12 Monaten ohne Erfolg versucht? <span class="text-gray-400 normal-case font-normal">(optional)</span></label>
                                             <textarea id="tried" class="input-field" maxlength="600" placeholder="Coaching, Agentur, Hire, neuer Funnel, neues Produkt. Was hat nicht funktioniert?"></textarea>
                                             <div class="char-counter"><span id="tried-count">0</span> / 600</div>
                                         </div>
                                     </div>
+
+                                    <div id="step-error-3" class="audit-step-error hidden mt-5 p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> <span>Bitte fülle alle Pflichtfelder aus.</span>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                                        <button type="button" onclick="prevStep()" class="w-full sm:w-auto px-6 py-3.5 rounded-lg font-oswald uppercase font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer transition-colors">
+                                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                            <span>Zurück</span>
+                                        </button>
+                                        <button type="button" onclick="nextStep()" class="btn-glow flex-1 px-8 py-3.5 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer">
+                                            <span>Weiter</span>
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <!-- Error box -->
-                                <div id="form-error" class="hidden p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
-                                    <i data-lucide="alert-circle" class="w-4 h-4"></i> <span id="form-error-text">Bitte fülle alle Pflichtfelder korrekt aus.</span>
+                                <!-- Step 4: Du / Kontakt -->
+                                <div class="audit-step hidden" data-step="4">
+                                    <div class="flex items-center gap-3 mb-5">
+                                        <span class="form-section-label">04 / 04</span>
+                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Du</span>
+                                        <div class="flex-1 h-px bg-gray-200"></div>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-5 leading-relaxed">Letzter Schritt. Damit wir dir den fertigen Audit-Report zusenden können.</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Vorname</label>
+                                            <input type="text" id="firstName" class="input-field" placeholder="Max" required autocomplete="given-name">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Nachname</label>
+                                            <input type="text" id="lastName" class="input-field" placeholder="Mustermann" required autocomplete="family-name">
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Geschäftliche E-Mail</label>
+                                            <input type="email" id="email" class="input-field" placeholder="max@unternehmen.de" required autocomplete="email">
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Handynummer <span class="text-gray-400 normal-case font-normal">(optional)</span></label>
+                                            <input type="tel" id="phone" class="input-field" autocomplete="tel">
+                                        </div>
+                                    </div>
+
+                                    <div id="step-error-4" class="audit-step-error hidden mt-5 p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> <span id="step-error-4-text">Bitte fülle alle Pflichtfelder korrekt aus.</span>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                                        <button type="button" onclick="prevStep()" class="w-full sm:w-auto px-6 py-3.5 rounded-lg font-oswald uppercase font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer transition-colors">
+                                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                            <span>Zurück</span>
+                                        </button>
+                                        <button type="button" id="audit-submit" onclick="submitAuditRequest()" class="btn-glow flex-1 px-8 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-lg flex justify-center items-center gap-2 cursor-pointer">
+                                            <span>Audit anfordern</span>
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
+
+                                    <p class="text-center text-[0.7rem] text-gray-500 font-mono leading-relaxed mt-5">
+                                        Mit dem Absenden bestätigst du, dass wir die genannten Daten zur Erstellung deines individuellen Audit-Reports verwenden dürfen.
+                                    </p>
                                 </div>
-
-                                <!-- Submit -->
-                                <button type="button" id="audit-submit" onclick="submitAuditRequest()" class="btn-glow w-full px-8 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-lg flex justify-center items-center gap-2 cursor-pointer">
-                                    <span>Audit anfordern</span>
-                                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                                </button>
-
-                                <p class="text-center text-[0.7rem] text-gray-500 font-mono leading-relaxed">
-                                    Mit dem Absenden bestätigst du, dass wir die genannten Daten zur Erstellung deines individuellen Audit-Reports verwenden dürfen.
-                                </p>
                             </form>
 
                             <!-- Success state (hidden until submit) -->
@@ -442,7 +578,7 @@
                                 <div class="bg-gray-50 border border-gray-200 rounded-xl p-5 text-left max-w-md mx-auto">
                                     <div class="font-mono text-[0.65rem] text-brand-orange font-bold uppercase tracking-widest mb-2">Was als Nächstes passiert</div>
                                     <ul class="text-sm text-gray-700 space-y-2.5">
-                                        <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>Bestätigungs-E-Mail in deinem Postfach (jetzt)</li>
+                                        <!--<li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>Bestätigungs-E-Mail in deinem Postfach (jetzt)</li>-->
                                         <li class="flex items-start gap-2"><i data-lucide="search" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>Manuelle Analyse durch uns (24 – 72h)</li>
                                         <li class="flex items-start gap-2"><i data-lucide="file-text" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>6-seitiger PDF-Report per Mail</li>
                                         <li class="flex items-start gap-2"><i data-lucide="phone" class="w-4 h-4 text-brand-orange mt-0.5 flex-shrink-0"></i>Optionaler 1:1 Strategy-Call</li>
@@ -465,29 +601,29 @@
                                     <li class="flex items-start gap-3">
                                         <i data-lucide="file-text" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
                                         <div>
-                                            <div class="font-oswald font-bold uppercase text-white text-sm tracking-wide mb-0.5">6-seitiger PDF-Report</div>
-                                            <div class="text-xs text-gray-400 leading-relaxed">Individuell für dein Unternehmen erstellt. Keine Vorlage.</div>
+                                            <div class="font-oswald font-bold uppercase text-white text-base tracking-wide mb-1">6-seitiger PDF-Report</div>
+                                            <div class="text-sm text-gray-300 leading-relaxed">Individuell für dein Unternehmen erstellt. Keine Vorlage.</div>
                                         </div>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <i data-lucide="layers" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
                                         <div>
-                                            <div class="font-oswald font-bold uppercase text-white text-sm tracking-wide mb-0.5">Vier Analyse-Ebenen</div>
-                                            <div class="text-xs text-gray-400 leading-relaxed">CEO, Marketing, Sales, Operations. Befund pro Ebene.</div>
+                                            <div class="font-oswald font-bold uppercase text-white text-base tracking-wide mb-1">Vier Analyse-Ebenen</div>
+                                            <div class="text-sm text-gray-300 leading-relaxed">CEO, Marketing, Sales, Operations. Befund pro Ebene.</div>
                                         </div>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <i data-lucide="target" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
                                         <div>
-                                            <div class="font-oswald font-bold uppercase text-white text-sm tracking-wide mb-0.5">3 – 5 konkrete Hebel</div>
-                                            <div class="text-xs text-gray-400 leading-relaxed">Priorisiert. Mit Schadensschätzung pro Engpass.</div>
+                                            <div class="font-oswald font-bold uppercase text-white text-base tracking-wide mb-1">3 – 5 konkrete Hebel</div>
+                                            <div class="text-sm text-gray-300 leading-relaxed">Priorisiert. Mit Schadensschätzung pro Engpass.</div>
                                         </div>
                                     </li>
                                     <li class="flex items-start gap-3">
                                         <i data-lucide="clock" class="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"></i>
                                         <div>
-                                            <div class="font-oswald font-bold uppercase text-white text-sm tracking-wide mb-0.5">Lieferzeit 72 Stunden</div>
-                                            <div class="text-xs text-gray-400 leading-relaxed">Werktags. In den meisten Fällen schneller.</div>
+                                            <div class="font-oswald font-bold uppercase text-white text-base tracking-wide mb-1">Lieferzeit 72 Stunden</div>
+                                            <div class="text-sm text-gray-300 leading-relaxed">Werktags. In den meisten Fällen schneller.</div>
                                         </div>
                                     </li>
                                 </ul>
@@ -500,8 +636,8 @@
                                     <i data-lucide="shield-check" class="w-5 h-5 text-brand-orange"></i>
                                 </div>
                                 <div>
-                                    <div class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wide mb-1">Kostenfrei. Kein Trick.</div>
-                                    <p class="text-xs text-gray-600 leading-relaxed">Kein Kreditkarten-Eintrag. Keine versteckte Verlängerung. Kein automatischer Sales-Call. Lies den Report. Wenn du danach reden willst, weißt du, wo du uns findest.</p>
+                                    <div class="font-oswald font-bold uppercase text-gray-900 text-base tracking-wide mb-1.5">Kostenfrei. Kein Trick.</div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">Kein Kreditkarten-Eintrag. Keine versteckte Verlängerung. Kein automatischer Sales-Call. Lies den Report. Wenn du danach reden willst, weißt du, wo du uns findest.</p>
                                 </div>
                             </div>
                         </div>
@@ -512,172 +648,78 @@
                                     <i data-lucide="ban" class="w-5 h-5 text-brand-orange"></i>
                                 </div>
                                 <div>
-                                    <div class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wide mb-1">Wir nehmen nicht jeden an</div>
-                                    <p class="text-xs text-gray-600 leading-relaxed">Maximal 5 Audits pro Woche. Wenn dein Unternehmen nicht in unser Profil passt, sagen wir das ehrlich, statt einen Standard-Report zu liefern.</p>
+                                    <div class="font-oswald font-bold uppercase text-gray-900 text-base tracking-wide mb-1.5">Wir nehmen nicht jeden an</div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">Maximal 5 Audits pro Woche. Wenn dein Unternehmen nicht in unser Profil passt, sagen wir das ehrlich, statt einen Standard-Report zu liefern.</p>
                                 </div>
                             </div>
                         </div>
                     </aside>
                 </div>
             </section>
-
+    
+            
             <!-- ============================================================ -->
-            <!-- REPORT PREVIEW MOCKUP                                        -->
+            <!-- PROCESS TIMELINE: 4 STEPS                                    -->
             <!-- ============================================================ -->
-            <section class="relative mt-24 lg:mt-36 py-16 lg:py-24 bg-gray-50 border-y border-gray-200 dot-grid-bg overflow-hidden">
+            <section class="py-20 lg:py-28">
                 <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
                     <div class="text-center mb-14 lg:mb-20 reveal">
-                        <span class="section-tag mb-5"><i data-lucide="file-text" class="w-3.5 h-3.5"></i>Der Report</span>
+                        <span class="section-tag mb-5"><i data-lucide="git-branch" class="w-3.5 h-3.5"></i>Der Ablauf</span>
                         <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
-                            So sieht ein Audit-Report<br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">tatsächlich aus.</span>
+                            In 72 Stunden<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">vom Formular zum Befund.</span>
                         </h2>
                         <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
-                            Nicht ein Score zwischen 0 und 100. Sondern eine schriftliche Diagnose, die du in deinem Geschäftsführer-Meeting auf den Tisch legen kannst.
+                            Vier Schritte. Kein Sales-Druck. Kein Funnel-Trick. Du entscheidest am Ende, ob ein Gespräch sinnvoll ist.
                         </p>
                     </div>
 
-                    <!-- 3 mock report pages -->
-                    <div class="grid md:grid-cols-3 gap-5 lg:gap-7 max-w-5xl mx-auto">
-
-                        <!-- Page 01: Executive Summary -->
-                        <div class="report-page reveal aspect-[210/297] p-5 lg:p-6 flex flex-col" style="transition-delay: 0.1s;">
-                            <div class="report-watermark">01</div>
-                            <div class="relative z-10 flex flex-col h-full">
-                                <div class="flex items-center justify-between mb-4">
-                                    <span class="font-oswald font-bold text-gray-900 text-[0.7rem] uppercase tracking-wider">CEO Reality Audit</span>
-                                    <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">PG. 01</span>
-                                </div>
-                                <div class="border-b border-gray-200 pb-3 mb-4">
-                                    <div class="font-mono text-[0.55rem] text-gray-400 uppercase tracking-widest mb-1">Executive Summary</div>
-                                    <h3 class="font-oswald text-base lg:text-lg font-bold uppercase text-gray-900 leading-tight">Mustermann GmbH</h3>
-                                    <div class="text-[0.6rem] text-gray-500 mt-1">Erstellt am 15.05.2026</div>
-                                </div>
-                                <div class="space-y-2.5 mb-4">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-[0.65rem] text-gray-700 font-semibold">Reifegrad-Score</span>
-                                        <span class="font-mono text-[0.65rem] text-brand-orange font-bold">42 / 100</span>
-                                    </div>
-                                    <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 42%;"></div></div>
-                                </div>
-                                <div class="bg-red-50 border-l-2 border-brand-orange rounded-r p-2.5 mb-3">
-                                    <div class="font-mono text-[0.5rem] text-brand-orange font-bold uppercase tracking-widest mb-1">Hauptbefund</div>
-                                    <p class="text-[0.6rem] text-gray-800 leading-snug">Operative Überlastung des CEO. Steuerung erfolgt aktuell ohne strukturierte Kennzahlen.</p>
-                                </div>
-                                <div class="space-y-1.5 text-[0.6rem] text-gray-600 leading-relaxed">
-                                    <div class="flex items-start gap-1.5"><span class="text-brand-orange font-bold flex-shrink-0">→</span><span>Profit pro Kunde nicht kalkuliert</span></div>
-                                    <div class="flex items-start gap-1.5"><span class="text-brand-orange font-bold flex-shrink-0">→</span><span>Zwei kritische Personalentscheidungen offen</span></div>
-                                    <div class="flex items-start gap-1.5"><span class="text-brand-orange font-bold flex-shrink-0">→</span><span>Marketing-Mix nicht messbar</span></div>
-                                </div>
-                                <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
-                                    <span class="font-mono text-[0.5rem] text-gray-400 uppercase tracking-wider">Vertraulich</span>
-                                    <span class="font-mono text-[0.5rem] text-brand-orange font-bold">CR-A-2410</span>
-                                </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                        <div class="process-step reveal">
+                            <div class="flex items-start justify-between mb-4">
+                                <span class="process-num">01</span>
+                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">~ 6 Min.</span>
                             </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Du füllst aus</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Drei Abschnitte. Du, dein Unternehmen, deine Realität. Je konkreter du formulierst, desto schärfer der Befund.</p>
                         </div>
 
-                        <!-- Page 02: Phase Analysis -->
-                        <div class="report-page reveal aspect-[210/297] p-5 lg:p-6 flex flex-col" style="transition-delay: 0.2s;">
-                            <div class="report-watermark">02</div>
-                            <div class="relative z-10 flex flex-col h-full">
-                                <div class="flex items-center justify-between mb-4">
-                                    <span class="font-oswald font-bold text-gray-900 text-[0.7rem] uppercase tracking-wider">Analyse je Phase</span>
-                                    <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">PG. 03</span>
-                                </div>
-                                <div class="border-b border-gray-200 pb-3 mb-4">
-                                    <div class="font-mono text-[0.55rem] text-gray-400 uppercase tracking-widest mb-1">Vier Ebenen</div>
-                                    <h3 class="font-oswald text-base lg:text-lg font-bold uppercase text-gray-900 leading-tight">Engpass-Diagnose</h3>
-                                </div>
-                                <div class="space-y-3 flex-1">
-                                    <div>
-                                        <div class="flex items-center justify-between mb-1">
-                                            <span class="text-[0.6rem] font-semibold text-gray-900">CEO</span>
-                                            <span class="font-mono text-[0.55rem] text-gray-500">38 / 100</span>
-                                        </div>
-                                        <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 38%;"></div></div>
-                                    </div>
-                                    <div>
-                                        <div class="flex items-center justify-between mb-1">
-                                            <span class="text-[0.6rem] font-semibold text-gray-900">Marketing</span>
-                                            <span class="font-mono text-[0.55rem] text-gray-500">52 / 100</span>
-                                        </div>
-                                        <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 52%;"></div></div>
-                                    </div>
-                                    <div>
-                                        <div class="flex items-center justify-between mb-1">
-                                            <span class="text-[0.6rem] font-semibold text-gray-900">Sales</span>
-                                            <span class="font-mono text-[0.55rem] text-gray-500">45 / 100</span>
-                                        </div>
-                                        <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 45%;"></div></div>
-                                    </div>
-                                    <div>
-                                        <div class="flex items-center justify-between mb-1">
-                                            <span class="text-[0.6rem] font-semibold text-gray-900">Operations</span>
-                                            <span class="font-mono text-[0.55rem] text-gray-500">31 / 100</span>
-                                        </div>
-                                        <div class="mock-bar-track"><div class="mock-bar-fill" style="width: 31%;"></div></div>
-                                    </div>
-                                    <div class="bg-gray-50 border border-gray-200 rounded p-2.5 mt-3">
-                                        <div class="font-mono text-[0.5rem] text-brand-orange font-bold uppercase tracking-widest mb-1">Schwächste Ebene</div>
-                                        <p class="text-[0.6rem] text-gray-800 leading-snug">Operations: Reporting, Controlling und Profit-Mechanik fehlen weitgehend.</p>
-                                    </div>
-                                </div>
-                                <div class="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
-                                    <span class="font-mono text-[0.5rem] text-gray-400 uppercase tracking-wider">Vertraulich</span>
-                                    <span class="font-mono text-[0.5rem] text-brand-orange font-bold">CR-A-2410</span>
-                                </div>
+                        <div class="process-step reveal" style="transition-delay: 0.1s;">
+                            <div class="flex items-start justify-between mb-4">
+                                <span class="process-num">02</span>
+                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">24 – 72h</span>
                             </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Wir analysieren</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Wir prüfen Website, Funnel, Positionierung, deine Antworten. Manuell. Vier Stunden Arbeit pro Audit, im Schnitt.</p>
                         </div>
 
-                        <!-- Page 03: Konkrete Hebel -->
-                        <div class="report-page reveal aspect-[210/297] p-5 lg:p-6 flex flex-col" style="transition-delay: 0.3s;">
-                            <div class="report-watermark">03</div>
-                            <div class="relative z-10 flex flex-col h-full">
-                                <div class="flex items-center justify-between mb-4">
-                                    <span class="font-oswald font-bold text-gray-900 text-[0.7rem] uppercase tracking-wider">Hebel & Empfehlung</span>
-                                    <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">PG. 06</span>
-                                </div>
-                                <div class="border-b border-gray-200 pb-3 mb-4">
-                                    <div class="font-mono text-[0.55rem] text-gray-400 uppercase tracking-widest mb-1">Priorisiert nach Schaden</div>
-                                    <h3 class="font-oswald text-base lg:text-lg font-bold uppercase text-gray-900 leading-tight">Konkrete Hebel</h3>
-                                </div>
-                                <div class="space-y-2.5 flex-1">
-                                    <div class="border border-gray-200 rounded p-2.5">
-                                        <div class="flex items-center justify-between mb-1">
-                                            <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">HEBEL 01</span>
-                                            <span class="font-oswald font-bold text-brand-orange text-[0.7rem]">~80k €</span>
-                                        </div>
-                                        <p class="text-[0.6rem] text-gray-800 font-semibold leading-snug mb-0.5">Profitkalkulation pro Kunde</p>
-                                        <p class="text-[0.55rem] text-gray-500 leading-snug">Sofort umsetzbar. Cashflow-Effekt in 30 Tagen.</p>
-                                    </div>
-                                    <div class="border border-gray-200 rounded p-2.5">
-                                        <div class="flex items-center justify-between mb-1">
-                                            <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">HEBEL 02</span>
-                                            <span class="font-oswald font-bold text-brand-orange text-[0.7rem]">~60k €</span>
-                                        </div>
-                                        <p class="text-[0.6rem] text-gray-800 font-semibold leading-snug mb-0.5">Performance-Bewertung Sales-Team</p>
-                                        <p class="text-[0.55rem] text-gray-500 leading-snug">Setup 14 Tage. Personalentscheidung danach machbar.</p>
-                                    </div>
-                                    <div class="border border-gray-200 rounded p-2.5">
-                                        <div class="flex items-center justify-between mb-1">
-                                            <span class="font-mono text-[0.55rem] text-brand-orange font-bold tracking-widest">HEBEL 03</span>
-                                            <span class="font-oswald font-bold text-brand-orange text-[0.7rem]">~40k €</span>
-                                        </div>
-                                        <p class="text-[0.6rem] text-gray-800 font-semibold leading-snug mb-0.5">Tracking & Attribution Marketing</p>
-                                        <p class="text-[0.55rem] text-gray-500 leading-snug">Stop von Budget, das nicht performt.</p>
-                                    </div>
-                                </div>
-                                <div class="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
-                                    <span class="font-mono text-[0.5rem] text-gray-400 uppercase tracking-wider">Vertraulich</span>
-                                    <span class="font-mono text-[0.5rem] text-brand-orange font-bold">CR-A-2410</span>
-                                </div>
+                        <div class="process-step reveal" style="transition-delay: 0.2s;">
+                            <div class="flex items-start justify-between mb-4">
+                                <span class="process-num">03</span>
+                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">PDF / Mail</span>
                             </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Du erhältst den Report</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">6 Seiten Klarheit. Reifegrad-Score, Phase-für-Phase-Befund, 3 bis 5 priorisierte Hebel mit Schadensschätzung.</p>
+                        </div>
+
+                        <div class="process-step reveal" style="transition-delay: 0.3s;">
+                            <div class="flex items-start justify-between mb-4">
+                                <span class="process-num">04</span>
+                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">Optional</span>
+                            </div>
+                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Strategy-Call</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">Wenn du nach dem Lesen ein 1:1-Gespräch willst, buchen wir einen Termin. Wenn nicht, gehört der Report dir.</p>
                         </div>
                     </div>
 
-                    <p class="text-center text-xs text-gray-500 font-mono mt-10 max-w-2xl mx-auto leading-relaxed">
-                        Beispielhafte Darstellung. Jeder Audit-Report ist individuell. Zahlen, Befunde und Empfehlungen ergeben sich ausschließlich aus deinen Angaben und unserer Analyse.
-                    </p>
+                    <div class="max-w-4xl mx-auto mt-14 lg:mt-16 reveal">
+                        <div class="bg-white border-l-4 border-brand-orange rounded-r-xl p-6 lg:p-8 shadow-lg">
+                            <p class="text-lg lg:text-xl text-gray-900 leading-relaxed">
+                                Der gesamte Wert für dich entsteht beim Lesen des Reports. Nicht in irgendeinem Verkaufsgespräch.
+                                <span class="block mt-3 text-brand-orange font-semibold">Wenn der Report dich nicht überzeugt, brauchen wir auch nicht zu reden.</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -776,71 +818,7 @@
                 </div>
             </section>
 
-            <!-- ============================================================ -->
-            <!-- PROCESS TIMELINE: 4 STEPS                                    -->
-            <!-- ============================================================ -->
-            <section class="py-20 lg:py-28">
-                <div class="container mx-auto px-4 lg:px-8 max-w-6xl">
-                    <div class="text-center mb-14 lg:mb-20 reveal">
-                        <span class="section-tag mb-5"><i data-lucide="git-branch" class="w-3.5 h-3.5"></i>Der Ablauf</span>
-                        <h2 class="font-oswald text-4xl md:text-5xl lg:text-6xl font-bold uppercase text-gray-900 leading-tight mb-5">
-                            In 72 Stunden<br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-red">vom Formular zum Befund.</span>
-                        </h2>
-                        <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
-                            Vier Schritte. Kein Sales-Druck. Kein Funnel-Trick. Du entscheidest am Ende, ob ein Gespräch sinnvoll ist.
-                        </p>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                        <div class="process-step reveal">
-                            <div class="flex items-start justify-between mb-4">
-                                <span class="process-num">01</span>
-                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">~ 6 Min.</span>
-                            </div>
-                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Du füllst aus</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Drei Abschnitte. Du, dein Unternehmen, deine Realität. Je konkreter du formulierst, desto schärfer der Befund.</p>
-                        </div>
-
-                        <div class="process-step reveal" style="transition-delay: 0.1s;">
-                            <div class="flex items-start justify-between mb-4">
-                                <span class="process-num">02</span>
-                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">24 – 72h</span>
-                            </div>
-                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Wir analysieren</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Wir prüfen Website, Funnel, Positionierung, deine Antworten. Manuell. Vier Stunden Arbeit pro Audit, im Schnitt.</p>
-                        </div>
-
-                        <div class="process-step reveal" style="transition-delay: 0.2s;">
-                            <div class="flex items-start justify-between mb-4">
-                                <span class="process-num">03</span>
-                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">PDF / Mail</span>
-                            </div>
-                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Du erhältst den Report</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">6 Seiten Klarheit. Reifegrad-Score, Phase-für-Phase-Befund, 3 bis 5 priorisierte Hebel mit Schadensschätzung.</p>
-                        </div>
-
-                        <div class="process-step reveal" style="transition-delay: 0.3s;">
-                            <div class="flex items-start justify-between mb-4">
-                                <span class="process-num">04</span>
-                                <span class="font-mono text-[0.6rem] text-gray-500 uppercase tracking-widest">Optional</span>
-                            </div>
-                            <h3 class="font-oswald text-xl font-bold uppercase text-gray-900 mb-2 leading-tight">Strategy-Call</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed">Wenn du nach dem Lesen ein 1:1-Gespräch willst, buchen wir einen Termin. Wenn nicht, gehört der Report dir.</p>
-                        </div>
-                    </div>
-
-                    <div class="max-w-4xl mx-auto mt-14 lg:mt-16 reveal">
-                        <div class="bg-white border-l-4 border-brand-orange rounded-r-xl p-6 lg:p-8 shadow-lg">
-                            <p class="text-lg lg:text-xl text-gray-900 leading-relaxed">
-                                Der gesamte Wert für dich entsteht beim Lesen des Reports. Nicht in irgendeinem Verkaufsgespräch.
-                                <span class="block mt-3 text-brand-orange font-semibold">Wenn der Report dich nicht überzeugt, brauchen wir auch nicht zu reden.</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
+            
             <!-- ============================================================ -->
             <!-- WHY THIS IS FREE                                              -->
             <!-- ============================================================ -->
@@ -991,8 +969,7 @@
                                 <span class="font-mono text-[0.65rem] md:text-xs font-bold text-brand-orange uppercase tracking-widest">Die Audit-Garantie</span>
                             </div>
                             <h2 class="font-oswald text-3xl md:text-5xl lg:text-6xl font-bold uppercase text-white leading-tight mb-6">
-                                Wenn der Report dich nichts<br>
-                                <span class="text-brand-orange">Neues lehrt</span>, lösche ihn.
+                                Keine neuen <span class="text-brand-orange">Insights? </span><br>Dann lösch den Report einfach.
                             </h2>
                             <div class="max-w-3xl mx-auto space-y-5 text-gray-300 text-base md:text-lg lg:text-xl font-light leading-relaxed">
                                 <p>Wir versprechen dir keine Geld-zurück-Garantie. Es geht ja nichts hin und her. Was wir versprechen ist Folgendes:</p>
@@ -1223,6 +1200,13 @@
             }
         });
 
+        // --- CHIP TOGGLES (multi-select pills) ---
+        document.querySelectorAll('.chip-toggle input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', () => {
+                cb.closest('.chip-toggle').classList.toggle('checked', cb.checked);
+            });
+        });
+
         // --- TRACKING & CONSENT ---
         const CONSENT_STORAGE_KEY = 'ceo_reality_consent';
         window.marketingConsent = false;
@@ -1277,36 +1261,154 @@
         // --- HELPERS: event id, url params ---
         function getOrCreateEventId() {
             if (cachedEventId) return cachedEventId;
-            cachedEventId = 'evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
+            cachedEventId = (window.crypto && typeof window.crypto.randomUUID === 'function')
+                ? window.crypto.randomUUID()
+                : 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
             return cachedEventId;
         }
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             const out = {};
-            ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].forEach(k => {
-                const v = params.get(k); if (v) out[k] = v;
-            });
+            for (const [k, v] of params.entries()) { out[k] = v; }
             return out;
         }
 
         // --- INTL TEL INPUT ---
         let phoneInputInstance = null;
-        document.addEventListener('DOMContentLoaded', function() {
+        function initPhoneInput() {
             const phoneInputField = document.querySelector('#phone');
-            if (phoneInputField && window.intlTelInput) {
+            if (phoneInputField && window.intlTelInput && !phoneInputInstance) {
                 phoneInputInstance = window.intlTelInput(phoneInputField, {
                     initialCountry: 'de',
                     preferredCountries: ['de', 'at', 'ch'],
                     utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js'
                 });
             }
-        });
+        }
+        document.addEventListener('DOMContentLoaded', initPhoneInput);
+
+        // --- MULTI-STEP NAVIGATION ---
+        const TOTAL_STEPS = 4;
+        let currentStep = 1;
+        let metaStepFired = {};
+
+        function showStep(n) {
+            currentStep = n;
+            document.querySelectorAll('.audit-step').forEach(el => {
+                el.classList.toggle('hidden', Number(el.dataset.step) !== n);
+            });
+            document.querySelectorAll('.audit-step-error').forEach(el => el.classList.add('hidden'));
+            const indicator = document.getElementById('step-indicator');
+            const progress = document.getElementById('step-progress');
+            if (indicator) indicator.textContent = 'Schritt ' + n + ' / ' + TOTAL_STEPS;
+            if (progress) progress.style.width = (n / TOTAL_STEPS * 100) + '%';
+            lucide.createIcons();
+
+            // Umami step event (one-time per step)
+            if (!metaStepFired[n] && typeof umami !== 'undefined' && umami.track) {
+                umami.track('AuditFormStep', { step: n });
+                metaStepFired[n] = true;
+            }
+
+            // Scroll form into view smoothly when changing steps
+            const wrapper = document.getElementById('form-wrapper');
+            if (wrapper) {
+                const rect = wrapper.getBoundingClientRect();
+                if (rect.top < 0 || rect.top > window.innerHeight * 0.5) {
+                    wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+        function showStepError(step, msg) {
+            const box = document.getElementById('step-error-' + step);
+            if (!box) return;
+            const span = box.querySelector('span:not([data-lucide])');
+            if (span && msg) span.textContent = msg;
+            box.classList.remove('hidden');
+        }
+
+        function validateStep(step) {
+            const get = id => (document.getElementById(id) || {}).value || '';
+            const defaultMsg = 'Bitte fülle alle Pflichtfelder aus.';
+
+            if (step === 1) {
+                // Unternehmen: website, industry, revenue, teamSize, role
+                let website = get('website').trim();
+                if (!website) return showStepError(1, defaultMsg), false;
+                try {
+                    let w = website;
+                    if (!/^https?:\/\//i.test(w)) w = 'https://' + w;
+                    new URL(w);
+                    document.getElementById('website').value = w;
+                } catch (e) {
+                    return showStepError(1, 'Bitte gib eine gültige Website-URL ein (z. B. https://deinefirma.de).'), false;
+                }
+                if (!get('industry') || !get('revenue') || !get('teamSize') || !get('role')) {
+                    return showStepError(1, defaultMsg), false;
+                }
+                return true;
+            }
+
+            if (step === 2) {
+                // Mechanik: operativeTime, dealSize, salesOwner, profitClarity + at least one leadSource
+                if (!get('operativeTime') || !get('dealSize') || !get('salesOwner') || !get('profitClarity')) {
+                    return showStepError(2, defaultMsg), false;
+                }
+                const sources = document.querySelectorAll('input[name="leadSources"]:checked');
+                if (sources.length === 0) {
+                    return showStepError(2, 'Bitte wähle mindestens eine Lead-Quelle aus.'), false;
+                }
+                return true;
+            }
+
+            if (step === 3) {
+                // Realität: bottleneck (>=30), goal (>=30), tried optional
+                const bn = get('bottleneck').trim();
+                const goal = get('goal').trim();
+                if (!bn) return showStepError(3, defaultMsg), false;
+                if (bn.length < 30) return showStepError(3, 'Bitte beschreibe deinen Engpass etwas konkreter (mindestens 30 Zeichen).'), false;
+                if (!goal) return showStepError(3, defaultMsg), false;
+                if (goal.length < 30) return showStepError(3, 'Bitte beschreibe dein 12-Monats-Ziel etwas konkreter (mindestens 30 Zeichen).'), false;
+                return true;
+            }
+
+            if (step === 4) {
+                // Kontakt: firstName, lastName, email required. Phone optional.
+                if (!get('firstName').trim() || !get('lastName').trim() || !get('email').trim()) {
+                    return showStepError(4, defaultMsg), false;
+                }
+                const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRe.test(get('email').trim())) {
+                    return showStepError(4, 'Bitte gib eine gültige E-Mail-Adresse ein.'), false;
+                }
+                // Phone optional: only validate if user entered something
+                const phoneVal = (document.getElementById('phone') || {}).value || '';
+                if (phoneVal.trim().length > 0) {
+                    const valid = phoneInputInstance && phoneInputInstance.isValidNumber
+                        ? phoneInputInstance.isValidNumber()
+                        : phoneVal.length > 5;
+                    if (!valid) {
+                        return showStepError(4, 'Bitte gib eine gültige Handynummer ein oder lasse das Feld leer.'), false;
+                    }
+                }
+                return true;
+            }
+
+            return true;
+        }
+
+        function nextStep() {
+            if (!validateStep(currentStep)) return;
+            if (currentStep < TOTAL_STEPS) showStep(currentStep + 1);
+        }
+        function prevStep() {
+            if (currentStep > 1) showStep(currentStep - 1);
+        }
 
         // --- MAIN: SUBMIT AUDIT REQUEST ---
         function submitAuditRequest() {
-            const errorBox = document.getElementById('form-error');
-            const errorText = document.getElementById('form-error-text');
-            errorBox.classList.add('hidden');
+            if (!validateStep(4)) return;
 
             const get = id => (document.getElementById(id) || {}).value || '';
 
@@ -1320,78 +1422,37 @@
                 revenue: get('revenue'),
                 teamSize: get('teamSize'),
                 role: get('role'),
+                operativeTime: get('operativeTime'),
+                dealSize: get('dealSize'),
+                salesOwner: get('salesOwner'),
+                profitClarity: get('profitClarity'),
+                leadSources: Array.from(document.querySelectorAll('input[name="leadSources"]:checked')).map(cb => cb.value),
                 bottleneck: get('bottleneck').trim(),
                 goal: get('goal').trim(),
                 tried: get('tried').trim()
             };
 
-            // Validate required text fields
-            const required = ['firstName', 'lastName', 'email', 'website', 'industry', 'revenue', 'teamSize', 'role', 'bottleneck', 'goal'];
-            for (const k of required) {
-                if (!fields[k]) {
-                    errorText.textContent = 'Bitte fülle alle Pflichtfelder aus.';
-                    errorBox.classList.remove('hidden');
-                    return;
-                }
-            }
-
-            // Email basic check
-            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRe.test(fields.email)) {
-                errorText.textContent = 'Bitte gib eine gültige E-Mail-Adresse ein.';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-
-            // Website URL basic check (allow domain.tld too, but encourage protocol)
-            try {
-                let w = fields.website;
-                if (!/^https?:\/\//i.test(w)) w = 'https://' + w;
-                new URL(w);
-                fields.website = w;
-            } catch (e) {
-                errorText.textContent = 'Bitte gib eine gültige Website-URL ein (z. B. https://deinefirma.de).';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-
-            // Phone validation via intl-tel-input
-            const phoneVal = (document.getElementById('phone') || {}).value || '';
-            const phoneValid = phoneInputInstance && phoneInputInstance.isValidNumber
-                ? phoneInputInstance.isValidNumber()
-                : phoneVal.length > 5;
-            if (!phoneValid) {
-                errorText.textContent = 'Bitte gib eine gültige Handynummer ein.';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            const formattedPhone = phoneInputInstance && phoneInputInstance.getNumber
-                ? phoneInputInstance.getNumber()
-                : phoneVal;
-
-            // Min length on textareas to prevent garbage submissions
-            if (fields.bottleneck.length < 30) {
-                errorText.textContent = 'Bitte beschreibe deinen Engpass etwas konkreter (mindestens 30 Zeichen).';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            if (fields.goal.length < 30) {
-                errorText.textContent = 'Bitte beschreibe dein 12-Monats-Ziel etwas konkreter (mindestens 30 Zeichen).';
-                errorBox.classList.remove('hidden');
-                return;
-            }
+            // Phone (optional). Format via intl-tel-input if filled.
+            const phoneRaw = (document.getElementById('phone') || {}).value || '';
+            const formattedPhone = phoneRaw.trim()
+                ? (phoneInputInstance && phoneInputInstance.getNumber ? phoneInputInstance.getNumber() : phoneRaw)
+                : '';
 
             // --- All good. Build payload. ---
             const consent = window.marketingConsent === true;
             const eventId = getOrCreateEventId();
+            const eventTime = Math.floor(Date.now() / 1000);
             const urlParams = getUrlParams();
+            const fbc = consent ? ((document.cookie.match(/(?:^|;\s*)_fbc=([^;]+)/) || [])[1] || urlParams['fbc'] || '') : '';
+            const fbp = consent ? ((document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/) || [])[1] || urlParams['fbp'] || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
 
             const payload = {
                 ...fields,
                 phone: formattedPhone,
                 event_name: 'AuditRequest',
                 event_id: eventId,
-                event_time: Math.floor(Date.now() / 1000),
+                event_time: eventTime,
                 event_source_url: window.location.href,
                 marketing_consent: consent ? 'granted' : 'denied',
                 ...urlParams
@@ -1423,7 +1484,35 @@
                 metaLeadFired = true;
             }
 
-            // Webhook (Zapier / Make). Replace with your own.
+            // Meta Conversions API (server-side) — same event_id for deduplication
+            if (consent) {
+                fetch('/api/meta-capi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        event_name: 'Lead',
+                        event_id: eventId,
+                        event_time: eventTime,
+                        event_source_url: window.location.href,
+                        action_source: 'website',
+                        firstName: fields.firstName,
+                        lastName: fields.lastName,
+                        email: fields.email,
+                        phone: formattedPhone,
+                        country: 'DE',
+                        fbc: fbc,
+                        fbp: fbp,
+                        fbclid: fbclid,
+                        custom_data: {
+                            content_name: 'CEO Reality Audit Request',
+                            content_category: fields.industry
+                        }
+                    })
+                }).catch(error => console.error('CAPI Error:', error));
+            }
+
+            // Webhook (Zapier / Make).
             fetch('https://hooks.zapier.com/hooks/catch/24204039/uvx869x/', {
                 method: 'POST',
                 body: JSON.stringify(payload)
@@ -1431,8 +1520,6 @@
             .then(() => showSuccessState())
             .catch(err => {
                 console.error('Audit submit error:', err);
-                // Even on failure, show success to user (data is captured client-side via tracking)
-                // but in production you may want to retry or queue.
                 showSuccessState();
             });
         }
@@ -1440,7 +1527,9 @@
         function showSuccessState() {
             const form = document.getElementById('audit-form');
             const success = document.getElementById('audit-success');
+            const header = document.getElementById('audit-form-header');
             if (form) form.classList.add('hidden');
+            if (header) header.classList.add('hidden');
             if (success) {
                 success.classList.remove('hidden');
                 lucide.createIcons();
@@ -1461,6 +1550,8 @@
             } else {
                 setTimeout(showCookieBanner, 400);
             }
+            // Initialize multi-step form
+            showStep(1);
         });
     </script>
 </body>
