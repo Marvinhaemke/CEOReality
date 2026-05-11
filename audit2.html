@@ -250,6 +250,10 @@
         .success-state { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Multi-step form transitions */
+        .audit-step { animation: stepFadeIn 0.35s ease-out; }
+        @keyframes stepFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         /* Floating CTA */
         #floating-cta { transition: all 0.5s ease; }
     </style>
@@ -303,46 +307,22 @@
                     <!-- LEFT: Application Form -->
                     <div id="form-wrapper" class="reveal" style="transition-delay: 0.2s;">
                         <div class="audit-form-card rounded-2xl">
-                            <div class="px-6 lg:px-8 pt-7 pb-5 border-b border-gray-100">
+                            <div id="audit-form-header" class="px-6 lg:px-8 pt-7 pb-5 border-b border-gray-100">
                                 <div class="flex items-center justify-between mb-1">
                                     <span class="font-oswald font-bold uppercase text-gray-900 tracking-wider text-base">Audit-Anfrage</span>
-                                    <span class="font-mono text-[0.65rem] text-gray-500 font-bold bg-gray-50 px-2 py-1 rounded border border-gray-200">~ 8 Min.</span>
+                                    <span class="font-mono text-[0.65rem] text-gray-500 font-bold bg-gray-50 px-2 py-1 rounded border border-gray-200" id="step-indicator">Schritt 1 / 4</span>
                                 </div>
-                                <p class="text-xs text-gray-500 font-mono">Vier Abschnitte. Eine ehrliche Einschätzung.</p>
+                                <p class="text-xs text-gray-500 font-mono mb-3">Vier Schritte. Eine ehrliche Einschätzung.</p>
+                                <div class="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                    <div id="step-progress" class="h-full bg-gradient-to-r from-brand-orange to-brand-red transition-all duration-300" style="width: 25%;"></div>
+                                </div>
                             </div>
 
-                            <form id="audit-form" class="p-6 lg:p-8 space-y-8">
-                                <!-- Section 1: Du -->
-                                <div>
+                            <form id="audit-form" class="p-6 lg:p-8" novalidate>
+                                <!-- Step 1: Dein Unternehmen -->
+                                <div class="audit-step" data-step="1">
                                     <div class="flex items-center gap-3 mb-5">
                                         <span class="form-section-label">01 / 04</span>
-                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Du</span>
-                                        <div class="flex-1 h-px bg-gray-200"></div>
-                                    </div>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Vorname</label>
-                                            <input type="text" id="firstName" class="input-field" placeholder="Max" required autocomplete="given-name">
-                                        </div>
-                                        <div>
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Nachname</label>
-                                            <input type="text" id="lastName" class="input-field" placeholder="Mustermann" required autocomplete="family-name">
-                                        </div>
-                                        <div class="md:col-span-2">
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Geschäftliche E-Mail</label>
-                                            <input type="email" id="email" class="input-field" placeholder="max@unternehmen.de" required autocomplete="email">
-                                        </div>
-                                        <div class="md:col-span-2">
-                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Handynummer</label>
-                                            <input type="tel" id="phone" class="input-field" required autocomplete="tel">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Section 2: Dein Unternehmen -->
-                                <div>
-                                    <div class="flex items-center gap-3 mb-5">
-                                        <span class="form-section-label">02 / 04</span>
                                         <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Dein Unternehmen</span>
                                         <div class="flex-1 h-px bg-gray-200"></div>
                                     </div>
@@ -403,12 +383,23 @@
                                             </select>
                                         </div>
                                     </div>
+
+                                    <div id="step-error-1" class="audit-step-error hidden mt-5 p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> <span>Bitte fülle alle Pflichtfelder aus.</span>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                                        <button type="button" onclick="nextStep()" class="btn-glow w-full px-8 py-3.5 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer">
+                                            <span>Weiter</span>
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <!-- Section 3: Mechanik -->
-                                <div>
+                                <!-- Step 2: Mechanik -->
+                                <div class="audit-step hidden" data-step="2">
                                     <div class="flex items-center gap-3 mb-5">
-                                        <span class="form-section-label">03 / 04</span>
+                                        <span class="form-section-label">02 / 04</span>
                                         <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Mechanik</span>
                                         <div class="flex-1 h-px bg-gray-200"></div>
                                     </div>
@@ -473,12 +464,27 @@
                                             <label class="chip-toggle"><input type="checkbox" name="leadSources" value="Sonstige"><span class="chip-check"></span>Sonstige</label>
                                         </div>
                                     </div>
+
+                                    <div id="step-error-2" class="audit-step-error hidden mt-5 p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> <span>Bitte fülle alle Pflichtfelder aus.</span>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                                        <button type="button" onclick="prevStep()" class="w-full sm:w-auto px-6 py-3.5 rounded-lg font-oswald uppercase font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer transition-colors">
+                                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                            <span>Zurück</span>
+                                        </button>
+                                        <button type="button" onclick="nextStep()" class="btn-glow flex-1 px-8 py-3.5 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer">
+                                            <span>Weiter</span>
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <!-- Section 4: Deine Realität -->
-                                <div>
+                                <!-- Step 3: Deine Realität -->
+                                <div class="audit-step hidden" data-step="3">
                                     <div class="flex items-center gap-3 mb-5">
-                                        <span class="form-section-label">04 / 04</span>
+                                        <span class="form-section-label">03 / 04</span>
                                         <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Deine Realität</span>
                                         <div class="flex-1 h-px bg-gray-200"></div>
                                     </div>
@@ -501,22 +507,69 @@
                                             <div class="char-counter"><span id="tried-count">0</span> / 600</div>
                                         </div>
                                     </div>
+
+                                    <div id="step-error-3" class="audit-step-error hidden mt-5 p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> <span>Bitte fülle alle Pflichtfelder aus.</span>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                                        <button type="button" onclick="prevStep()" class="w-full sm:w-auto px-6 py-3.5 rounded-lg font-oswald uppercase font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer transition-colors">
+                                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                            <span>Zurück</span>
+                                        </button>
+                                        <button type="button" onclick="nextStep()" class="btn-glow flex-1 px-8 py-3.5 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer">
+                                            <span>Weiter</span>
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
-                                <!-- Error box -->
-                                <div id="form-error" class="hidden p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
-                                    <i data-lucide="alert-circle" class="w-4 h-4"></i> <span id="form-error-text">Bitte fülle alle Pflichtfelder korrekt aus.</span>
+                                <!-- Step 4: Du / Kontakt -->
+                                <div class="audit-step hidden" data-step="4">
+                                    <div class="flex items-center gap-3 mb-5">
+                                        <span class="form-section-label">04 / 04</span>
+                                        <span class="font-oswald font-bold uppercase text-gray-900 text-sm tracking-wider">Du</span>
+                                        <div class="flex-1 h-px bg-gray-200"></div>
+                                    </div>
+                                    <p class="text-xs text-gray-500 mb-5 leading-relaxed">Letzter Schritt. Damit wir dir den fertigen Audit-Report zusenden können.</p>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Vorname</label>
+                                            <input type="text" id="firstName" class="input-field" placeholder="Max" required autocomplete="given-name">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Nachname</label>
+                                            <input type="text" id="lastName" class="input-field" placeholder="Mustermann" required autocomplete="family-name">
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Geschäftliche E-Mail</label>
+                                            <input type="email" id="email" class="input-field" placeholder="max@unternehmen.de" required autocomplete="email">
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">Handynummer <span class="text-gray-400 normal-case font-normal">(optional)</span></label>
+                                            <input type="tel" id="phone" class="input-field" autocomplete="tel">
+                                        </div>
+                                    </div>
+
+                                    <div id="step-error-4" class="audit-step-error hidden mt-5 p-3 rounded bg-red-50 text-brand-orange border border-brand-orange/30 text-sm font-semibold flex items-center gap-2">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> <span id="step-error-4-text">Bitte fülle alle Pflichtfelder korrekt aus.</span>
+                                    </div>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                                        <button type="button" onclick="prevStep()" class="w-full sm:w-auto px-6 py-3.5 rounded-lg font-oswald uppercase font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 tracking-wide text-base flex justify-center items-center gap-2 cursor-pointer transition-colors">
+                                            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                                            <span>Zurück</span>
+                                        </button>
+                                        <button type="button" id="audit-submit" onclick="submitAuditRequest()" class="btn-glow flex-1 px-8 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-lg flex justify-center items-center gap-2 cursor-pointer">
+                                            <span>Audit anfordern</span>
+                                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                                        </button>
+                                    </div>
+
+                                    <p class="text-center text-[0.7rem] text-gray-500 font-mono leading-relaxed mt-5">
+                                        Mit dem Absenden bestätigst du, dass wir die genannten Daten zur Erstellung deines individuellen Audit-Reports verwenden dürfen.
+                                    </p>
                                 </div>
-
-                                <!-- Submit -->
-                                <button type="button" id="audit-submit" onclick="submitAuditRequest()" class="btn-glow w-full px-8 py-4 rounded-lg font-oswald uppercase font-bold text-white tracking-wide text-lg flex justify-center items-center gap-2 cursor-pointer">
-                                    <span>Audit anfordern</span>
-                                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                                </button>
-
-                                <p class="text-center text-[0.7rem] text-gray-500 font-mono leading-relaxed">
-                                    Mit dem Absenden bestätigst du, dass wir die genannten Daten zur Erstellung deines individuellen Audit-Reports verwenden dürfen.
-                                </p>
                             </form>
 
                             <!-- Success state (hidden until submit) -->
@@ -1373,36 +1426,154 @@
         // --- HELPERS: event id, url params ---
         function getOrCreateEventId() {
             if (cachedEventId) return cachedEventId;
-            cachedEventId = 'evt_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
+            cachedEventId = (window.crypto && typeof window.crypto.randomUUID === 'function')
+                ? window.crypto.randomUUID()
+                : 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 11);
             return cachedEventId;
         }
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             const out = {};
-            ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid'].forEach(k => {
-                const v = params.get(k); if (v) out[k] = v;
-            });
+            for (const [k, v] of params.entries()) { out[k] = v; }
             return out;
         }
 
         // --- INTL TEL INPUT ---
         let phoneInputInstance = null;
-        document.addEventListener('DOMContentLoaded', function() {
+        function initPhoneInput() {
             const phoneInputField = document.querySelector('#phone');
-            if (phoneInputField && window.intlTelInput) {
+            if (phoneInputField && window.intlTelInput && !phoneInputInstance) {
                 phoneInputInstance = window.intlTelInput(phoneInputField, {
                     initialCountry: 'de',
                     preferredCountries: ['de', 'at', 'ch'],
                     utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23.0.4/build/js/utils.js'
                 });
             }
-        });
+        }
+        document.addEventListener('DOMContentLoaded', initPhoneInput);
+
+        // --- MULTI-STEP NAVIGATION ---
+        const TOTAL_STEPS = 4;
+        let currentStep = 1;
+        let metaStepFired = {};
+
+        function showStep(n) {
+            currentStep = n;
+            document.querySelectorAll('.audit-step').forEach(el => {
+                el.classList.toggle('hidden', Number(el.dataset.step) !== n);
+            });
+            document.querySelectorAll('.audit-step-error').forEach(el => el.classList.add('hidden'));
+            const indicator = document.getElementById('step-indicator');
+            const progress = document.getElementById('step-progress');
+            if (indicator) indicator.textContent = 'Schritt ' + n + ' / ' + TOTAL_STEPS;
+            if (progress) progress.style.width = (n / TOTAL_STEPS * 100) + '%';
+            lucide.createIcons();
+
+            // Umami step event (one-time per step)
+            if (!metaStepFired[n] && typeof umami !== 'undefined' && umami.track) {
+                umami.track('AuditFormStep', { step: n });
+                metaStepFired[n] = true;
+            }
+
+            // Scroll form into view smoothly when changing steps
+            const wrapper = document.getElementById('form-wrapper');
+            if (wrapper) {
+                const rect = wrapper.getBoundingClientRect();
+                if (rect.top < 0 || rect.top > window.innerHeight * 0.5) {
+                    wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        }
+
+        function showStepError(step, msg) {
+            const box = document.getElementById('step-error-' + step);
+            if (!box) return;
+            const span = box.querySelector('span:not([data-lucide])');
+            if (span && msg) span.textContent = msg;
+            box.classList.remove('hidden');
+        }
+
+        function validateStep(step) {
+            const get = id => (document.getElementById(id) || {}).value || '';
+            const defaultMsg = 'Bitte fülle alle Pflichtfelder aus.';
+
+            if (step === 1) {
+                // Unternehmen: website, industry, revenue, teamSize, role
+                let website = get('website').trim();
+                if (!website) return showStepError(1, defaultMsg), false;
+                try {
+                    let w = website;
+                    if (!/^https?:\/\//i.test(w)) w = 'https://' + w;
+                    new URL(w);
+                    document.getElementById('website').value = w;
+                } catch (e) {
+                    return showStepError(1, 'Bitte gib eine gültige Website-URL ein (z. B. https://deinefirma.de).'), false;
+                }
+                if (!get('industry') || !get('revenue') || !get('teamSize') || !get('role')) {
+                    return showStepError(1, defaultMsg), false;
+                }
+                return true;
+            }
+
+            if (step === 2) {
+                // Mechanik: operativeTime, dealSize, salesOwner, profitClarity + at least one leadSource
+                if (!get('operativeTime') || !get('dealSize') || !get('salesOwner') || !get('profitClarity')) {
+                    return showStepError(2, defaultMsg), false;
+                }
+                const sources = document.querySelectorAll('input[name="leadSources"]:checked');
+                if (sources.length === 0) {
+                    return showStepError(2, 'Bitte wähle mindestens eine Lead-Quelle aus.'), false;
+                }
+                return true;
+            }
+
+            if (step === 3) {
+                // Realität: bottleneck (>=30), goal (>=30), tried optional
+                const bn = get('bottleneck').trim();
+                const goal = get('goal').trim();
+                if (!bn) return showStepError(3, defaultMsg), false;
+                if (bn.length < 30) return showStepError(3, 'Bitte beschreibe deinen Engpass etwas konkreter (mindestens 30 Zeichen).'), false;
+                if (!goal) return showStepError(3, defaultMsg), false;
+                if (goal.length < 30) return showStepError(3, 'Bitte beschreibe dein 12-Monats-Ziel etwas konkreter (mindestens 30 Zeichen).'), false;
+                return true;
+            }
+
+            if (step === 4) {
+                // Kontakt: firstName, lastName, email required. Phone optional.
+                if (!get('firstName').trim() || !get('lastName').trim() || !get('email').trim()) {
+                    return showStepError(4, defaultMsg), false;
+                }
+                const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRe.test(get('email').trim())) {
+                    return showStepError(4, 'Bitte gib eine gültige E-Mail-Adresse ein.'), false;
+                }
+                // Phone optional: only validate if user entered something
+                const phoneVal = (document.getElementById('phone') || {}).value || '';
+                if (phoneVal.trim().length > 0) {
+                    const valid = phoneInputInstance && phoneInputInstance.isValidNumber
+                        ? phoneInputInstance.isValidNumber()
+                        : phoneVal.length > 5;
+                    if (!valid) {
+                        return showStepError(4, 'Bitte gib eine gültige Handynummer ein oder lasse das Feld leer.'), false;
+                    }
+                }
+                return true;
+            }
+
+            return true;
+        }
+
+        function nextStep() {
+            if (!validateStep(currentStep)) return;
+            if (currentStep < TOTAL_STEPS) showStep(currentStep + 1);
+        }
+        function prevStep() {
+            if (currentStep > 1) showStep(currentStep - 1);
+        }
 
         // --- MAIN: SUBMIT AUDIT REQUEST ---
         function submitAuditRequest() {
-            const errorBox = document.getElementById('form-error');
-            const errorText = document.getElementById('form-error-text');
-            errorBox.classList.add('hidden');
+            if (!validateStep(4)) return;
 
             const get = id => (document.getElementById(id) || {}).value || '';
 
@@ -1426,80 +1597,27 @@
                 tried: get('tried').trim()
             };
 
-            // Validate required text/select fields
-            const required = ['firstName', 'lastName', 'email', 'website', 'industry', 'revenue', 'teamSize', 'role', 'operativeTime', 'dealSize', 'salesOwner', 'profitClarity', 'bottleneck', 'goal'];
-            for (const k of required) {
-                if (!fields[k]) {
-                    errorText.textContent = 'Bitte fülle alle Pflichtfelder aus.';
-                    errorBox.classList.remove('hidden');
-                    return;
-                }
-            }
-
-            // Lead sources: at least one
-            if (!fields.leadSources || fields.leadSources.length === 0) {
-                errorText.textContent = 'Bitte wähle mindestens eine Lead-Quelle aus.';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-
-            // Email basic check
-            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRe.test(fields.email)) {
-                errorText.textContent = 'Bitte gib eine gültige E-Mail-Adresse ein.';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-
-            // Website URL basic check (allow domain.tld too, but encourage protocol)
-            try {
-                let w = fields.website;
-                if (!/^https?:\/\//i.test(w)) w = 'https://' + w;
-                new URL(w);
-                fields.website = w;
-            } catch (e) {
-                errorText.textContent = 'Bitte gib eine gültige Website-URL ein (z. B. https://deinefirma.de).';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-
-            // Phone validation via intl-tel-input
-            const phoneVal = (document.getElementById('phone') || {}).value || '';
-            const phoneValid = phoneInputInstance && phoneInputInstance.isValidNumber
-                ? phoneInputInstance.isValidNumber()
-                : phoneVal.length > 5;
-            if (!phoneValid) {
-                errorText.textContent = 'Bitte gib eine gültige Handynummer ein.';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            const formattedPhone = phoneInputInstance && phoneInputInstance.getNumber
-                ? phoneInputInstance.getNumber()
-                : phoneVal;
-
-            // Min length on textareas to prevent garbage submissions
-            if (fields.bottleneck.length < 30) {
-                errorText.textContent = 'Bitte beschreibe deinen Engpass etwas konkreter (mindestens 30 Zeichen).';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            if (fields.goal.length < 30) {
-                errorText.textContent = 'Bitte beschreibe dein 12-Monats-Ziel etwas konkreter (mindestens 30 Zeichen).';
-                errorBox.classList.remove('hidden');
-                return;
-            }
+            // Phone (optional). Format via intl-tel-input if filled.
+            const phoneRaw = (document.getElementById('phone') || {}).value || '';
+            const formattedPhone = phoneRaw.trim()
+                ? (phoneInputInstance && phoneInputInstance.getNumber ? phoneInputInstance.getNumber() : phoneRaw)
+                : '';
 
             // --- All good. Build payload. ---
             const consent = window.marketingConsent === true;
             const eventId = getOrCreateEventId();
+            const eventTime = Math.floor(Date.now() / 1000);
             const urlParams = getUrlParams();
+            const fbc = consent ? ((document.cookie.match(/(?:^|;\s*)_fbc=([^;]+)/) || [])[1] || urlParams['fbc'] || '') : '';
+            const fbp = consent ? ((document.cookie.match(/(?:^|;\s*)_fbp=([^;]+)/) || [])[1] || urlParams['fbp'] || '') : '';
+            const fbclid = consent ? (urlParams['fbclid'] || '') : '';
 
             const payload = {
                 ...fields,
                 phone: formattedPhone,
                 event_name: 'AuditRequest',
                 event_id: eventId,
-                event_time: Math.floor(Date.now() / 1000),
+                event_time: eventTime,
                 event_source_url: window.location.href,
                 marketing_consent: consent ? 'granted' : 'denied',
                 ...urlParams
@@ -1531,7 +1649,35 @@
                 metaLeadFired = true;
             }
 
-            // Webhook (Zapier / Make). Replace with your own.
+            // Meta Conversions API (server-side) — same event_id for deduplication
+            if (consent) {
+                fetch('/api/meta-capi', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    keepalive: true,
+                    body: JSON.stringify({
+                        event_name: 'Lead',
+                        event_id: eventId,
+                        event_time: eventTime,
+                        event_source_url: window.location.href,
+                        action_source: 'website',
+                        firstName: fields.firstName,
+                        lastName: fields.lastName,
+                        email: fields.email,
+                        phone: formattedPhone,
+                        country: 'DE',
+                        fbc: fbc,
+                        fbp: fbp,
+                        fbclid: fbclid,
+                        custom_data: {
+                            content_name: 'CEO Reality Audit Request',
+                            content_category: fields.industry
+                        }
+                    })
+                }).catch(error => console.error('CAPI Error:', error));
+            }
+
+            // Webhook (Zapier / Make).
             fetch('https://hooks.zapier.com/hooks/catch/24204039/uvx869x/', {
                 method: 'POST',
                 body: JSON.stringify(payload)
@@ -1539,8 +1685,6 @@
             .then(() => showSuccessState())
             .catch(err => {
                 console.error('Audit submit error:', err);
-                // Even on failure, show success to user (data is captured client-side via tracking)
-                // but in production you may want to retry or queue.
                 showSuccessState();
             });
         }
@@ -1548,7 +1692,9 @@
         function showSuccessState() {
             const form = document.getElementById('audit-form');
             const success = document.getElementById('audit-success');
+            const header = document.getElementById('audit-form-header');
             if (form) form.classList.add('hidden');
+            if (header) header.classList.add('hidden');
             if (success) {
                 success.classList.remove('hidden');
                 lucide.createIcons();
@@ -1569,6 +1715,8 @@
             } else {
                 setTimeout(showCookieBanner, 400);
             }
+            // Initialize multi-step form
+            showStep(1);
         });
     </script>
 </body>
